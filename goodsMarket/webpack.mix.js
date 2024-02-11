@@ -12,9 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .vue({
-        verson: 3,
-    })
+    .react()
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);

@@ -1,15 +1,17 @@
-require('./bootstrap');
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes React and other helpers. It's a great starting point while
+ * building robust, powerful web applications using React + Laravel.
+ */
 
-// vue 사용해서 App.vue 불러오기
+import './bootstrap';
 
-import { createApp } from 'vue';
-import router from '../js/router.js';
-import AppComponent from '../components/AppComponent.vue';
+/**
+ * Next, we will create a fresh React component instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
 
-createApp({
-    components: {
-        AppComponent,
-    }
-})
-.use(router)
-.mount('#app');
+import './components/Example';
+
+require('./components/Example');

@@ -10,15 +10,19 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@babel/preset-react": "^7.23.3",
+        "@popperjs/core": "^2.11.6",
+        "@vitejs/plugin-react": "^4.2.0",
         "axios": "^1.6.7",
+        "bootstrap": "^5.2.3",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
-        "vue": "^3.4.15"
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "sass": "^1.56.1"
     },
     "dependencies": {
-        "vue-loader": "^17.4.2",
-        "vue-router": "^4.2.5",
-        "vuex": "^4.0.2"
+        "react-router-dom": "^6.22.0"
     }
 }

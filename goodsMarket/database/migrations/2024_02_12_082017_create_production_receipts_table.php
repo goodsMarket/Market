@@ -25,7 +25,7 @@ return new class extends Migration
             $table->char('pr_order_status', 1)->default('0');
             $table->string('pr_answer', 255);
             $table->string('pr_compony', 30);
-            $table->strinig('pr_number', 100);
+            $table->string('pr_number', 100);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('pr_refund_request');
             $table->softDeletes();

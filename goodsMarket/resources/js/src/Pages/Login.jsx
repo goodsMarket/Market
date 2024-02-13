@@ -8,5 +8,4 @@ function Login() {
 		</div>
     );
 }
-
-ReactDOM.createRoot(document.getElementById('app')).render(<Login />);
+export default Login;

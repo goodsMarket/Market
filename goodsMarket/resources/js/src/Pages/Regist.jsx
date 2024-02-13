@@ -9,4 +9,4 @@ function Regist() {
     );
 }
 
-ReactDOM.createRoot(document.getElementById('app')).render(<Regist />);
+export default Regist;

@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <script type="module" src="/src/app.js" defer></script>
 </head>
 <body>
-    welcomeblade
-    <div id="app"></div>
+    test
+    <div id="root"></div> <!-- React 컴포넌트가 렌더링될 위치 -->
+    <script src="../js/index.js"></script>
+
 </body>
 </html>

@@ -8,5 +8,4 @@ function Mypage() {
 		</div>
     );
 }
-
-ReactDOM.createRoot(document.getElementById('app')).render(<Mypage />);
+export default Mypage;

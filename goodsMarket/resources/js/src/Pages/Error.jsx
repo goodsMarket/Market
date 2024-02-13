@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 
 function Error(props) {
     return (
@@ -9,4 +9,4 @@ function Error(props) {
     );
 }
 
-ReactDOM.createRoot(document.getElementById('app')).render(<Error />);
+export default Error;

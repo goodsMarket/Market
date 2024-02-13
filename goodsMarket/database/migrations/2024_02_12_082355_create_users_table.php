@@ -20,11 +20,11 @@ return new class extends Migration
             $table->string('u_name', 150);
             $table->string('u_nickname', 150);
             $table->string('u_back_img', 50);
-            $table->string('u_email', 150);
+            $table->string('u_email', 255);
             $table->string('u_pw', 50);
             $table->string('u_profile_img', 255);
             $table->string('u_access_token', 255)->nullable();
-            $table->char('u_phone_num', 255);
+            $table->string('u_phone_num', 20);
             $table->string('u_pccc', 50);
             $table->timestamp('email_verified_at')->nullable();
             $table->char('u_agree_flg', 1);

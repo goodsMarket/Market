@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script type="module" src="/src/app.js" defer></script>
 </head>
 <body>
-    <div id="example"></div>
-    <script src="{{asset('js/app.js')}}" defer></script>
+    welcomeblade
+    <div id="app"></div>
 </body>
 </html>

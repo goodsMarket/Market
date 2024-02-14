@@ -25,7 +25,7 @@ class UserController extends Controller
             'u_pw' => ['required'],
         ]);
 
-        // 나중에 '나 기억하기' 값 받아오면 attempt 두번째 인자에 true 넣기
+        // TODO: 나중에 '나 기억하기' 값 받아오면 attempt 두번째 인자에 true 넣기
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
@@ -48,9 +48,8 @@ class UserController extends Controller
     public function registration(Request $request)
     {
         // 유효성 검사된 애들이랑
-        // 이메일/폰 이랑 이메일/폰 인증코드 들고와서
-        $request->validate([
+        // 이메일/폰 이랑 이메일/폰 인증코드 들고와서        
 
-        ]);
+        return response("성공");
     }
 }

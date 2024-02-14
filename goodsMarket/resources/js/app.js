@@ -6,6 +6,7 @@ import Regist from './src/Pages/Regist';
 import Mypage from './src/Pages/Mypage';
 import Error from './src/Pages/Error';
 import Header from './src/Layouts/Header';
+import Footer from './src/Layouts/Footer';
 
 const App = () => {
     return (
@@ -19,6 +20,7 @@ const App = () => {
 					<Route path="*" element={<Error />}></Route>
 				</Routes>
 			</Router>
+			<Footer />
 		</div>
     );
 };

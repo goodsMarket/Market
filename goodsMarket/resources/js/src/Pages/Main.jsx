@@ -1,11 +1,11 @@
 import React from 'react';
 
 
-function Login() {
+function Main() {
     return (
 		<div>
-            <div>메인화면</div>
+			<h1>main</h1>
 		</div>
     );
 }
-export default Login;
+export default Main;

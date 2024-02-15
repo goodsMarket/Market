@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -20,21 +22,51 @@ class UserController extends Controller
      */
     public function authenticate(Request $request)
     {
-        $credentials = $request->validate([
-            'u_email' => ['required', 'email'],
-            'u_pw' => ['required'],
-        ]);
+        try {            
+            $email = request('u_email');
+            $password = request('u_pw');
+            Log::debug($email);
+            Log::debug($password);
+            
+            // 데이터베이스에서 이메일로 사용자 조회
+            $user = User::where('u_email', $email)->first();
+            Log::debug($user);
 
-        // 나중에 '나 기억하기' 값 받아오면 attempt 두번째 인자에 true 넣기
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+            if ($user && Hash::check($password, $user->u_pw)) {
+                // 비밀번호가 일치하면, 사용자를 로그인 처리
+                Session::put('user_id', $user->id);
+                Session::put('is_logged_in', true);
 
-            return redirect()->intended('dashboard');
+                // 쿠키 생성
+                $cookie = Cookie::make('user_id', $user->id, 60); // 이름, 값, 유효기간(분)
+
+                // 대시보드로 리다이렉션하며 쿠키를 함께 전송
+                // return redirect()->intended('dashboard')->withCookie($cookie);
+
+                // 로그인 성공 후의 로직, 예를 들어 홈페이지로 리다이렉션
+                $userId = Session::get('user_id');
+                return response()->json(['msg' => '당신은 성공하고 말았어 '.$cookie.' '.$userId], 200)->withCookie($cookie);
+            } else {
+                // 인증 실패 처리
+                throw new Exception('이메일 또는 비밀번호가 잘못되었습니다.');
+            }        
+        } catch (Exception $e) {
+            // 예외 처리 로직
+            return response()->json(['error' => $e->getMessage()], 500);
         }
+        // return back()->withErrors([
+        //     'email' => 'The provided credentials do not match our records.',
+        // ]);
+        return response('실패',500);
+    }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+    // 로그아웃 처리
+    public function logout()
+    {
+        Session::forget('user_id');
+        Session::forget('is_logged_in');
+
+        return redirect('login');
     }
 
     /**
@@ -49,8 +81,25 @@ class UserController extends Controller
     {
         // 유효성 검사된 애들이랑
         // 이메일/폰 이랑 이메일/폰 인증코드 들고와서
-        $request->validate([
 
-        ]);
+        // 회원가입
+        try {
+            // 데이터베이스 쿼리 실행
+            $users = User::create([
+                'u_name' => $request->u_name,
+                'u_nickname' => $request->u_nickname,
+                'u_email' => $request->u_email,
+                'u_pw' => Hash::make($request->u_pw),
+                'u_phone_num' => $request->u_phone_num,
+                'u_agree_flg'=> $request->u_agree_flg,
+            ]);
+
+            // 쿼리 결과를 사용한 로직...
+        } catch (Exception $e) {
+            // 예외 처리 로직
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+
+        return response('유저생성완료',200);
     }
 }

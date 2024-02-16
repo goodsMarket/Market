@@ -9,5 +9,7 @@
 <body>
     <div id="root"></div> <!-- React 컴포넌트가 렌더링될 위치 -->
     <script src="/js/app.js" defer></script>
+
+    
 </body>
 </html>

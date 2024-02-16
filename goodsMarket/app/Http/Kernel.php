@@ -64,6 +64,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'my.user.val' => \App\Http\Middleware\MyUserValidate::class,
+        'my.regist.val' => \App\Http\Middleware\MyCreateUserValidate::class,
+        'my.board.val' => \App\Http\Middleware\MyBoardValidate::class,
         'trim' => \App\Http\Middleware\TrimStrings::class,
         'logchk' => \App\Http\Middleware\CheckUserSession::class,
     ];

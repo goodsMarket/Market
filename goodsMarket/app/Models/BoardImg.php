@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class BoardImg extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'u_id',
+        'sa_address_num',
+        'sa_address',
+        'sa_address_detail',
+    ];
+
+    public $timestamps = false;
 }

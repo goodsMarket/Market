@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use App\Modules\MyModule;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,19 @@ class ShippingAddressFactory extends Factory
      */
     public function definition()
     {
+        $fk_time = MyModule::fakerTimeGenerate();
+
+        // 아파트 동, 층, 호를 생성합니다.
+        $apartmentNumber = rand(1,5) . rand(0,1) . $this->faker->numberBetween(1, 9);
+        $floor = $this->faker->numberBetween(1, 15);
+        $room = $floor .'0'. $this->faker->numberBetween(1, 8);
+
         return [
-            //
+            'u_id' => User::inRandomOrder()->value('id'),
+            'sa_address_num' => $this->faker->postcode(),
+            'sa_address' => $this->faker->address(),
+            'sa_address_detail' => $apartmentNumber . '동 ' . $floor . '층 ' . $room.'호',
+            'created_at' => $fk_time['cre'],
         ];
     }
 }

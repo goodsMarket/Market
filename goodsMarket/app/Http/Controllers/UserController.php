@@ -35,13 +35,13 @@ class UserController extends Controller
 
             if ($user && Hash::check($password, $user->u_pw)) {
                 // 비밀번호가 일치하면, 사용자를 로그인 처리
-                Session::put('user_id' . $user->id, MyModule::myEncrypt($user->id));                
+                Session::put('user_id' . $user->id, MyModule::myEncrypt($user->id));
 
                 // 쿠키 생성
                 $cookie = Cookie::make('user_id', MyModule::myEncrypt($user->id), 60); // 이름, 값, 유효기간(분)
 
                 // 로그인 성공 후의 로직, 예를 들어 홈페이지로 리다이렉션
-                return response()->json(['message' => '당신은 성공하고 말았어'], 200)->withCookie($cookie);
+                return response()->json(['message' => "반갑습니다 " . $user->u_name . "님"], 200)->withCookie($cookie);
             } else {
                 // 인증 실패 처리
                 throw new Exception('이메일 또는 비밀번호가 잘못되었습니다.');

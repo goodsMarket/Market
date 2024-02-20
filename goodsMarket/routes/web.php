@@ -26,4 +26,4 @@ Route::get('/', function () {
 
 Route::middleware(['trim','my.regist.val'])->post('/regist', [UserController::class,'registration']);
 Route::middleware(['trim','my.user.val'])->post('/login', [UserController::class,'authenticate']);
-Route::middleware(['trim','my.board.val'])->post('/used-trade', [BoardController::class,'createUsedTrade']);
+Route::middleware(['logchk','trim','my.ut.val'])->post('/board/used-trade', [BoardController::class,'createUsedTrade']);

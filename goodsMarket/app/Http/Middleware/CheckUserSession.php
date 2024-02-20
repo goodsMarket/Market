@@ -29,13 +29,6 @@ class CheckUserSession
 
         // 붙이고 호출
         $sessionValue = Session::get('user_id'.$nowUserID);
-        Log::debug($request->cookie());
-        Log::debug('userid');
-        Log::debug($nowUserID);
-        Log::debug('sess'. $sessionValue .'cook'. $cookieValue);
-        Log::debug($sessionValue);
-        Log::debug($cookieValue);
-        Log::debug($sessionValue !== $cookieValue);
 
         // 세션과 쿠키의 값이 같은지 확인합니다.
         if ((String)$sessionValue !== (String)$cookieValue) {

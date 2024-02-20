@@ -38,8 +38,8 @@ class MyModule
     public static function myDecrypt($secret)
     {
         $decoded = base64_decode($secret);
-        Log::debug('myDecrypt');
-        Log::debug($decoded);
+        // Log::debug('myDecrypt');
+        // Log::debug($decoded);
         $cuttingIndex = strlen($decoded) / 2;
         if(strlen($decoded) % 2 !== 0){
             $behinded = substr($decoded, 0, $cuttingIndex + 1);
@@ -50,14 +50,14 @@ class MyModule
         }
 
         $myDecrypt = MyModule::mySecoundDecrypt($fronted . $behinded);
-        Log::debug('result');
-        Log::debug($myDecrypt);
+        // Log::debug('result');
+        // Log::debug($myDecrypt);
 
         return $myDecrypt;
     }
 
     /**
-     * 쿠키, 세션용 암호화2
+     * 쿠키, 세션용 복호화2
      * 
      * @param string 앞뒤 안바뀐 암호화한 문자열
      * @return string 소금 안친 복호화된 문자열
@@ -65,9 +65,40 @@ class MyModule
     public static function mySecoundDecrypt($secret)
     {
         $decoded = base64_decode($secret);
-        Log::debug('mySecoundDecrypt');
-        Log::debug($decoded);
+        // Log::debug('mySecoundDecrypt');
+        // Log::debug($decoded);
         $mySecountDecrypt = str_replace(env('SALT_VALUE'), '', $decoded);
         return $mySecountDecrypt;
+    }
+
+    /**
+     * faker용 날짜 짜집기
+     * $rand,$cre,$rand1_1,$ver,$rand2,$upd,$rand3,$del,$deleted
+     * 
+     * @return array 작성일 < 수정일 (with 특정일a)< 삭제일
+     */
+    public static function fakerTimeGenerate()
+    {
+        $rand = rand(1, 365);
+        $cre = now()->subDays($rand);
+        $rand1_1 = $rand - (rand(1, $rand));
+        $ver = now()->subDays($rand1_1);
+        $rand2 = $rand - (rand(1, $rand));
+        $upd = $cre->addDays($rand2);
+        $rand3 = $rand2 - (rand(1, $rand2));
+        $del = $upd->addDays($rand3);
+        $deleted = rand(0,9); // 'deleted_at' => $deleted > 2 ? $del : null,
+
+        return [
+            'rand' => $rand, 
+            'rand1_1' => $rand1_1, 
+            'rand2' => $rand2, 
+            'rand3' => $rand3, 
+            'ver' => $ver, 
+            'cre' => $cre, 
+            'upd' => $upd, 
+            'del' => $del, 
+            'deleted' => $deleted
+        ];
     }
 }

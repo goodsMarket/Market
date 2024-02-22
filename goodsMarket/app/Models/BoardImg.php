@@ -10,10 +10,9 @@ class BoardImg extends Model
     use HasFactory;
 
     protected $fillable = [
-        'u_id',
-        'sa_address_num',
-        'sa_address',
-        'sa_address_detail',
+        'bi_board_flg',
+        'board_id',
+        'bi_img_path',
     ];
 
     public $timestamps = false;

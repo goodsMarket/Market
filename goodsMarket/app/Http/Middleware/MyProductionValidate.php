@@ -37,26 +37,9 @@ class MyProductionValidate
             // "p_instagram" => "required",
             "p_question" => "between:1,254",
         ];
-
-        // 그 값들만 남겨서
-        $nowCompareValue = [];
-        
-        // 세션과 쿠키의 값을 가져옵니다.
-        $cookieValue = $request->cookie('user_id');
-
-        // 세션은 이름 뒤에 아이디값이 있는데 이게 쿠키에 있다.
-        $nowUserID = MyModule::myDecrypt($cookieValue);
-        foreach($comparableValue as $key => $value) {
-            // if($request->has($key)) {
-            //     $nowCompareValue[$key] = $value;
-            // }
-            if($key === 'writer_id' && $value !== $nowUserID){
-                return response()->json(['errors' => '작성자가 일치하지 않습니다.'], 500);
-            }
-        }
         
         // 유효성 검사
-        $validator = Validator::make($request->all(), $nowCompareValue);
+        $validator = Validator::make($request->all(), $comparableValue);
         
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);

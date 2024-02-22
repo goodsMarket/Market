@@ -35,18 +35,6 @@ class MyUsedTradeValidate
         
         // 유효성 검사
         $validator = Validator::make($request->all(), $comparableValue);
-        
-        // 세션과 쿠키의 값을 가져옵니다.
-        $cookieValue = $request->cookie('user_id');
-
-        // 세션은 이름 뒤에 아이디값이 있는데 이게 쿠키에 있다.
-        $nowUserID = MyModule::myDecrypt($cookieValue);
-        // Log::debug('$nowUserID');
-        // Log::debug($nowUserID);
-        if((int)$request->writer_id !== (int)$nowUserID){
-            Log::debug($request->only('writer_id'));
-            return response()->json(['errors' => '작성자가 일치하지 않습니다.'], 500);
-        }
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);

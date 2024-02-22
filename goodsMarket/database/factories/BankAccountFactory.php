@@ -43,14 +43,14 @@ class BankAccountFactory extends Factory
             '한국수출입은행',
         ];
 
-        $rand_user = User::inRandomOrder();
+        $rand_u_id = User::inRandomOrder()->value('id');
 
         return [
-            'u_id' => $rand_user->value('id'),
+            'u_id' => $rand_u_id,
             'ba_bank_name' => $this->faker->randomElement($kor_bank),
             'ba_account_num' => $this->faker->regexify('[0-9]{' . rand(11, 14) . '}'),
-            'ba_account_owner' => $rand_user->value('u_name'),
-            'deleted_at' => rand(0,9) < 2 ? $fk_time['del'] : null,
+            'ba_account_owner' => User::find($rand_u_id)->u_name,
+            'deleted_at' => rand(0,9) < 1 ? $fk_time['del'] : null,
         ];
     }
 }

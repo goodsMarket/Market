@@ -15,5 +15,6 @@ class VerifyCsrfToken extends Middleware
         '/regist',
         '/login',
         '/board/used-trade',
+        '/board/image',
     ];
 }

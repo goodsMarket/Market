@@ -2,17 +2,55 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UsedTrade;
+use App\Modules\MyModule;
+use App\Modules\ImageModule;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class BoardController extends Controller
 {
+    protected $imageModule;
+
+    public function __construct(ImageModule $imageModule)
+    {
+        $this->imageModule = $imageModule;
+    }
+
     // 중고 작성
     public function createUsedTrade(Request $request){
-        // 리퀘스트로 *사진, *품명, *카테고리, *가격, *개수, 설명, 해시태그(이후버전), *거래방법, *환불 값을 받아서 제작
-        // 그럼 그 전에 값이 제대로 왔는지 체크해야할듯 -> middleware:BoardValidate
 
-        return response()->json(["message" => "글이 작성되었습니다."],200);
+        // 적용할 컬럼
+        $safeData = $request->only([
+            'writer_id',
+            'c_id',
+            'ut_title',
+            'ut_thumbnail',
+            'ut_price',
+            'ut_count',
+            'ut_quality',
+            'ut_description',
+            'ut_refund',
+        ]);
+
+        try {
+            $post = UsedTrade::create($safeData); // 게시글 저장 로직 ...
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json(['message'=>$e->getMessage()]);
+        }
+
+        // 이미지 생성
+        // Log::debug($request);
+        if ($request->hasFile('images')) {
+            $this->imageModule->saveImages($request->file('images'), $post, 0); // 중고 0, 제작 1, 문의 2
+        }
+
+        // return redirect()->back()->with('success', '게시글이 성공적으로 저장되었습니다.')
+        return response()->json(["message" => "글이 작성되었습니다.".$post],200);
     }
     
     // 제작 작성

@@ -61,6 +61,7 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+            'timezone'  => '+09:00', // DB 시간대 설정 test
         ],
 
         'pgsql' => [

@@ -19,7 +19,7 @@ class UserController extends Controller
      * Handle an authentication attempt.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function authenticate(Request $request)
     {
@@ -41,7 +41,7 @@ class UserController extends Controller
                 $cookie = Cookie::make('user_id', MyModule::myEncrypt($user->id), 60); // 이름, 값, 유효기간(분)
 
                 // 로그인 성공 후의 로직, 예를 들어 홈페이지로 리다이렉션
-                return response()->json(['message' => "반갑습니다 " . $user->u_name . "님"], 200)->withCookie($cookie);
+                return response()->json(['message' => "반갑습니다 " . $user->u_nickname . "님"], 200)->withCookie($cookie);
             } else {
                 // 인증 실패 처리
                 throw new Exception('이메일 또는 비밀번호가 잘못되었습니다.');
@@ -53,7 +53,7 @@ class UserController extends Controller
         // return back()->withErrors([
         //     'email' => 'The provided credentials do not match our records.',
         // ]);
-        return response()->json(['error' => 'unexpected error'], 500);
+        // return response()->json(['error' => 'unexpected error'], 500);
     }
 
     /**
@@ -98,7 +98,7 @@ class UserController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
 
-        return response()->json(['message' => '유저 생성 완료'], 200);
+        return response()->json(['message' => $users->nickname . '유저생성 완료'], 200);
 
     }
 }

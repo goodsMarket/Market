@@ -2,8 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Modules\MyModule;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
@@ -19,12 +22,16 @@ class CheckUserSession
     public function handle(Request $request, Closure $next)
     {
         // 세션과 쿠키의 값을 가져옵니다.
-        $sessionValue = Session::get('user_id');
         $cookieValue = $request->cookie('user_id');
-        Log::debug('sess'. $sessionValue .'cook'. $cookieValue);
+
+        // 세션은 이름 뒤에 아이디값이 있는데 이게 쿠키에 있다.
+        $nowUserID = MyModule::myDecrypt($cookieValue);
+
+        // 붙이고 호출
+        $sessionValue = Session::get('user_id'.$nowUserID);
 
         // 세션과 쿠키의 값이 같은지 확인합니다.
-        if ((int)$sessionValue !== (int)$cookieValue) {
+        if ((String)$sessionValue !== (String)$cookieValue) {
             // 값이 일치하지 않을 경우, 요청을 거부합니다.
             return response()->json(['error' => '세션과 쿠키 값이 일치하지 않습니다.'], 403);
         }

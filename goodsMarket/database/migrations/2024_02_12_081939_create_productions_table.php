@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('productions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedbiginteger('u_id');
+            $table->unsignedbiginteger('writer_id');
             $table->unsignedinteger('c_id');
             $table->string('p_title', 150);
             $table->timestamp('p_start_date');
             $table->timestamp('p_end_date');
-            $table->timestamp('p_schedule');
+            $table->unsignedInteger('p_schedule'); // 배송예정일
             $table->string('p_content', 9000);
             $table->char('p_age_limit', 1);
             $table->string('p_password', 50)->nullable();

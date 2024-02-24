@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BoardController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,5 +24,6 @@ Route::get('/', function () {
 //     return view('welcome');
 // })->where('any', '.*');
 
-Route::middleware(['trim','my.user.val'])->post('/regist', [UserController::class,'registration']);
+Route::middleware(['trim','my.regist.val'])->post('/regist', [UserController::class,'registration']);
 Route::middleware(['trim','my.user.val'])->post('/login', [UserController::class,'authenticate']);
+Route::middleware(['logchk','trim','my.ut.val'])->post('/board/used-trade', [BoardController::class,'createUsedTrade']);

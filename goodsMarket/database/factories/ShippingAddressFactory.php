@@ -18,7 +18,7 @@ class ShippingAddressFactory extends Factory
      */
     public function definition()
     {
-        $fk_time = MyModule::fakerTimeGenerate();
+        $created_at = $this->faker->dateTimeBetween('-1 year', 'now');
 
         // 아파트 동, 층, 호를 생성합니다.
         $apartmentNumber = rand(1,5) . rand(0,1) . $this->faker->numberBetween(1, 9);
@@ -30,7 +30,7 @@ class ShippingAddressFactory extends Factory
             'sa_address_num' => $this->faker->postcode(),
             'sa_address' => $this->faker->address(),
             'sa_address_detail' => $apartmentNumber . '동 ' . $floor . '층 ' . $room.'호',
-            'created_at' => $fk_time['cre'],
+            'created_at' => $created_at,
         ];
     }
 }

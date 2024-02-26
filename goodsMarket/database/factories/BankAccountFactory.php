@@ -18,6 +18,8 @@ class BankAccountFactory extends Factory
      */
     public function definition()
     {
+        $deleted_at = $this->faker->dateTimeBetween('-1 year', 'now');
+
         $fk_time = MyModule::fakerTimeGenerate();
 
         $kor_bank = [
@@ -50,7 +52,7 @@ class BankAccountFactory extends Factory
             'ba_bank_name' => $this->faker->randomElement($kor_bank),
             'ba_account_num' => $this->faker->regexify('[0-9]{' . rand(11, 14) . '}'),
             'ba_account_owner' => User::find($rand_u_id)->u_name,
-            'deleted_at' => rand(0,9) < 1 ? $fk_time['del'] : null,
+            'deleted_at' => rand(0,9) < 1 ? $deleted_at : null,
         ];
     }
 }

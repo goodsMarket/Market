@@ -3,6 +3,7 @@
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\UserController;
+use App\Modules\ManualCompress;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,3 +37,4 @@ Route::middleware('trim')->group(function () {
 });
 Route::get('board/image', [ImageUploadController::class, 'index']);
 Route::post('board/image', [ImageUploadController::class, 'store'])->name('image.upload');
+Route::put('board/image', [ImageUploadController::class, 'compress']); // 압축용

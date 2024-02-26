@@ -21,24 +21,27 @@ class UsedTradeFactory extends Factory
      */
     public function definition()
     {
-        $fk_time = MyModule::fakerTimeGenerate();
+        $created_at = $this->faker->dateTimeBetween('-1 year', 'now');
+        $updated_at = $this->faker->dateTimeBetween($created_at, 'now');
+        $deleted_at = $this->faker->dateTimeBetween($updated_at, 'now');
+        
         $u_rand = User::find(rand(1, User::count()));
-        $fileList = new FilesInDirectory(public_path('\\images\\samples'));
-        $rand_img = array_rand($fileList->returnFileNames);
+        $fileList = new FilesInDirectory(public_path('\\images\\thumbnail_samples'));
+        $rand_img = array_rand($fileList->fileNames);
 
         return [
             'writer_id' => $u_rand->id,
             'c_id' => Category::inRandomOrder()->value('id'),
             'ut_title' => Str::limit($this->faker->sentence, 50),
-            'ut_thumbnail' => '\\images\\thumbnails\\' . $rand_img, // public/images/samples 중 랜덤 선택
+            'ut_thumbnail' => '\\images\\thumbnail_samples\\' . $fileList->fileNames[$rand_img], // public/images/thumbnail_samples 중 랜덤 선택
             'ut_price' => rand(1, 999) . '000',
             'ut_count' => rand(0, 1) !== 0 ? rand(2, 50) : 1,
             'ut_quality' => rand(0, 4), // 품질 0~4 높을 수록 후짐
             'ut_description' => Str::limit($this->faker->sentence, rand(200, 1000)),
             'ut_refund' => rand(0, 1),
-            'created_at' => $fk_time['cre'],
-            'updated_at' => $fk_time['upd'],
-            'deleted_at' => $fk_time['deleted'] < 1 ? $fk_time['del'] : null,
+            'created_at' => $created_at,
+            'updated_at' => $updated_at,
+            'deleted_at' => rand(0,9) < 1 ? $deleted_at : null,
         ];
     }
 }

@@ -20,10 +20,10 @@ class BoardImgFactory extends Factory
      */
     public function definition()
     {
-        $fk_time = MyModule::fakerTimeGenerate();
+        $created_at = $this->faker->dateTimeBetween('-1 year', 'now');
 
         // 이미지 파일 목록 조회
-        $files = Storage::disk('public')->files('images');
+        $files = Storage::disk('public')->files('images\\samples');
 
         // 랜덤 파일 선택
         $randomFile = Arr::random($files);
@@ -35,7 +35,7 @@ class BoardImgFactory extends Factory
             'bi_board_flg' => rand(0,1),
             'board_id' => Board::inRandomOrder()->value('id'),
             'bi_img_path' => $url,
-            'created_at' => $fk_time['cre'],
+            'created_at' => $created_at,
         ];
     }
 }

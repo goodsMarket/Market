@@ -1,0 +1,144 @@
+.main-carousel {
+    background-color: #EEEEEE;
+    width: 100%;
+    height: 425px;
+}
+.main-author-section {
+    height: 335px;
+}
+.main-author-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+.main-author-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.main-author-profile img {
+    width: 125px;
+    height: 125px;
+    border-radius: 70%;
+    object-fit: cover;
+}
+.main-author-profile span {
+    font-size: 1.2rem;
+    font-weight: bolder;
+    padding: 20px;
+}
+.main-author-title {
+    font-size: 2rem;
+    padding: 40px 30px 30px 30px;
+    display: flex;
+}
+.main-promotion {
+    width: 100%;
+    height: 130px;
+    background: #FFE2E2;
+}
+.main-tab {
+    margin-top: 35px;
+}
+
+/* production box */
+.productionbox-grid {
+    display: grid;
+    position: relative;
+    max-width: 280px;
+    width: 280px;
+    border: 1px solid #CDCDCD;
+    justify-content: center;
+    border-radius: 5px;
+}
+.productionbox-titleimg-area {
+    width: 100%;
+    max-width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+.productionbox-title-img {
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.productionbox-views-img {
+    width: 30px;
+    height: 30px;
+}
+.productionbox-heart {
+    cursor: pointer;
+    width: 40px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 3;
+}
+.productionbox-profileimg {
+    width: 40px;
+    height: 40px;
+    border-radius: 70%;
+}
+.productionbox-flex {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 0 15px;
+}
+.productionbox-views-flex {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 15px 15px 0;
+}
+.productionbox-views-flex img {
+    margin-right: 6px;
+    opacity: 0.6;
+}
+.productionbox-views-flex span {
+    font-size: 1.1rem;
+}
+.productionbox-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+.productionbox-date {
+    color: #ADADAD;
+    font-size: 0.95rem;
+}
+.productionbox-nickname {
+    padding-left: 10px;
+}
+
+
+
+
+/* maintab2 */
+.maintab-second-lastboard {
+    display: flex;
+    /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
+    justify-items: center;
+    gap: 18px;
+}
+.maintab-second-titleimg {
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+}
+.maintab-second-searchArea {
+    background-color: #FEFFDE;
+    height: 300px;
+}
+
+/* search chart */
+.searchChart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(5, 30px);
+}
+.searchChart-Section div {
+    display: inline-block;
+    font-size: 1.2rem;
+}
+.searchChart-rank {
+    color: #FFA800;
+    margin-right: 5px;
+}

@@ -28,7 +28,9 @@ Route::get('/', function () {
 // input 값 있는 애들
 Route::middleware('trim')->group(function () {
     Route::post('/regist/part', [UserController::class, 'regist_part']); // 부분 체크
-    Route::post('/mail', [EmailController::class,'send']); // 메일 인증
+    Route::post('/mail', [EmailController::class,'send']); // 메일 인증 발송
+    Route::post('/mail/check', [EmailController::class,'check']); // 메일 인증 확인
+    Route::post('/mail/check-back', [EmailController::class,'check_back']); // 메일 인증 확인
     Route::middleware('regist.val')->post('/regist', [UserController::class, 'registration']); // 가입
     Route::middleware('login.val')->post('/login', [UserController::class, 'authenticate']); // 로그인
     // 게시글 작성

@@ -18,5 +18,6 @@ class VerifyCsrfToken extends Middleware
         '/board/used-trade',
         '/board/image',
         '/mail',
+        '/mail/check',
     ];
 }

@@ -12,11 +12,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\MessageBag;
 
 class UserController extends Controller
 {
     /**
-     * Handle an authentication attempt.
+     * 로그인
      *
      * @param  \Illuminate\Http\Request  $request
      * @return boolean
@@ -103,7 +104,7 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * 이름, 닉네임, 이메일, 비밀번호, 전화번호, 이용약관동의
-     * @return boolean
+     * @return 
      * 로그인 화면으로 이동
      */
     public function regist_part(Request $request)
@@ -134,7 +135,7 @@ class UserController extends Controller
             foreach($comparableValue as $key => $value) {
                 if($request->has($key)) {
                     $nowCompareValue[$key] = $value;
-                    $message[] = '사용 가능합니다: ' . $key;
+                    $message[$key] = ['사용 가능합니다'];
                 }
             }
             
@@ -144,11 +145,14 @@ class UserController extends Controller
             if ($validator->fails()) {
                 throw new Exception($validator->errors());
             }
+            // MessageBag::class;
     
             // 유효성 검사 후 반환
             return response()->json(['message' => $message]);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            // return response()->json($e->getMessage());
+            $decode = json_decode($e->getMessage());
+            return response()->json(['error' => $decode]);
         }
     }
 }

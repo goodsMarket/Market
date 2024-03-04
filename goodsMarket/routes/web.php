@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BoardController;
+use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -17,13 +19,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->middleware(['logchk']);
+})->middleware(['login.chk']);
 
 
 // Route::get('/{any?}', function () {
 //     return view('welcome');
 // })->where('any', '.*');
-
-Route::middleware(['trim','my.user.val'])->post('/regist', [UserController::class,'registration']);
-Route::middleware(['trim','my.user.val'])->post('/login', [UserController::class,'authenticate']);
+// input 값 있는 애들
+Route::middleware('trim')->group(function () {
+    Route::middleware('regist.val')->post('/regist', [UserController::class, 'registration']);
+    Route::middleware('login.val')->post('/login', [UserController::class, 'authenticate']);
+    // 게시글 작성
+    Route::middleware(['login.chk', 'wri.val'])->group(function () {
+        Route::middleware('ut.val')->post('/board/used-trade', [BoardController::class, 'createUsedTrade']);
+        // Route::middleware('p.val')->post('/board/production', [BoardController::class,'createProduction']);
+    });
+});
+Route::get('board/image', [ImageUploadController::class, 'index']);
+Route::post('board/image', [ImageUploadController::class, 'store'])->name('image.upload');
 Route::post('/mail', [EmailController::class,'send']);

@@ -41,7 +41,7 @@ class EmailVerify extends Mailable
     {
         return new Envelope(
             from: new Address('goods.market.project@gmail.com', 'GoodsMarket'),
-            subject: 'Email Verify',
+            subject: 'GoodsMarket Email Verify',
         );
     }
 
@@ -54,7 +54,8 @@ class EmailVerify extends Mailable
     {
         return new Content(
             // view: 'view.name', // 블레이드 템플릿으로 꾸밀 경우
-            text: 'mailreturn' // 텍스트 전용
+            // text: 'mailreturn' // 텍스트 전용
+            view: 'mailreturn'
         );
     }
 

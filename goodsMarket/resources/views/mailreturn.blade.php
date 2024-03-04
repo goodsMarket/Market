@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>
-        {{$emailverified->id}}
+        {{$emailVerified->token}}
     </h1>
 </body>
 </html>

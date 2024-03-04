@@ -10,7 +10,9 @@ class EmailVerified extends Model
     use HasFactory;
 
     protected $fillable = [
-        'u_id',
+        'email',
         'token',
     ];
+
+    public $timestamps = false;
 }

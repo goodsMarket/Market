@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'login.val' => \App\Http\Middleware\MyLoginValidate::class,
         'regist.val' => \App\Http\Middleware\MyRegistUserValidate::class,
+        // 'regist.part.val' => \App\Http\Middleware\MyRegistPartValidate::class,
         'ut.val' => \App\Http\Middleware\MyUsedTradeValidate::class,
         'p.val' => \App\Http\Middleware\MyProductionValidate::class,
         'wri.val' => \App\Http\Middleware\MyWriterdValidate::class,

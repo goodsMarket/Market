@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'kr',
+    'locale' => 'ko',
     // 'locale' => 'en',
 
     /*
@@ -97,7 +97,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'kr',
+    'fallback_locale' => 'ko',
     // 'fallback_locale' => 'en',
 
     /*

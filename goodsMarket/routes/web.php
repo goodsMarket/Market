@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,4 @@ Route::get('/', function () {
 
 Route::middleware(['trim','my.user.val'])->post('/regist', [UserController::class,'registration']);
 Route::middleware(['trim','my.user.val'])->post('/login', [UserController::class,'authenticate']);
+Route::post('/mail', [EmailController::class,'send']);

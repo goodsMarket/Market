@@ -14,5 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         '/regist',
         '/login',
+        '/mail',
     ];
 }

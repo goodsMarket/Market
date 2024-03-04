@@ -18,19 +18,16 @@ class UserController extends Controller
      * Handle an authentication attempt.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return boolean
      */
     public function authenticate(Request $request)
     {
         try {            
             $email = request('u_email');
             $password = request('u_pw');
-            Log::debug($email);
-            Log::debug($password);
             
             // 데이터베이스에서 이메일로 사용자 조회
             $user = User::where('u_email', $email)->first();
-            Log::debug($user);
 
             if ($user && Hash::check($password, $user->u_pw)) {
                 // 비밀번호가 일치하면, 사용자를 로그인 처리
@@ -45,26 +42,27 @@ class UserController extends Controller
 
                 // 로그인 성공 후의 로직, 예를 들어 홈페이지로 리다이렉션
                 $userId = Session::get('user_id');
-                return response()->json(['msg' => '당신은 성공하고 말았어 '.$cookie.' '.$userId], 200)->withCookie($cookie);
+
+                return true;
+                // return response()->json(['msg' => '당신은 성공하고 말았어 '.$cookie.' '.$userId], 200)->withCookie($cookie);
             } else {
                 // 인증 실패 처리
                 throw new Exception('이메일 또는 비밀번호가 잘못되었습니다.');
             }        
         } catch (Exception $e) {
             // 예외 처리 로직
-            return response()->json(['error' => $e->getMessage()], 500);
+            return false;
+            // return response()->json(['error' => $e->getMessage()], 500);
         }
         // return back()->withErrors([
         //     'email' => 'The provided credentials do not match our records.',
         // ]);
-        return response('실패',500);
     }
 
     // 로그아웃 처리
     public function logout()
     {
         Session::forget('user_id');
-        Session::forget('is_logged_in');
 
         return redirect('login');
     }
@@ -74,7 +72,7 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * [카카오키, 네이버키, 이름(필), 닉네임(필), 배경이미지, 이메일(필), 비밀번호(필), 프로필이미지, 액세스토큰, 전화번호(필), 개인고유통관번호, 이용약관동의(필)]
-     * @return \Illuminate\Http\Response
+     * @return boolean
      * 로그인 화면으로 이동
      */
     public function registration(Request $request)
@@ -85,7 +83,7 @@ class UserController extends Controller
         // 회원가입
         try {
             // 데이터베이스 쿼리 실행
-            $users = User::create([
+            User::create([
                 'u_name' => $request->u_name,
                 'u_nickname' => $request->u_nickname,
                 'u_email' => $request->u_email,
@@ -94,12 +92,12 @@ class UserController extends Controller
                 'u_agree_flg'=> $request->u_agree_flg,
             ]);
 
-            // 쿼리 결과를 사용한 로직...
+            return true;
+            // return response('유저생성완료',200);
         } catch (Exception $e) {
             // 예외 처리 로직
-            return response()->json(['error' => $e->getMessage()], 500);
+            return false;
+            // return response()->json(['error' => $e->getMessage()], 500);
         }
-
-        return response('유저생성완료',200);
     }
 }

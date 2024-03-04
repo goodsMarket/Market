@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\EmailVerified;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -15,13 +16,20 @@ class EmailVerify extends Mailable
     use Queueable, SerializesModels;
 
     /**
+     * The order instance.
+     *
+     * @var \App\Models\EmailVerified
+     */
+    public $emailVerified;
+
+    /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(EmailVerified $emailVerified)
     {
-        //
+        $this->emailVerified = $emailVerified;
     }
 
     /**
@@ -46,7 +54,7 @@ class EmailVerify extends Mailable
     {
         return new Content(
             // view: 'view.name', // 블레이드 템플릿으로 꾸밀 경우
-            text: 'text.view'
+            text: 'mailreturn' // 텍스트 전용
         );
     }
 

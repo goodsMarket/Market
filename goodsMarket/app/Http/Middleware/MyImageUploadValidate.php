@@ -26,7 +26,7 @@ class MyImageUploadValidate
         $i = 1;
         while (true) {
             if ($request->has('image' . $i)) {
-                $comparableValue[] = ["image".$i => "image|mimes:jpeg,png,jpg,gif,svg|max:2048"];
+                $comparableValue[] = ["image" . $i => "image|mimes:jpeg,png,jpg,gif,svg|max:2048"];
             } else {
                 break;
             }
@@ -37,7 +37,7 @@ class MyImageUploadValidate
         $validator = Validator::make($request->all(), $comparableValue);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json(['errors' => $validator->errors()]);
         }
 
         return $next($request)->with();

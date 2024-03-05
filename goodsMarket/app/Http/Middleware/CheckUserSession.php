@@ -25,12 +25,12 @@ class CheckUserSession
         $nowUserID = MyModule::myDecrypt($cookieValue);
 
         // 붙이고 호출
-        $sessionValue = Session::get('user_id'.$nowUserID);
+        $sessionValue = Session::get('user_id' . $nowUserID);
 
         // 세션과 쿠키의 값이 같은지 확인합니다.
-        if ((String)$sessionValue !== (String)$cookieValue) {
+        if ((String) $sessionValue !== (String) $cookieValue) {
             // 값이 일치하지 않을 경우, 요청을 거부합니다.
-            return response()->json(['error' => '세션과 쿠키 값이 일치하지 않습니다.'], 403);
+            return response()->json(['error' => '세션과 쿠키 값이 일치하지 않습니다.']);
         }
 
         // 값이 일치할 경우, 다음 미들웨어로 요청을 전달합니다.

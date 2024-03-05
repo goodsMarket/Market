@@ -29,23 +29,23 @@ class MyLoginValidate
             // "u_phone_num" => "required|exists:users,u_phone_num|regex:/^01\d{9}$/", // unique:users,u_phone_num
             // "u_pccc" => "",
         ];
-        
+
         // // 그 값들만 남겨서 240220: 값 하나만 보내면 버그 아닌가?
         // $nowCompareValue = [];
-        
+
         // foreach($comparableValue as $key => $value) {
         //     if($request->has($key)) {
         //         $nowCompareValue[$key] = $value;
         //     }
         // }
-        
+
         // 유효성 검사
         $validator = Validator::make($request->all(), $comparableValue);
-        
+
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json(['errors' => $validator->errors()]);
         }
-        
+
         return $next($request);
     }
 }

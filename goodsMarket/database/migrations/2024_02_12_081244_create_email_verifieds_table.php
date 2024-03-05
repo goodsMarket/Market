@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -15,8 +14,10 @@ return new class extends Migration
     {
         Schema::create('email_verifieds', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('u_id'); // 유저 pk
-            $table->timestamp('ev_send_time'); // 이메일 전송 시각
+            $table->string('email'); // 이메일
+            $table->char('token', 6); // 인증번호
+            $table->timestamp('ev_send_time')->useCurrent(); // 이메일 전송 시각
+            // $table->timestamp('ev_verified')->useCurrent(); // 이메일 인증 시각
         });
     }
 

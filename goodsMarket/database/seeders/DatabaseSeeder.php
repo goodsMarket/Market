@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             // ShippingAddressSeeder::class,
             // BankAccountSeeder::class,
             // UsedTradeSeeder::class,
-            BoardImgSeeder::class,
+            // BoardImgSeeder::class,
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Modules\ValidatorList;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,17 +14,16 @@ class MyRegistPartValidate
      *
      * @param  Request $request 안에 유저값
      * @param  Closure
-     * @return Response|RedirectResponse 성공 후 다음작업 | 오류 반환
      */
     public function handle(Request $request, Closure $next)
     {
         // 리퀘스트에 지정해놓은 값들이 있으면
         $comparableValue = [
-            "u_name" => "required|regex:/^[가-힣A-Za-z]$/|min:2|max:30",
-            "u_nickname" => "required|unique:users,u_nickname|regex:/^[가-힣A-Za-z]{2,30}$/",
+            "u_name" => ValidatorList::$name,
+            "u_nickname" => ValidatorList::$nickname,
             "u_email" => "required|unique:users,u_email|email",
-            "u_pw" => "required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/",
-            "u_phone_num" => "required|unique:users,u_phone_num|regex:/^01\d{9}$/",
+            "u_pw" => ValidatorList::$password,
+            "u_phone_num" => ValidatorList::$phone,
         ];
         
         // 저장할 배열

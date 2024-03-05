@@ -28,7 +28,7 @@ class MyUsedTradeValidate
             "ut_title" => "required|between:1,50",
             "ut_price" => "required|numeric",
             "ut_count" => "required|numeric",
-            "ut_quality" => "required|regex:/^[0-9]$/", // |exists:테이블 만들어서 관리하면 더 좋을 수 있음
+            "ut_quality" => "required|regex:/^[0-4]$/", // |exists:테이블 만들어서 관리하면 더 좋을 수 있음
             "ut_description" => "required|between:1,1000",
             "ut_refund" => "required|boolean",
         ];

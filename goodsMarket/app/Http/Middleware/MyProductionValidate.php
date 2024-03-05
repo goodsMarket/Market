@@ -15,7 +15,6 @@ class MyProductionValidate
      *
      * @param  Request $request 안에 보드값
      * @param  Closure
-     * @return Response|RedirectResponse 성공 후 다음작업 | 오류 반환
      */
     public function handle(Request $request, Closure $next)
     {
@@ -30,6 +29,7 @@ class MyProductionValidate
             "p_schedule" => "required|numeric",
             "p_content" => "required|between:1,3000",
             "p_age_limit" => "required|boolean",
+            // 게시물 잠금
             "p_password" => "regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\\|\[\]{};:'\",.<>/?]).{4,20}$/",
             "p_thumbnail" => "required", // 이미지 주소
             "p_notice_agreement" => "required|boolean",

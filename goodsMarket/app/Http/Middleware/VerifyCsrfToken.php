@@ -19,5 +19,6 @@ class VerifyCsrfToken extends Middleware
         '/board/image',
         '/mail',
         '/mail/check',
+        '/sms',
     ];
 }

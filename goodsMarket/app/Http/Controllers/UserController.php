@@ -20,7 +20,7 @@ class UserController extends Controller
      * 로그인
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return boolean
+     * @return 
      */
     public function authenticate(Request $request)
     {
@@ -41,16 +41,16 @@ class UserController extends Controller
                 // 로그인 성공 후의 로직, 예를 들어 홈페이지로 리다이렉션
                 $userId = Session::get('user_id');
 
-                return true;
-                // return response()->json(['msg' => '당신은 성공하고 말았어 '.$cookie.' '.$userId], 200)->withCookie($cookie);
+                // return true;
+                return response()->json(['messsage' => $user->id . ' logined.'], 200)->withCookie($cookie);
             } else {
                 // 인증 실패 처리
                 throw new Exception('이메일 또는 비밀번호가 잘못되었습니다.');
             }
         } catch (Exception $e) {
             // 예외 처리 로직
-            return false;
-            // return response()->json(['error' => $e->getMessage()], 500);
+            // return false;
+            return response()->json(['error' => $e->getMessage()], 500);
         }
         // return back()->withErrors([
         //     'email' => 'The provided credentials do not match our records.',

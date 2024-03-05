@@ -2,29 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\EmailVerify;
-use App\Models\EmailVerified;
+use App\Models\PhoneVerified;
 use App\Modules\ValidatorList;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Vonage\Client;
+use Vonage\Client\Credentials\Basic;
+use Vonage\SMS\Message\SMS;
 
-class EmailController extends Controller
+class SMSController extends Controller
 {
     /**
-     * 이메일 인증 발송/재발송 버튼 메소드
-     * $requset = { email:string }
+     * 휴대폰 인증 발송버튼 메소드
+     * $requset = { phone:string }
      * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function send(Request $request)
     {
         try {
             // 10분 안에 10번만 가능
 
-            $nowCompareValue = ["email" => ValidatorList::$email];
+            $nowCompareValue = ["phone" => ValidatorList::$phone];
 
             // 유효성 검사
             $validator = Validator::make($request->all(), $nowCompareValue);
@@ -38,24 +40,69 @@ class EmailController extends Controller
             $tenMinutesAgo = $currentTime->subMinutes(10);
 
             // 10분 전의 시간과 비교하여 몇 개인지 카운트
-            $records = EmailVerified::where('eamil',$request->eamil)->where('ev_send_time', '>=', $tenMinutesAgo)->count();
+            $records = PhoneVerified::where('phone',$request->phone)->where('pv_send_time', '>=', $tenMinutesAgo)->count();
 
             // 10개 이상으로 요청오면 캐치
             if ($records > 10) {
-                throw new Exception('이메일 인증은 10분에 10번까지만 가능합니다. 잠시 후에 다시 보내주세요');
+                throw new Exception('휴대전화 인증은 10분에 10번까지만 가능합니다.  잠시 후에 다시 보내주세요');
             }
 
+            // *이제 메세지 보내기
             // 유저한테서 이메일 주소를 받고 레코드 생성
-            $emailVerified = EmailVerified::create([
-                'email' => $request->email,
-                'ev_token' => mt_rand(100000, 999999),
+            $pv_token = mt_rand(100000, 999999);
+            PhoneVerified::create([
+                'phone' => $request->email,
+                'pv_token' => $pv_token,
             ]);
 
-            // 메일 보내기
-            Mail::to($request->email)->send(new EmailVerify($emailVerified));
+            // Vonage api 인스턴스
+            $basic  = new Basic(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
+            $client = new Client($basic);
 
-            // return true;
-            return response()->json(['message' => '메일을 송신하였습니다.']);
+            // 보낼대상과 우리 브랜드 이름(명시이름, 메세지에 안뜸)
+            $TO_NUMBER = $request->phone;
+            // $TO_NUMBER = "+8201091713466";
+            $BRAND_NAME = "GoodsMarket";
+
+            // // $text = new SMS(VONAGE_TO, VONAGE_FROM, 'Test message using PHP client library');
+            // // $text->setClientRef('test-message');
+
+            // 메세지
+            // $text = 'hi im kkh, give me some food';
+            $text = '굿즈마켓 인증번호: ['.$pv_token.']';
+
+            // 메세지 담기
+            $sms = new SMS(
+                $TO_NUMBER, 
+                $BRAND_NAME, 
+                $text
+            );
+
+            // 한글은 번역해야함
+            if (SMS::isGsm7($text)) {
+                $sms->setType('text');
+            } else {
+                $sms->setType('unicode');
+            }
+            
+            // 전송 ---------------------------------------------------
+            // $response = $client->sms()->send($sms); // 돈 없음
+
+            // 상태 반환
+            // $message = $response->current();
+            // if ($message->getStatus() == 0) {
+                return response()->json(['message' => '문자를 송신하였습니다.']);
+            // } else {
+            //     throw new Exception('문자송신을 실패하였습니다.');
+            // }
+            // -------------------------------------------------------
+
+            // // $data = $response->current();
+            // // $data->getRemainingBalance();
+            // // foreach($response as $index => $data){
+            // //     $data->getRemainingBalance();
+            // // }
+            // // echo "Sent message to " . $data->getTo() . ". Balance is now " . $data->getRemainingBalance() . PHP_EOL;
         } catch (Exception $e) {
             // return false;
             return response()->json(['error' => $e->getMessage()]);
@@ -63,7 +110,7 @@ class EmailController extends Controller
     }
 
     /**
-     * 이메일 & 토큰 체크
+     * 전화번호 & 토큰 체크
      *
      * @param  \Illuminate\Http\Request  $request
      * @return boolean
@@ -73,7 +120,7 @@ class EmailController extends Controller
         try {
             // 프론트에서는 5분 안에, 백엔드에서는 제한 없음
 
-            $nowCompareValue = ["email" => ValidatorList::$email];
+            $nowCompareValue = ["phone" => ValidatorList::$phone];
 
             // 유효성 검사
             $validator = Validator::make($request->all(), $nowCompareValue);
@@ -118,7 +165,7 @@ class EmailController extends Controller
         try {
             // 프론트에서는 5분 안에, 백엔드에서는 제한 없음
 
-            $nowCompareValue = ["email" => ValidatorList::$email];
+            $nowCompareValue = ["email" => "required|unique:users,u_email|email"];
 
             // 유효성 검사
             $validator = Validator::make($request->all(), $nowCompareValue);
@@ -141,5 +188,17 @@ class EmailController extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
+    }
+
+    /**
+     * SMS 발송
+     * 
+     * @param \Illuminate\Http\Response $request
+     * $request = { phone:string , message:string } 
+     * @return \Illuminate\Http\Response
+     */
+    public function send(Request $request)
+    {
+        
     }
 }

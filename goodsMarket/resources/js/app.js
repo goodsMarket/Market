@@ -21,8 +21,8 @@ const App = () => {
 					<Route path="/regist" element={<Regist />}></Route>
 					<Route path="/mypage" element={<Mypage />}></Route>
 					<Route path="/chat" element={<Chat />}></Route>
-					<Route path="*" element={<Error />}></Route>
 					<Route path="/" element={<Main />}></Route>
+					<Route path="*" element={<Error />}></Route>
 				</Routes>
 			</Layout>
 		</Router>

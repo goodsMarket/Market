@@ -92,7 +92,7 @@ function Main() {
 					</Link>
 					<Link to='/' className='main-author-profile'>
 						<img src="/img/testprofile.png" alt=""/>
-						<span>닉네임은최<br />대열글자로</span>
+						<span>닉네임</span>
 					</Link>
 					<Link to='/' className='main-author-profile'>
 						<img src="/img/testprofile.png" alt=""/>

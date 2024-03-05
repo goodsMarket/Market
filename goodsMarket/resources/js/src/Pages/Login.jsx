@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Link, useNavigate  } from 'react-router-dom';
 import '/css/user.css';
 import Button from "../Components/Button";
@@ -26,7 +27,14 @@ function Login(props) {
 
     const submit = (e) => {
         e.preventDefault();
-        history.push('/abcd');
+
+        axios.post('/login', form)
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     };
 
     const onKeyPress = (e) => {

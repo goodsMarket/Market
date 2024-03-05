@@ -19,8 +19,6 @@ const Maintab2 = () => {
                     <ProductionBox />
                     <ProductionBox />
                     <ProductionBox />
-                    <ProductionBox />
-                    <ProductionBox />
                 </div>
                 <h2 className="main-author-title">
                     인기 게시글

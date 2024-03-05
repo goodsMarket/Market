@@ -3,10 +3,10 @@ import styled, { css } from "styled-components";
 
 const StyledButton = styled.button`
     border-radius: 10px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: bold;
     color: #ffffff;
-    width: 160px;
+    width: 150px;
     height: 50px;
     background-color: #00AACF;
 

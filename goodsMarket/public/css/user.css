@@ -97,3 +97,80 @@
 .regist-agreement-txt {
     margin-left: 5px;
 }
+
+.regist-second-section {
+    display: grid;
+    width: 1198px;
+    max-width: 100%;
+    border: 1px solid #A3A3A3;
+    border-radius: 10px;
+    justify-items: center;
+    padding: 20px 0;
+    box-sizing: border-box;
+    
+}
+.regist-second-section > div{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+.regist-second-section div input {
+    border-radius: 10px;
+    border: 1px solid #A3A3A3;
+    margin: 0 auto;
+    width: 100%;
+    height: 50px;
+    font-size: 1.1rem;
+    padding: 0 15px;
+    box-sizing: border-box;
+    display: block;
+    margin: 20px 0 10px 0;
+}
+.regist-second-err {
+    margin-left: 10px;
+    font-size: 0.9rem;
+    color: rgb(227, 73, 73);
+}
+.regist-setBtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.regist-certification-form {
+    position: relative;
+}
+.regist-certification {
+    position: absolute;
+    right: 5px;
+    top: 25px;
+}
+.regist-countdown-div {
+    position: relative;
+}
+.regist-countdown-span {
+    color: rgb(211, 66, 66);
+    font-size: 0.8rem;
+    position: absolute;
+    right: 116px;
+    top: 35px;
+}
+
+/* 인증 버튼 */
+.regist-certification {
+    border-radius: 10px;
+    width: 100px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: black;
+    background-color: #eaeaea;
+}
+.regist-certification:hover {
+    background-color: #d3d3d3;
+}
+.regist-certification:disabled {
+    color: rgb(222, 222, 222);
+}
+.regist-certification:hover:disabled {
+    background-color: #eaeaea;
+}

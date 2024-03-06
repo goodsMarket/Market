@@ -5,6 +5,7 @@ use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\SMSController;
 use App\Http\Controllers\UserController;
+use App\Modules\ManualCompress;
 use Illuminate\Support\Facades\Route;
 
 /*

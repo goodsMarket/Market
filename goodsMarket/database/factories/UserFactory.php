@@ -20,17 +20,11 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        // $rand = rand(1, 365);
-        // $cre = now()->subDays($rand);
-        // $rand1_1 = $rand - (rand(1, $rand));
-        // $ver = now()->subDays($rand1_1);
-        // $rand2 = $rand - (rand(1, $rand));
-        // $upd = $cre->addDays($rand2);
-        // $rand3 = $rand2 - (rand(1, $rand2));
-        // $del = $upd->addDays($rand3);
-        // $deleted = rand(0,9);
 
-        $fk_time = MyModule::fakerTimeGenerate();
+        $created_at = $this->faker->dateTimeBetween('-1 year', 'now');
+        $updated_at = $this->faker->dateTimeBetween($created_at, 'now');
+        $updated_at2 = $this->faker->dateTimeBetween($created_at, 'now');
+        $deleted_at = $this->faker->dateTimeBetween($updated_at, 'now');
 
         return [
             'u_name' => $this->faker->name,
@@ -41,9 +35,9 @@ class UserFactory extends Factory
             'u_phone_num' => $this->faker->unique()->regexify('010-[0-9]{4}-[0-9]{4}'),
             'u_agree_flg' => '1',
             // 'remember_token' => Str::random(10),
-            'created_at' => $fk_time['cre'],
-            'updated_at' => $fk_time['upd'],
-            'deleted_at' => $fk_time['deleted'] === 0 ? $fk_time['del'] : null,
+            'created_at' => $created_at,
+            'updated_at' => $updated_at,
+            'deleted_at' => rand(0,9) < 1 ? $deleted_at : null,
         ];
     }
 }

@@ -16,14 +16,14 @@ use Illuminate\Support\Facades\Log;
  */
 class FilesInDirectory
 {
-    public $returnFileNames = [];
+    public $fileNames = [];
 
     public function __construct($folderForSearch)
     {
         $folders = File::files($folderForSearch);
         foreach ($folders as $folder) {
             $file = pathinfo($folder);
-            $this->returnFileNames[] = $file['basename'];
+            $this->fileNames[] = $file['basename'];
         }
     }
 }

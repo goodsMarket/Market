@@ -17,6 +17,6 @@ class UsedTradeSeeder extends Seeder
     public function run()
     {
         // UsedTrade::factory()->count(1)->create();
-        UsedTrade::factory()->count(ceil((User::count())*20))->create();
+        UsedTrade::factory()->count(User::count() * 20)->create();
     }
 }

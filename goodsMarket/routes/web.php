@@ -51,6 +51,8 @@ Route::middleware('trim')->group(function () {
     });
 });
 
+Route::get('/logout', [UserController::class, 'logout']); // 로그인
+
 Route::get('/board', []);
 
 Route::get('/board/image', [ImageUploadController::class, 'index']);

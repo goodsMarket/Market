@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useNavigationType  } from 'react-router-dom';
 import '/css/user.css';
 import Button from "../Components/Button";
 
 
 function Login(props) {
 
-    // useEffect(() => {
-    //     // Axios로 서버에 요청을 보내고 응답을 받은 후에 쿠키 값을 확인
-    //     // 해당 요청을 보내는 부분에 대한 코드를 작성하세요
-    //     // 응답에서 쿠키 값을 가져오는 방법은 서버에서 응답 헤더를 확인하거나,
-    //     // 클라이언트에서 document.cookie를 사용하여 쿠키를 가져올 수 있습니다.
-    //     // 가져온 쿠키 값은 setCookieValue 함수를 사용하여 상태에 저장합니다.
-    // }, []);
-    
     const [form, setForm] = useState({
         u_email: '',
         u_pw: ''
@@ -24,7 +16,6 @@ function Login(props) {
         width: "200px",
         height: "60px"
     }
-	// const navigate = useNavigate(); navigate('/home')
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -44,10 +35,9 @@ function Login(props) {
         console.log(form);
         axios.post('/login', form)
         .then(response => {
-            console.log(response);
-            if(response.data) {
-                // console.log('성공!');
+            if (response.data === true) {
                 setErrorShow(false);
+                login();
             } else {
                 setErrorShow(true);
             }
@@ -56,7 +46,13 @@ function Login(props) {
             console.error('Error:', error);
         });
     };
+	const navigate = useNavigate();
+    const navigationType = useNavigationType();
 
+  	function login() { // 로그인하게 되면
+    	if(navigationType === "PUSH") navigate(-1); // redirect로 왔다면 이전 페이지로
+        else navigate("/"); // 홈으로
+    }
     const onKeyPress = (e) => {
         if (e.key === 'Enter') {
             submit();

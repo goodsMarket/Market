@@ -41,11 +41,12 @@ class UserController extends Controller
                 // 로그인 성공 후의 로직, 예를 들어 홈페이지로 리다이렉션
                 $userId = Session::get('user_id');
 
-                // return true;
-                return response()->json(['messsage' => $user->id . ' logined.'])->withCookie($cookie);
+                return response()->json(true);
+                // return response()->json(['messsage' => $user->id . ' logined.'])->withCookie($cookie);
             } else {
                 // 인증 실패 처리
-                throw new Exception('이메일 또는 비밀번호가 잘못되었습니다.');
+                return response()->json(false);
+                // throw new Exception('이메일 또는 비밀번호가 잘못되었습니다.');
             }
         } catch (Exception $e) {
             // 예외 처리 로직
@@ -64,7 +65,7 @@ class UserController extends Controller
     {
         Session::forget('user_id');
 
-        return redirect('login');
+        return response()->json(true);
     }
 
     /**

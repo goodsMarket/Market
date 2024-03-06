@@ -42,13 +42,13 @@ function Regist() {
 		}
 		startCountdown();
 
-		// axios.post('/mail', form)
-        // .then(response => {
-        //     console.log(response.data);
-        // })
-        // .catch(error => {
-        //     console.error('Error:', error);
-		// })
+		axios.post('/mail', form)
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+		})
 	}
 	// 인증코드 확인
 	const emailVerification = (e) => {

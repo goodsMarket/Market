@@ -19,6 +19,7 @@ class VerifyCsrfToken extends Middleware
         '/regist/sms',
         '/regist/sms/check',
         '/login',
+        // '/logout',
         '/board/used-trade',
         '/board/image',
     ];

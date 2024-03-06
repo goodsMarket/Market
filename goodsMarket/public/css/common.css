@@ -127,15 +127,19 @@ input:focus {
     padding: 5px 20px;
     top: 85px;
 }
-.header-list a {
+.header-list a, .header-list span{
     border-bottom: 1px solid #E2E2E2;
     padding: 10px 15px;
     font-size: 1rem;
     font-weight: 900;
     text-decoration: none;
     color: black;
+    cursor: pointer;
 }
 .header-list a:last-child {
+    border-bottom: none;
+}
+.header-list span:last-child {
     border-bottom: none;
 }
 .header-category-icon {

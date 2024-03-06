@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { useNavigate, BrowserRouter as Router, Link } from 'react-router-dom';
 import '/css/common.css';
+import axios from 'axios';
 
 function Header(props) {
 
@@ -52,13 +53,25 @@ function Header(props) {
 		} else {
 			
 		}
-
+		const navigate = useNavigate();
+		const Logout = () => {
+			axios.get('/logout')
+			.then(response => {
+				alert('로그아웃되었습니다.');
+				if(response.data) {
+					navigate("/"); // 홈으로
+				}
+			})
+			.catch(error => {
+				console.error('Error:', error);
+			});
+		}
 		const handleSubmit = (event) => {
 			event.preventDefault();
 		};
 	return (
 		<section className='header'>
-			<Link href="/">
+			<Link to="/">
 				<img className='header-title' src="/img/goodsmarketlogo.png" alt="" />
 			</Link>
 			<form src="#" className='header-search-form'>
@@ -92,8 +105,7 @@ function Header(props) {
 					<div className={headerMypage}>
 						<Link to="/mypage">마이페이지</Link>
 						<Link to="/lastshow" >최근 본 항목</Link>
-						<Link to="/login">로그인</Link>
-						<Link to="/logout">로그아웃</Link>
+						<span onClick={Logout}>로그아웃</span>
 					</div>
 				</div>
 

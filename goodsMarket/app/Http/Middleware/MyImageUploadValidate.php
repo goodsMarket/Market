@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Modules\ValidatorList;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -26,7 +27,7 @@ class MyImageUploadValidate
         $i = 1;
         while (true) {
             if ($request->has('image' . $i)) {
-                $comparableValue[] = ["image" . $i => "image|mimes:jpeg,png,jpg,gif,svg|max:2048"];
+                $comparableValue[] = ["image" . $i => ValidatorList::$image];
             } else {
                 break;
             }

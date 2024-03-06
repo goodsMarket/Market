@@ -18,7 +18,7 @@ class ImageModule
      * 
      * @return string 최상위 이미지 주소 반환 (중고용)
      */
-    public function saveImages($images, $post, $boardType)
+    public static function saveImages($images, $post, $boardType)
     {
         $uploadedImages = [];
         $first = true;

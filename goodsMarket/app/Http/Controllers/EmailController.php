@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\EmailVerify;
 use App\Models\EmailVerified;
+use App\Modules\ValidatorList;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,17 +15,16 @@ use Illuminate\Support\Facades\Validator;
 class EmailController extends Controller
 {
     /**
-     * 이메일 인증 발송버튼 메소드
-     *
+     * 이메일 인증 발송/재발송 버튼 메소드
+     * $requset = { email:string }
      * @param  \Illuminate\Http\Request  $request
-     * @return boolean
      */
     public function send(Request $request)
     {
         try {
             // 10분 안에 10번만 가능
 
-            $nowCompareValue = ["email" => "required|unique:users,u_email|email"];
+            $nowCompareValue = ["email" => ValidatorList::$email];
 
             // 유효성 검사
             $validator = Validator::make($request->all(), $nowCompareValue);
@@ -38,17 +38,17 @@ class EmailController extends Controller
             $tenMinutesAgo = $currentTime->subMinutes(10);
 
             // 10분 전의 시간과 비교하여 몇 개인지 카운트
-            $records = EmailVerified::where('ev_send_time', '>=', $tenMinutesAgo)->count();
+            $records = EmailVerified::where('eamil',$request->eamil)->where('ev_send_time', '>=', $tenMinutesAgo)->count();
 
             // 10개 이상으로 요청오면 캐치
             if ($records > 10) {
-                throw new Exception('이메일은 10분에 10번까지만 가능합니다.');
+                throw new Exception('이메일 인증은 10분에 10번까지만 가능합니다. 잠시 후에 다시 보내주세요');
             }
 
             // 유저한테서 이메일 주소를 받고 레코드 생성
             $emailVerified = EmailVerified::create([
                 'email' => $request->email,
-                'token' => mt_rand(100000, 999999),
+                'ev_token' => mt_rand(100000, 999999),
             ]);
 
             // 메일 보내기
@@ -66,6 +66,7 @@ class EmailController extends Controller
      * 이메일 & 토큰 체크
      *
      * @param  \Illuminate\Http\Request  $request
+     * $request = { email:string, ev_token:sting }
      * @return boolean
      */
     public function check(Request $request)
@@ -73,7 +74,7 @@ class EmailController extends Controller
         try {
             // 프론트에서는 5분 안에, 백엔드에서는 제한 없음
 
-            $nowCompareValue = ["email" => "required|unique:users,u_email|email"];
+            $nowCompareValue = ["email" => ValidatorList::$email];
 
             // 유효성 검사
             $validator = Validator::make($request->all(), $nowCompareValue);
@@ -88,7 +89,7 @@ class EmailController extends Controller
 
             // 이메일과 토큰을 받아서 레코드에 일치하는 게 있나 체크
             $emailVerified = EmailVerified::where('email', $request->email)
-                ->where('token', $request->token)
+                ->where('ev_token', $request->ev_token)
                 ->first();
 
             // 없으면 예외
@@ -99,42 +100,6 @@ class EmailController extends Controller
             // 시간 만료 예외
             if($emailVerified->ev_send_time < $tenMinutesAgo){
                 throw new Exception('만료된 토큰 입니다.');
-            }
-
-            return response()->json(['message' => '인증되었습니다.']);
-        } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
-    }
-
-    /**
-     * 임시, 이거 아니면 EmailVerified 컬럼 수정하고 그거 확인해서 검증
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return boolean
-     */
-    public function check_back(Request $request)
-    {
-        try {
-            // 프론트에서는 5분 안에, 백엔드에서는 제한 없음
-
-            $nowCompareValue = ["email" => "required|unique:users,u_email|email"];
-
-            // 유효성 검사
-            $validator = Validator::make($request->all(), $nowCompareValue);
-            
-            if ($validator->fails()) {
-                throw new Exception($validator->errors());
-            }
-
-            // 이메일과 토큰을 받아서 레코드에 일치하는 게 있나 체크
-            $emailVerified = EmailVerified::where('email', $request->email)
-                ->where('token', $request->token)
-                ->first();
-
-            // 없으면 예외
-            if(empty($emailVerified->all())){
-                throw new Exception('토큰이 올바르지 않습니다.');
             }
 
             return response()->json(['message' => '인증되었습니다.']);

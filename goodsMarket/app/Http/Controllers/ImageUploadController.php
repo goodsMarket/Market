@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\BoardImg;
+use App\Modules\ManualCompress;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ImageUploadController extends Controller
 {
@@ -67,5 +69,35 @@ class ImageUploadController extends Controller
             'message' => $message,
         ], 200);
 
+    }
+
+    /**
+     * 이미지 압축
+     */
+    public function compress(Request $request)
+    {
+        $comparableValue = [
+            "path" => "required",
+            "toPath" => "required",
+            "height" => "required",
+            "prefix" => "required",
+        ];
+        
+        $validator = Validator::make($request->all(), $comparableValue);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        try {
+            $manualCompress = new ManualCompress($request->path); // '\\images\\samples'
+            $manualCompress->compress($request->toPath,$request->height, $request->prefix); // '\\images\\thumbnail_samples',10,'thumbnail'
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+        return response()->json(['message'=>'images have compressed']);
     }
 }

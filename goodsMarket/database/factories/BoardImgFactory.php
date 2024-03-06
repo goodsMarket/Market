@@ -3,9 +3,12 @@
 namespace Database\Factories;
 
 use App\Models\Board;
+use App\Models\BoardImg;
+use App\Models\UsedTrade;
 use App\Modules\MyModule;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -20,22 +23,37 @@ class BoardImgFactory extends Factory
      */
     public function definition()
     {
-        $fk_time = MyModule::fakerTimeGenerate();
+        $created_at = $this->faker->dateTimeBetween('-1 year', 'now');
 
-        // 이미지 파일 목록 조회
-        $files = Storage::disk('public')->files('images');
+        // *파일경로
+        $path = '\\images\\samples';
 
-        // 랜덤 파일 선택
-        $randomFile = Arr::random($files);
+        // public 디렉토리 경로
+        $publicPath = public_path($path);
 
-        // 선택된 파일의 URL 생성
-        $url = Storage::disk('public')->url($randomFile);
+        // public 디렉토리 내 파일들을 배열로 가져오기
+        $files = scandir($publicPath);
+
+        // . 및 ..을 배열에서 제거
+        $files = array_diff($files, array('..', '.'));
+
+        // *없는 애들한테 달아주기
+
+        // 모델을 이용하여 존재하는 값 목록 가져오기
+        $existingValues = BoardImg::pluck('board_id')->toArray();
+
+        // 존재하지 않는 값 필터링하여 선택
+        $missingValues = UsedTrade::select('id')->whereNotIn('id', $existingValues)->get();
+        foreach ($missingValues as $key => $value) {
+            $missings[] = $value->id;
+        }
 
         return [
-            'bi_board_flg' => rand(0,1),
-            'board_id' => Board::inRandomOrder()->value('id'),
-            'bi_img_path' => $url,
-            'created_at' => $fk_time['cre'],
+            // 'bi_board_flg' => rand(0),
+            'bi_board_flg' => 0,
+            'board_id' => empty($missings) ? UsedTrade::inRandomOrder()->value('id') : $missings[array_rand($missings)],
+            'bi_img_path' => $path . '\\' .$files[array_rand($files)],
+            'created_at' => $created_at,
         ];
     }
 }

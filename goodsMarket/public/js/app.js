@@ -5670,6 +5670,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Login(props) {
+  // useEffect(() => {
+  //     // Axios로 서버에 요청을 보내고 응답을 받은 후에 쿠키 값을 확인
+  //     // 해당 요청을 보내는 부분에 대한 코드를 작성하세요
+  //     // 응답에서 쿠키 값을 가져오는 방법은 서버에서 응답 헤더를 확인하거나,
+  //     // 클라이언트에서 document.cookie를 사용하여 쿠키를 가져올 수 있습니다.
+  //     // 가져온 쿠키 값은 setCookieValue 함수를 사용하여 상태에 저장합니다.
+  // }, []);
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       u_email: '',
       u_pw: ''
@@ -5688,10 +5696,10 @@ function Login(props) {
       name = _e$target.name,
       value = _e$target.value;
     setForm(_objectSpread(_objectSpread({}, form), {}, _defineProperty({}, name, value)));
-    console.log(e);
   };
   var submit = function submit(e) {
     e.preventDefault();
+    console.log(form);
     axios__WEBPACK_IMPORTED_MODULE_4__["default"].post('/login', form).then(function (response) {
       console.log(response.data);
     })["catch"](function (error) {

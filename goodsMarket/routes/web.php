@@ -4,6 +4,7 @@ use App\Http\Controllers\BoardController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,3 +46,8 @@ Route::middleware('trim')->group(function () {
 });
 Route::get('board/image', [ImageUploadController::class, 'index']);
 Route::post('board/image', [ImageUploadController::class, 'store'])->name('image.upload'); // 이미지 업로드
+
+// Route::get('/db', function () {
+//         DB::connection()->getPdo();
+//         echo 1;
+// });

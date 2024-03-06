@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class MyLoginValidate
 {
@@ -18,6 +19,8 @@ class MyLoginValidate
      */
     public function handle(Request $request, Closure $next)
     {
+        Log::debug('MyLoginValidate');
+        Log::debug($request);
         // 리퀘스트에 지정해놓은 값들이 있으면
         $comparableValue = [
             // "u_name" => "required|regex:/^[가-힣A-Za-z]{2,30}$/",

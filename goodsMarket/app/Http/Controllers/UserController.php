@@ -20,7 +20,7 @@ class UserController extends Controller
      * 로그인
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return 
+     * @return \Illuminate\Http\JsonResponse 쿠키도 줌
      */
     public function authenticate(Request $request)
     {
@@ -42,7 +42,7 @@ class UserController extends Controller
                 $userId = Session::get('user_id');
 
                 // return true;
-                return response()->json(['messsage' => $user->id . ' logined.'], 200)->withCookie($cookie);
+                return response()->json(['messsage' => $user->id . ' logined.'])->withCookie($cookie);
             } else {
                 // 인증 실패 처리
                 throw new Exception('이메일 또는 비밀번호가 잘못되었습니다.');
@@ -50,7 +50,7 @@ class UserController extends Controller
         } catch (Exception $e) {
             // 예외 처리 로직
             // return false;
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['error' => $e->getMessage()]);
         }
         // return back()->withErrors([
         //     'email' => 'The provided credentials do not match our records.',
@@ -72,7 +72,7 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * [카카오키, 네이버키, 이름(필), 닉네임(필), 배경이미지, 이메일(필), 비밀번호(필), 프로필이미지, 액세스토큰, 전화번호(필), 개인고유통관번호, 이용약관동의(필)]
-     * @return Response
+     * @return \Illuminate\Http\Response
      * 로그인 화면으로 이동
      */
     public function registration(Request $request)

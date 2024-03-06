@@ -104,7 +104,6 @@ class SMSController extends Controller
             // // }
             // // echo "Sent message to " . $data->getTo() . ". Balance is now " . $data->getRemainingBalance() . PHP_EOL;
         } catch (Exception $e) {
-            // return false;
             return response()->json(['error' => $e->getMessage()]);
         }
     }
@@ -113,6 +112,7 @@ class SMSController extends Controller
      * 전화번호 & 토큰 체크
      *
      * @param  \Illuminate\Http\Request  $request
+     * $request = { phone:string, pv_token:sting }
      * @return boolean
      */
     public function check(Request $request)
@@ -134,8 +134,8 @@ class SMSController extends Controller
             $tenMinutesAgo = $currentTime->subMinutes(5);
 
             // 이메일과 토큰을 받아서 레코드에 일치하는 게 있나 체크
-            $emailVerified = EmailVerified::where('email', $request->email)
-                ->where('token', $request->token)
+            $emailVerified = PhoneVerified::where('phone', $request->phone)
+                ->where('pv_token', $request->pv_token)
                 ->first();
 
             // 없으면 예외
@@ -152,53 +152,5 @@ class SMSController extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
-    }
-
-    /**
-     * 임시, 이거 아니면 EmailVerified 컬럼 수정하고 그거 확인해서 검증
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return boolean
-     */
-    public function check_back(Request $request)
-    {
-        try {
-            // 프론트에서는 5분 안에, 백엔드에서는 제한 없음
-
-            $nowCompareValue = ["email" => "required|unique:users,u_email|email"];
-
-            // 유효성 검사
-            $validator = Validator::make($request->all(), $nowCompareValue);
-            
-            if ($validator->fails()) {
-                throw new Exception($validator->errors());
-            }
-
-            // 이메일과 토큰을 받아서 레코드에 일치하는 게 있나 체크
-            $emailVerified = EmailVerified::where('email', $request->email)
-                ->where('token', $request->token)
-                ->first();
-
-            // 없으면 예외
-            if(empty($emailVerified->all())){
-                throw new Exception('토큰이 올바르지 않습니다.');
-            }
-
-            return response()->json(['message' => '인증되었습니다.']);
-        } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
-    }
-
-    /**
-     * SMS 발송
-     * 
-     * @param \Illuminate\Http\Response $request
-     * $request = { phone:string , message:string } 
-     * @return \Illuminate\Http\Response
-     */
-    public function send(Request $request)
-    {
-        
     }
 }

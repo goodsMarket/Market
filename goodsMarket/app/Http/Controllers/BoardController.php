@@ -17,46 +17,46 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class BoardController extends Controller
 {
-    protected $imageModule;
+    protected $safeData, $boardType, $imageFile, $hasImageFile;
 
     /**
-     * 이미지 쓸거면 모듈 가지고 와라
+     * 리스트 출력 틀
      */
-    public function __construct(ImageModule $imageModule = null)
+    protected function index()
     {
-        $this->imageModule = $imageModule;
+
     }
 
     /**
-     * 중고 작성
+     * 게시글 개별 출력 틀
+     * 
      */
-    public function createUsedTrade(Request $request)
+    protected function view()
     {
 
-        // 적용할 컬럼
-        $safeData = $request->only([
-            'writer_id',
-            'c_id',
-            'ut_title',
-            'ut_thumbnail',
-            'ut_price',
-            'ut_count',
-            'ut_quality',
-            'ut_description',
-            'ut_refund',
-        ]);
+    }
 
+    /**
+     * 게시글 작성 틀
+     * 
+     * 1. 게시글 생성
+     * 2. 이미지 생성
+     * 3. 썸네일 생성
+     * 4. 저장
+     */
+    protected function store()
+    {
         try {
             DB::beginTransaction();
 
-            $post = UsedTrade::create($safeData); // 게시글 저장 로직 ...
+            $post = $this->boardType->create($this->safeData); // 게시글 저장 로직 ...
 
             // 이미지 생성
             // 보드 작성 트랜잭션 안에 있으니 이미지 잘못 되어도 롤백 가능
-            if ($request->hasFile('images')) {
+            if ($this->hasImageFile) {
                 // 이미지 생성 후 썸네일 설정 (중고는 최상위)
                 // 최상위 이미지를 압축해서 public/images/thumbnails로
-                $firstImgPath = $this->imageModule->saveImages($request->file('images'), $post, 0); // 중고 0, 제작 1, 문의 2
+                $firstImgPath = ImageModule::saveImages($this->imageFile, $post, 0); // 중고 0, 제작 1, 문의 2
 
                 // 편집 드라이버 호출
                 $manager = new ImageManager(Driver::class);
@@ -66,9 +66,6 @@ class BoardController extends Controller
 
                 // 크기 조절
                 $image->resize(height: 300);
-
-                // insert a watermark
-                // $image->place('images/watermark.png');
 
                 // 인스턴스 -> 이미지파일
                 $encoded = $image->toJpg();
@@ -88,25 +85,29 @@ class BoardController extends Controller
 
             DB::commit();
 
-            // return redirect()->back()->with('success', '게시글이 성공적으로 저장되었습니다.')
-            return response()->json(["message" => "글이 작성되었습니다."], 200);
+            return response()->json(["message" => "글이 작성되었습니다."]);
 
         } catch (Exception $e) {
             DB::rollBack();
-            return response()->json(['message' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()]);
         }
     }
 
-    // 제작 작성
+    /**
+     * 게시글 수정 틀
+     * 수정할 때는 확실히 글쓴이인지 확인하고 업데이트해야겠다 (남이 값싸게 바꿀 수 있지 않을까 with 카드결제)
+     */
+    protected function update()
+    {
+        
+    }
 
-    // 중고 출력
-
-    // 제작 출력
-
-    // 중고 수정
-    // 수정할 때는 확실히 글쓴이인지 확인하고 업데이트해야겠다 (남이 값싸게 바꿀 수 있지 않을까 with 카드결제)
-
-    // 제작 수정
-
-    // 중고/제작 삭제
+    /**
+     * 게시글 삭제 틀
+     * 
+     */
+    protected function delete()
+    {
+        
+    }
 }

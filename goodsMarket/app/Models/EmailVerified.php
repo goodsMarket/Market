@@ -11,7 +11,7 @@ class EmailVerified extends Model
 
     protected $fillable = [
         'email',
-        'token',
+        'ev_token',
     ];
 
     public $timestamps = false;

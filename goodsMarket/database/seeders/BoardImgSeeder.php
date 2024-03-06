@@ -17,7 +17,7 @@ class BoardImgSeeder extends Seeder
     public function run()
     {
         // BoardImg::factory()->count(ceil((UsedTrade::count())*3.4))->create();
-        BoardImg::factory()->count(ceil((UsedTrade::count())/4))->create();
+        BoardImg::factory()->count(ceil((UsedTrade::count())))->create();
         // BoardImg::factory()->count(1)->create();
     }
 }

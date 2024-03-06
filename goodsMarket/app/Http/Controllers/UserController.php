@@ -42,7 +42,7 @@ class UserController extends Controller
                 $userId = Session::get('user_id');
 
                 // return true;
-                return response()->json(['messsage' => $user->id . ' logined.'])->withCookie($cookie);
+                return response()->json(['messsage' => $user->id . ' 로그인 되었습니다.'])->withCookie($cookie);
             } else {
                 // 인증 실패 처리
                 throw new Exception('이메일 또는 비밀번호가 잘못되었습니다.');
@@ -59,12 +59,24 @@ class UserController extends Controller
 
     /**
      * 로그아웃 처리
+     * 
+     * @param \Illuminate\Http\Request $request
      */
-    public function logout()
+    public function logout(Request $request)
     {
-        Session::forget('user_id');
+        try {
+            // 쿠키의 값을 가져옵니다.
+            $cookieValue = $request->cookie('user_id');
 
-        return redirect('login');
+            // 세션은 이름 뒤에 아이디값이 있는데 이게 쿠키에 있다.
+            $nowUserID = MyModule::myDecrypt($cookieValue);
+
+            Session::forget('user_id' . $nowUserID);
+
+            return response()->json(true)->withCookie(Cookie::forget('user_id'));
+        } catch (Exception $e) {
+            return response()->json(false);
+        }
     }
 
     /**
@@ -92,7 +104,7 @@ class UserController extends Controller
                 'u_agree_flg' => $request->u_agree_flg,
             ]);
 
-            return response()->json(['message' => 'regist success.']);
+            return response()->json(['message' => '회원가입이 완료되었습니다.']);
         } catch (Exception $e) {
             // 예외 처리 로직
             return response()->json(['error' => $e->getMessage()]);
@@ -113,7 +125,7 @@ class UserController extends Controller
             $message = [];
 
             // 값 없으면 반환
-            if(empty($request->all())){
+            if (empty($request->all())) {
                 throw new Exception('값을 입력하세요.');
             }
 
@@ -127,26 +139,26 @@ class UserController extends Controller
                 "u_pw_confirmation" => "required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/|min:8|max:20",
                 "u_phone_num" => "required|unique:users,u_phone_num|regex:/^01\d+$/|size:12",
             ];
-            
+
             // 저장할 배열
             $nowCompareValue = [];
-            
+
             // 있는지 보고 추가
-            foreach($comparableValue as $key => $value) {
-                if($request->has($key)) {
+            foreach ($comparableValue as $key => $value) {
+                if ($request->has($key)) {
                     $nowCompareValue[$key] = $value;
                     $message[$key] = ['사용 가능합니다'];
                 }
             }
-            
+
             // 유효성 검사
             $validator = Validator::make($request->all(), $nowCompareValue);
-            
+
             if ($validator->fails()) {
                 throw new Exception($validator->errors());
             }
             // MessageBag::class;
-    
+
             // 유효성 검사 후 반환
             return response()->json(['message' => $message]);
         } catch (Exception $e) {

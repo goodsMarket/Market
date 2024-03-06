@@ -17,14 +17,23 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class BoardController extends Controller
 {
-    protected $safeData, $boardType, $imageFile, $hasImageFile;
+    protected $safeData, $boardType, $imageFile, $hasImageFile, $indexEloquent;
 
     /**
      * 리스트 출력 틀
      */
-    protected function index()
+    protected function index_ut()
     {
+        /**
+         * 기대값: 배열 안에 객체로 들어있는 이미지, 제목, 내용 등
+         */
+        $list = [];
 
+        foreach ($this->indexEloquent as $key => $value) {
+            $list[] = $value->orderByDesc('created_at')->limit($key)->get();
+        }
+
+        return $list;
     }
 
     /**
@@ -71,10 +80,10 @@ class BoardController extends Controller
                 $encoded = $image->toJpg();
 
                 // public/images/thumbnails 에따 저장
-                $encoded->save(public_path('\\images\\thumbnails\\') . '.jpg');
+                $compressedImage = time() . $post->id . rand(000, 999) . '.jpg';
+                $encoded->save(public_path('\\images\\thumbnails\\') . $compressedImage);
 
                 // post->thumbnail 값 바꾸고 저장
-                $compressedImage = time() . $post->id . rand(000, 999) . '.jpg';
                 $post->ut_thumbnail = '\\images\\thumbnails\\' . $compressedImage;
                 $post->save();
             }

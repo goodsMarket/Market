@@ -28,7 +28,7 @@ class EmailController extends Controller
 
             // 유효성 검사
             $validator = Validator::make($request->all(), $nowCompareValue);
-            
+
             if ($validator->fails()) {
                 throw new Exception($validator->errors());
             }
@@ -38,7 +38,10 @@ class EmailController extends Controller
             $tenMinutesAgo = $currentTime->subMinutes(10);
 
             // 10분 전의 시간과 비교하여 몇 개인지 카운트
-            $records = EmailVerified::where('eamil',$request->eamil)->where('ev_send_time', '>=', $tenMinutesAgo)->count();
+            $records = EmailVerified::where('email', $request->email)
+            ->where('ev_send_time', '>=', $tenMinutesAgo)
+            ->orderByDesc('ev_send_time')
+            ->count();
 
             // 10개 이상으로 요청오면 캐치
             if ($records > 10) {
@@ -78,7 +81,7 @@ class EmailController extends Controller
 
             // 유효성 검사
             $validator = Validator::make($request->all(), $nowCompareValue);
-            
+
             if ($validator->fails()) {
                 throw new Exception($validator->errors());
             }
@@ -90,15 +93,16 @@ class EmailController extends Controller
             // 이메일과 토큰을 받아서 레코드에 일치하는 게 있나 체크
             $emailVerified = EmailVerified::where('email', $request->email)
                 ->where('ev_token', $request->ev_token)
+                ->orderByDesc('ev_send_time')
                 ->first();
 
             // 없으면 예외
-            if(empty($emailVerified->all())){
+            if (empty($emailVerified->all())) {
                 throw new Exception('토큰이 올바르지 않습니다.');
             }
 
             // 시간 만료 예외
-            if($emailVerified->ev_send_time < $tenMinutesAgo){
+            if ($emailVerified->ev_send_time < $tenMinutesAgo) {
                 throw new Exception('만료된 토큰 입니다.');
             }
 

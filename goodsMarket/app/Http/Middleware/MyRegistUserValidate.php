@@ -14,7 +14,6 @@ class MyRegistUserValidate
      *
      * @param  Request $request 안에 유저값
      * @param  Closure
-     * @return Response|RedirectResponse 성공 후 다음작업 | 오류 반환
      */
     public function handle(Request $request, Closure $next)
     {

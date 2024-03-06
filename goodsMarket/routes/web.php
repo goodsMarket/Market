@@ -43,7 +43,7 @@ Route::middleware('trim')->group(function () {
         Route::post('/sms/check', [SMSController::class,'check']); // SMS 인증 확인
     });
     Route::post('/regist', [UserController::class, 'registration'])->middleware(['regist.val','regist.email.val','regist.sms.val']); // 가입
-    Route::post('/login', [UserController::class, 'authenticate'])->middleware('login.val'); // 로그인
+    Route::post('/login', [UserController::class, 'authenticate']); // 로그인
     // 게시글 작성
     Route::middleware(['login.chk', 'wri.val'])->group(function () {
         Route::post('/board/used-trade', [BoardController::class, 'createUsedTrade'])->middleware('ut.val'); // 중고 작성

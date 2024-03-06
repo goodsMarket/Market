@@ -1,11 +1,12 @@
 import React from 'react';
 
 
-function Chat() {
+function List() {
     return (
 		<div>
 			<h1>chat</h1>
+
 		</div>
     );
 }
-export default Chat;
+export default List;

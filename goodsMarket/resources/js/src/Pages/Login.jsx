@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useNavigate  } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '/css/user.css';
 import Button from "../Components/Button";
 
@@ -33,13 +33,24 @@ function Login(props) {
             [name]: value,
         });
     };
+    const [errorShow, setErrorShow] = useState(false);
+    const errortxt = '아이디 및 비밀번호를 다시 확인해주세요.';
+    useEffect(() => {
+
+    }, [errorShow]);
 
     const submit = (e) => {
         e.preventDefault();
         console.log(form);
         axios.post('/login', form)
         .then(response => {
-            console.log(response.data);
+            console.log(response);
+            if(response.data) {
+                // console.log('성공!');
+                setErrorShow(false);
+            } else {
+                setErrorShow(true);
+            }
         })
         .catch(error => {
             console.error('Error:', error);
@@ -58,8 +69,7 @@ function Login(props) {
                 <h1 className='form-title'>로그인</h1>
                 <br />
                 <span className='login-errormsg'>
-                    <div>아이디 및 비밀번호를 다시 확인해주세요.</div>
-                    <div>아이디 및 비밀번호를 다시 확인해주세요.</div>
+                    {errorShow ? (<div>{errortxt}</div>) : null}
                 </span>
                 <input type="email" onChange={onChange} value={form.u_email} name='u_email' placeholder='example@example.com' />
                 <br />

@@ -5697,11 +5697,23 @@ function Login(props) {
       value = _e$target.value;
     setForm(_objectSpread(_objectSpread({}, form), {}, _defineProperty({}, name, value)));
   };
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    errorShow = _useState4[0],
+    setErrorShow = _useState4[1];
+  var errortxt = '아이디 및 비밀번호를 다시 확인해주세요.';
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {}, [errorShow]);
   var submit = function submit(e) {
     e.preventDefault();
     console.log(form);
     axios__WEBPACK_IMPORTED_MODULE_4__["default"].post('/login', form).then(function (response) {
-      console.log(response.data);
+      console.log(response);
+      if (response.data) {
+        // console.log('성공!');
+        setErrorShow(false);
+      } else {
+        setErrorShow(true);
+      }
     })["catch"](function (error) {
       console.error('Error:', error);
     });
@@ -5719,13 +5731,11 @@ function Login(props) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
         className: "form-title",
         children: "\uB85C\uADF8\uC778"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
         className: "login-errormsg",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          children: "\uC544\uC774\uB514 \uBC0F \uBE44\uBC00\uBC88\uD638\uB97C \uB2E4\uC2DC \uD655\uC778\uD574\uC8FC\uC138\uC694."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          children: "\uC544\uC774\uB514 \uBC0F \uBE44\uBC00\uBC88\uD638\uB97C \uB2E4\uC2DC \uD655\uC778\uD574\uC8FC\uC138\uC694."
-        })]
+        children: errorShow ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          children: errortxt
+        }) : null
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
         type: "email",
         onChange: onChange,

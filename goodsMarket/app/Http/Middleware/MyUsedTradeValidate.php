@@ -32,14 +32,14 @@ class MyUsedTradeValidate
             "ut_description" => "required|between:1,1000",
             "ut_refund" => "required|boolean",
         ];
-        
+
         // 유효성 검사
         $validator = Validator::make($request->all(), $comparableValue);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json(['errors' => $validator->errors()]);
         }
-        
+
         return $next($request);
     }
 }

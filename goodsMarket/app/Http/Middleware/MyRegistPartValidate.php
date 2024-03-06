@@ -25,28 +25,28 @@ class MyRegistPartValidate
             "u_pw" => "required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/",
             "u_phone_num" => "required|unique:users,u_phone_num|regex:/^01\d{9}$/",
         ];
-        
+
         // 저장할 배열
         $nowCompareValue = [];
 
         // 키값 저장
         $nowKeys = [];
-        
+
         // 있는지 보고 추가
-        foreach($comparableValue as $key => $value) {
-            if($request->has($key)) {
+        foreach ($comparableValue as $key => $value) {
+            if ($request->has($key)) {
                 $nowCompareValue[$key] = $value;
                 $nowKeys[] = $key;
             }
         }
-        
+
         // 유효성 검사
         $validator = Validator::make($request->all(), $nowCompareValue);
-        
+
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json(['errors' => $validator->errors()]);
         }
-        
+
         return $next($request);
     }
 }

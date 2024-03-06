@@ -20,7 +20,7 @@ class UserController extends Controller
      * 로그인
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return boolean
+     * @return 
      */
     public function authenticate(Request $request)
     {
@@ -41,16 +41,16 @@ class UserController extends Controller
                 // 로그인 성공 후의 로직, 예를 들어 홈페이지로 리다이렉션
                 $userId = Session::get('user_id');
 
-                return true;
-                // return response()->json(['msg' => '당신은 성공하고 말았어 '.$cookie.' '.$userId], 200)->withCookie($cookie);
+                // return true;
+                return response()->json(['messsage' => $user->id . ' logined.'])->withCookie($cookie);
             } else {
                 // 인증 실패 처리
                 throw new Exception('이메일 또는 비밀번호가 잘못되었습니다.');
             }
         } catch (Exception $e) {
             // 예외 처리 로직
-            return false;
-            // return response()->json(['error' => $e->getMessage()], 500);
+            // return false;
+            return response()->json(['error' => $e->getMessage()]);
         }
         // return back()->withErrors([
         //     'email' => 'The provided credentials do not match our records.',
@@ -113,7 +113,7 @@ class UserController extends Controller
             $message = [];
 
             // 값 없으면 반환
-            if(empty($request->all())){
+            if (empty($request->all())) {
                 throw new Exception('값을 입력하세요.');
             }
 
@@ -127,26 +127,26 @@ class UserController extends Controller
                 "u_pw_confirmation" => "required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/|min:8|max:20",
                 "u_phone_num" => "required|unique:users,u_phone_num|regex:/^01\d+$/|size:12",
             ];
-            
+
             // 저장할 배열
             $nowCompareValue = [];
-            
+
             // 있는지 보고 추가
-            foreach($comparableValue as $key => $value) {
-                if($request->has($key)) {
+            foreach ($comparableValue as $key => $value) {
+                if ($request->has($key)) {
                     $nowCompareValue[$key] = $value;
                     $message[$key] = ['사용 가능합니다'];
                 }
             }
-            
+
             // 유효성 검사
             $validator = Validator::make($request->all(), $nowCompareValue);
-            
+
             if ($validator->fails()) {
                 throw new Exception($validator->errors());
             }
             // MessageBag::class;
-    
+
             // 유효성 검사 후 반환
             return response()->json(['message' => $message]);
         } catch (Exception $e) {

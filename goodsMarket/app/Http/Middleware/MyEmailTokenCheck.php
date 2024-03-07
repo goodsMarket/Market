@@ -46,7 +46,8 @@ class MyEmailTokenCheck
             // return response()->json(['message' => '인증되었습니다.']);
             return $next($request);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            $error = json_decode($e->getMessage());
+            return response()->json(['error' => $error]);
         }
     }
 }

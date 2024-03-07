@@ -5804,12 +5804,8 @@ function Login(props) {
     axios__WEBPACK_IMPORTED_MODULE_4__["default"].post('/login', form).then(function (response) {
       if (response.data === false) {
         setErrorShow(true);
-        console.log('로그인 실패');
-        console.log(response.data);
       } else {
         setErrorShow(false);
-        console.log('로그인 성공');
-        console.log(response.data);
         login();
       }
     })["catch"](function (error) {

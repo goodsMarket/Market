@@ -59,16 +59,13 @@ class ImageUploadController extends Controller
                 $message = "The post upload has succeeded";
             }
 
+                    return response()->json([
+                        'message' => $message,
+                    ]);
         } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ]);
+            $error = json_decode($e->getMessage());
+            return response()->json(['error' => $error]);
         }
-
-        return response()->json([
-            'message' => $message,
-        ], 200);
-
     }
 
     /**
@@ -92,12 +89,11 @@ class ImageUploadController extends Controller
         try {
             $manualCompress = new ManualCompress($request->path); // '\\images\\samples'
             $manualCompress->compress($request->toPath,$request->height, $request->prefix); // '\\images\\thumbnail_samples',10,'thumbnail'
+    
+            return response()->json(['message'=>'images have compressed']);
         } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ]);
+            $error = json_decode($e->getMessage());
+            return response()->json(['error' => $error]);
         }
-
-        return response()->json(['message'=>'images have compressed']);
     }
 }

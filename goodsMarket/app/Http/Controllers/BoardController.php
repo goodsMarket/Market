@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BoardImg;
 use App\Models\UsedTrade;
 use App\Modules\MyModule;
 use App\Modules\ImageModule;
@@ -95,11 +96,18 @@ class BoardController extends Controller
             if (!$result) {
                 throw new Exception('삭제된 게시글입니다.');
             }
+
+            // 이미지 가져오기
+            $return = BoardImg::where('board_id', $this->boardId)->pluck('bi_img_path')->toArray();
             
-            return response()->json(['message' => $result]);
+            // 있으면 합치기
+            $return ? array_unshift($return, $result) : $return = [$result];
+
+            return response()->json(['message' => $return]);
             // return $result;
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            $error = json_decode($e->getMessage());
+            return response()->json(['error' => $error]);
             // return response()->json(false);
         }
     }
@@ -162,7 +170,8 @@ class BoardController extends Controller
             
         } catch (Exception $e) {
             DB::rollBack();
-            return response()->json(["error" => $e->getMessage()]);
+            $error = json_decode($e->getMessage());
+            return response()->json(['error' => $error]);
             // return response()->json(false);
         }
     }
@@ -187,7 +196,8 @@ class BoardController extends Controller
             return response()->json(['message' => '게시글이 수정되었습니다.']);
             // return response()->json(true);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            $error = json_decode($e->getMessage());
+            return response()->json(['error' => $error]);
             // return response()->json(false);
         }
     }
@@ -216,7 +226,8 @@ class BoardController extends Controller
             return response()->json(['message' => '게시글이 삭제되었습니다.']);
             // return response()->json(true);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            $error = json_decode($e->getMessage());
+            return response()->json(['error' => $error]);
             // return response()->json(false);
         }
     }
@@ -243,7 +254,8 @@ class BoardController extends Controller
             return response()->json(['message' => $result]);
             // return $result;
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            $error = json_decode($e->getMessage());
+            return response()->json(['error' => $error]);
             // return response()->json(false);
         }
     }

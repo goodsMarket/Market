@@ -158,7 +158,8 @@ class SMSController extends Controller
 
             return response()->json(['message' => '인증되었습니다.']);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            $error = json_decode($e->getMessage());
+            return response()->json(['error' => $error]);
         }
     }
 }

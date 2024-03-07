@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Vonage\Client;
 use Vonage\Client\Credentials\Basic;
@@ -19,7 +20,7 @@ class SMSController extends Controller
      * 휴대폰 인증 발송버튼 메소드
      * $requset = { phone:string }
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function send(Request $request)
     {
@@ -30,7 +31,7 @@ class SMSController extends Controller
 
             // 유효성 검사
             $validator = Validator::make($request->all(), $nowCompareValue);
-            
+
             if ($validator->fails()) {
                 throw new Exception($validator->errors());
             }
@@ -40,7 +41,10 @@ class SMSController extends Controller
             $tenMinutesAgo = $currentTime->subMinutes(10);
 
             // 10분 전의 시간과 비교하여 몇 개인지 카운트
-            $records = PhoneVerified::where('phone',$request->phone)->where('pv_send_time', '>=', $tenMinutesAgo)->count();
+            $records = PhoneVerified::where('phone', $request->phone)
+                ->where('pv_send_time', '>=', $tenMinutesAgo)
+                ->orderByDesc('pv_send_time')
+                ->count();
 
             // 10개 이상으로 요청오면 캐치
             if ($records > 10) {
@@ -50,17 +54,19 @@ class SMSController extends Controller
             // *이제 메세지 보내기
             // 유저한테서 이메일 주소를 받고 레코드 생성
             $pv_token = mt_rand(100000, 999999);
-            PhoneVerified::create([
-                'phone' => $request->email,
+            Log::debug($pv_token);
+            $a = PhoneVerified::create([
+                'phone' => $request->phone,
                 'pv_token' => $pv_token,
             ]);
 
             // Vonage api 인스턴스
-            $basic  = new Basic(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
+            $basic = new Basic(env('VONAGE_API_KEY'), env('VONAGE_API_SECRET'));
             $client = new Client($basic);
 
             // 보낼대상과 우리 브랜드 이름(명시이름, 메세지에 안뜸)
-            $TO_NUMBER = $request->phone;
+            // 이거 국제전화라 +82 붙여야 함
+            $TO_NUMBER = '+82' . $request->phone;
             // $TO_NUMBER = "+8201091713466";
             $BRAND_NAME = "GoodsMarket";
 
@@ -69,12 +75,12 @@ class SMSController extends Controller
 
             // 메세지
             // $text = 'hi im kkh, give me some food';
-            $text = '굿즈마켓 인증번호: ['.$pv_token.']';
+            $text = '굿즈마켓 인증번호: [' . $pv_token . ']';
 
             // 메세지 담기
             $sms = new SMS(
-                $TO_NUMBER, 
-                $BRAND_NAME, 
+                $TO_NUMBER,
+                $BRAND_NAME,
                 $text
             );
 
@@ -84,14 +90,14 @@ class SMSController extends Controller
             } else {
                 $sms->setType('unicode');
             }
-            
+
             // 전송 ---------------------------------------------------
             // $response = $client->sms()->send($sms); // 돈 없음
 
             // 상태 반환
             // $message = $response->current();
             // if ($message->getStatus() == 0) {
-                return response()->json(['message' => '문자를 송신하였습니다.']);
+            return response()->json(['message' => '문자를 송신하였습니다.']);
             // } else {
             //     throw new Exception('문자송신을 실패하였습니다.');
             // }
@@ -104,7 +110,8 @@ class SMSController extends Controller
             // // }
             // // echo "Sent message to " . $data->getTo() . ". Balance is now " . $data->getRemainingBalance() . PHP_EOL;
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            $error = json_decode($e->getMessage());
+            return response()->json(['error' => $error]);
         }
     }
 
@@ -124,7 +131,7 @@ class SMSController extends Controller
 
             // 유효성 검사
             $validator = Validator::make($request->all(), $nowCompareValue);
-            
+
             if ($validator->fails()) {
                 throw new Exception($validator->errors());
             }
@@ -136,15 +143,16 @@ class SMSController extends Controller
             // 이메일과 토큰을 받아서 레코드에 일치하는 게 있나 체크
             $emailVerified = PhoneVerified::where('phone', $request->phone)
                 ->where('pv_token', $request->pv_token)
+                ->orderByDesc('pv_send_time')
                 ->first();
 
             // 없으면 예외
-            if(empty($emailVerified->all())){
+            if (empty($emailVerified->all())) {
                 throw new Exception('토큰이 올바르지 않습니다.');
             }
 
             // 시간 만료 예외
-            if($emailVerified->ev_send_time < $tenMinutesAgo){
+            if ($emailVerified->pv_send_time < $tenMinutesAgo) {
                 throw new Exception('만료된 토큰 입니다.');
             }
 

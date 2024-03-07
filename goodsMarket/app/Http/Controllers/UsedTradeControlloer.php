@@ -14,7 +14,10 @@ class UsedTradeControlloer extends BoardController
      */
     protected function view_ut()
     {
-
+        $this->indexEloquent = [
+            // 출력개수 => 엘로퀀트 인스턴스,
+            '16' => UsedTrade::class,
+        ];
     }
 
     /**
@@ -47,7 +50,7 @@ class UsedTradeControlloer extends BoardController
         $this->imageFile = $request->file('images');
 
         // 부모 틀 실행
-        $this->store();
+        return $this->store();
     }
 
     /**

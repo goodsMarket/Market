@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>
-        {{$emailVerified->token}}
+        굿즈마켓 인증번호: [{{$emailVerified->ev_token}}]
     </h1>
 </body>
 </html>

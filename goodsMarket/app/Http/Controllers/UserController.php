@@ -41,7 +41,7 @@ class UserController extends Controller
                 // 로그인 성공 후의 로직, 예를 들어 홈페이지로 리다이렉션
                 $userId = Session::get('user_id');
 
-                return response()->json(true);
+                return response()->json(true)->withCookie($cookie);
                 // return response()->json(['messsage' => $user->id . ' logined.'])->withCookie($cookie);
             } else {
                 // 인증 실패 처리
@@ -60,12 +60,24 @@ class UserController extends Controller
 
     /**
      * 로그아웃 처리
+     * 
+     * @param \Illuminate\Http\Request $request
      */
-    public function logout()
+    public function logout(Request $request)
     {
-        Session::forget('user_id');
+        try {
+            // 쿠키의 값을 가져옵니다.
+            $cookieValue = $request->cookie('user_id');
 
-        return response()->json(true);
+            // 세션은 이름 뒤에 아이디값이 있는데 이게 쿠키에 있다.
+            $nowUserID = MyModule::myDecrypt($cookieValue);
+
+            Session::forget('user_id' . $nowUserID);
+
+            return response()->json(true)->withCookie(Cookie::forget('user_id'));
+        } catch (Exception $e) {
+            return response()->json(false);
+        }
     }
 
     /**
@@ -93,7 +105,7 @@ class UserController extends Controller
                 'u_agree_flg' => $request->u_agree_flg,
             ]);
 
-            return response()->json(['message' => 'regist success.']);
+            return response()->json(['message' => '회원가입이 완료되었습니다.']);
         } catch (Exception $e) {
             // 예외 처리 로직
             return response()->json(['error' => $e->getMessage()]);

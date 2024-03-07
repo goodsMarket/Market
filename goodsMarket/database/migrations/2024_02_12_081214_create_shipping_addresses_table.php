@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('sa_address_num'); // 우편번호
             $table->string('sa_address',150); // 주소
             $table->string('sa_address_detail',150); // 상세주소
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

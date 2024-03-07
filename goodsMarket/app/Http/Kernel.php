@@ -63,8 +63,15 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'my.user.val' => \App\Http\Middleware\MyUserValidate::class,
+        'login.val' => \App\Http\Middleware\MyLoginValidate::class,
+        'regist.val' => \App\Http\Middleware\MyRegistUserValidate::class,
+        'regist.email.val' => \App\Http\Middleware\MyEmailTokenCheck::class,
+        'regist.sms.val' => \App\Http\Middleware\MySMSTokenCheck::class,
+        // 'regist.part.val' => \App\Http\Middleware\MyRegistPartValidate::class,
+        'ut.val' => \App\Http\Middleware\MyUsedTradeValidate::class,
+        'p.val' => \App\Http\Middleware\MyProductionValidate::class,
+        'wri.val' => \App\Http\Middleware\MyWriterdValidate::class,
         'trim' => \App\Http\Middleware\TrimStrings::class,
-        'logchk' => \App\Http\Middleware\CheckUserSession::class,
+        'login.chk' => \App\Http\Middleware\CheckUserSession::class,
     ];
 }

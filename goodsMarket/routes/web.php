@@ -35,9 +35,9 @@ Route::middleware(['trim','my.user.val'])->post('/regist', [UserController::clas
 Route::middleware(['trim','my.user.val'])->post('/login', [UserController::class,'authenticate']);
 // })->where('any', '.*');
 
-Route::get('/logout', [UserController::class, 'logout']); // 로그아웃
 // input 값 있는 애들
 Route::middleware('trim')->group(function () {
+    // 가입과정
     Route::prefix('/regist')->group(function () {
         Route::post('/part', [UserController::class, 'regist_part']); // 부분 체크
         Route::post('/mail', [EmailController::class,'send']); // 메일 인증 발송
@@ -46,12 +46,27 @@ Route::middleware('trim')->group(function () {
         Route::post('/sms/check', [SMSController::class,'check']); // SMS 인증 확인
     });
     Route::post('/regist', [UserController::class, 'registration'])->middleware(['regist.val','regist.email.val','regist.sms.val']); // 가입
-    Route::post('/login', [UserController::class, 'authenticate']); // 로그인
-    // 게시글 작성
+    Route::post('/login', [UserController::class, 'authenticate'])->middleware('login.val'); // 로그인
+    Route::get('/logout', [UserController::class, 'logout']); // 로그아웃
+    // 게시글
     Route::get('/board', [ListController::class, 'index_ut']);
-    Route::prefix('/board')->middleware(['login.chk', 'wri.val'])->group(function () {
-        Route::get('/used-trade', [ListController::class, 'index_ut']);
-        Route::post('/used-trade', [UsedTradeControlloer::class, 'store_ut'])->middleware('ut.val');// 중고 작성
+    Route::prefix('/board')->group(function () {
+        // 리스트 출력
+        Route::prefix('/list')->group(function () {
+            Route::get('/used-trade', [ListController::class, 'index_ut']);
+            Route::get('/used-trade/{page}', [ListController::class, 'index_ut']);
+        });
+        // 게시글 조회, 작성, 수정, 삭제
+        Route::get('/used-trade/{id}', [UsedTradeControlloer::class, 'view_ut']);
+        // 로그인 해야함
+        Route::middleware('login.chk')->group(function () {
+            // 작성자 같아야 함 // 모듈에서 가저오기로 함
+            // Route::middleware('wri.val')->group(function () {
+                Route::post('/used-trade', [UsedTradeControlloer::class, 'store_ut'])->middleware('ut.val');// 중고 작성
+                Route::put('/used-trade', [UsedTradeControlloer::class, 'update_ut'])->middleware('ut.val');// 중고 작성
+                Route::delete('/used-trade', [UsedTradeControlloer::class, 'delete_ut']);
+            // });
+        });
     });
 });
 

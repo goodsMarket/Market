@@ -35,11 +35,16 @@ function Login(props) {
         console.log(form);
         axios.post('/login', form)
         .then(response => {
-            if (response.data === true) {
-                setErrorShow(false);
-                login();
-            } else {
+            if (response.data === false) {
                 setErrorShow(true);
+                console.log('로그인 실패');
+                console.log(response.data);
+            } else {
+                setErrorShow(false);
+                console.log('로그인 성공');
+                console.log(response.data);
+                login();
+                cookieset();
             }
         })
         .catch(error => {
@@ -52,6 +57,15 @@ function Login(props) {
   	function login() { // 로그인하게 되면
     	if(navigationType === "PUSH") navigate(-1); // redirect로 왔다면 이전 페이지로
         else navigate("/"); // 홈으로
+    }
+    function cookieset() {
+        const cookies = document.cookie.split('; ').reduce((prev, current) => {
+            const [name, value] = current.split('=');
+            prev[name] = value;
+            return prev;
+        }, {});
+        const userId = cookies.user_id;
+        console.log(userId);
     }
     const onKeyPress = (e) => {
         if (e.key === 'Enter') {

@@ -2,32 +2,45 @@ import React, { useState } from 'react';
 import { useNavigate, BrowserRouter as Router, Link } from 'react-router-dom';
 import '/css/common.css';
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 function Header(props) {
 
 	const [isVisible, setIsVisible] = useState(false);
 	const [category, setcategory] = useState(false);
 	const [searchList, setsearchList] = useState(false);
+	const [insertBoard, setinsertBoard] = useState(false);
 	
 	const showInsert = () => {
 		setIsVisible(!isVisible);
 		setcategory(false);
 		setsearchList(false);
+		setinsertBoard(false);
 	};
 	const showCategories = () => {
 		setcategory(!category);
 		setIsVisible(false);
 		setsearchList(false);
+		setinsertBoard(false);
 	};
 	const showSearchSet = () => {
 		setsearchList(!searchList);
 		setIsVisible(false);
 		setcategory(false);
+		setinsertBoard(false);
 	};
+	const showInsertBoard = () => {
+		setinsertBoard(!insertBoard);
+		setsearchList(false);
+		setIsVisible(false);
+		setcategory(false);
+	};
+
 	const displayFlex = searchList ? 'header-search-list' : 'display-none';
 	const iconRotate = searchList ? 'header-seacrh-list-bar header-seacrh-list-bar-rotated' : 'header-seacrh-list-bar';
 	const categoryBlock = category ? 'header-category-list' : 'display-none';
 	const headerMypage = isVisible ? 'header-list display-flex' : 'display-none';
+	const insertBoardList = insertBoard ? 'header-list display-flex' : 'display-none';
 	
 	const [searchListset, setSearchListset] = useState('전체');
 
@@ -46,13 +59,16 @@ function Header(props) {
 	
 		const marketDetail = (e) => {
 			setCategoryOptionDetail(e.target.checked);
+			console.log(e.target.value);
 		};
 	
 		if(categoryOption && categoryOptionDetail) {
 			// 두 개의 라디오 버튼이 모두 선택되었을 때 제출 처리
+			
 		} else {
 			
 		}
+		const [cookies, setCookie, removeCookie] = useCookies(['user_id']);
 		const navigate = useNavigate();
 		const Logout = () => {
 			axios.get('/logout')
@@ -94,7 +110,15 @@ function Header(props) {
 				<img src="/img/chat.png" alt="" className='header-icon' />
 			</Link>
 
-			<div><img src="/img/newboard.png" alt="" className='header-icon' /></div>
+			<div className='header-insert-icon'>
+				<div onClick={showInsertBoard}>
+					<img src="/img/newboard.png" alt="" className='header-icon' />
+				</div>
+				<div className={insertBoardList}>
+					<Link to="/new/used">굿즈 양도하기</Link>
+					<Link to="/new/production">제작한 굿즈 판매하기</Link>
+				</div>
+			</div>
 
 			<Link to="/chat"><img src="/img/noticebell.png" alt="" className='header-icon' /></Link>
 				<div>

@@ -21,9 +21,9 @@ function Regist() {
 	
 	const onChange = (e) => {
 		const { name, value } = e.target;
-		// axios.post('/mail', form)
+		// axios.post('/', form)
         // .then(response => {
-        //     console.log(response.data);
+        //     alert(response.data);
         // })
         // .catch(error => {
         //     console.error('Error:', error);
@@ -41,8 +41,8 @@ function Regist() {
 			return false;
 		}
 		startCountdown();
-
-		axios.post('/mail', form)
+		const { u_email } = form;
+		axios.post('/regist/mail', { u_email })
         .then(response => {
             console.log(response.data);
         })
@@ -59,24 +59,24 @@ function Regist() {
 			return false;
 		}
 		setemaildisabled(prevState => !prevState);
-		// try {
-		// 	// token만 전송
-		// 	const { u_email, token } = form;
-		// 	const response = axios.post('/mail/check', { u_email, token });
-		// 	console.log(response.data);
-		// 	if( response.data === 'message' ) {
-		// 		setForm({
-		// 			token: token,
-		// 		});
-		// 		alert('인증이 완료되었습니다.');
-		// 		setemaildisabled(prevState => !prevState);
-		// 	} else if ( response.data === 'error' ) {
+		try {
+			// token만 전송
+			const { u_email, token } = form;
+			const response = axios.post('/regist/mail/check', { u_email, token });
+			console.log(response.data);
+			if( response.data === 'message' ) {
+				setForm({
+					token: token,
+				});
+				alert('인증이 완료되었습니다.');
+				setemaildisabled(prevState => !prevState);
+			} else if ( response.data === 'error' ) {
 
-		// 	}
+			}
 
-		// } catch (error) {
-		// 	console.error('Error:', error);
-		// }
+		} catch (error) {
+			console.error('Error:', error);
+		}
 	}
 	// 닉네임 중복 확인
 	const nickNameChk = (e) => {
@@ -141,6 +141,19 @@ function Regist() {
             }
 		}
 	}
+
+	// const [errorU_agree_flg, setErrorU_agree_flg] = useState(false);
+	const [errorU_email, setErrorU_email] = useState(false);
+	const [errorU_name, setErrorU_name] = useState(false);
+	const [errorU_nickname, setErrorU_nickname] = useState(false);
+	const [errorU_pw, setErrorU_pw] = useState(false);
+	const [errorU_pw_confirmation, setErrorU_pw_confirmation] = useState(false);
+	const [errorU_phone_num, setErrorU_phone_num] = useState(false);
+	const [errorU_email_verf, setErrorU_email_verf] = useState(false);
+	const [errorU_phone_verf, setErrorU_phone_verf] = useState(false);
+
+	const errortxt = '에러 메세지';
+	
 	const submit = (e) => {
 		e.preventDefault();
 		if(form.u_agree_flg === '') {
@@ -207,7 +220,7 @@ function Regist() {
 					<form onSubmit={emailSend}>
 						<input type="email" name='u_email' onChange={onChange} placeholder='이메일을 입력해주세요.' />
 						<div className='regist-setBtn'>
-							<span className='regist-second-err'>에러메세지</span>
+							<span className='regist-second-err'>{errorU_email ? ({errortxt}) : null}</span>
 							<Button type="submit">인증하기</Button>
 						</div>
 					</form>
@@ -218,34 +231,34 @@ function Regist() {
 						{ minutes !== '' && seconds !== '' && (
 						<span className='regist-countdown-span'>{`${minutes.toString()}:${seconds.toString().padStart(2, '0')}`}</span>
 						)}
-						<span className='regist-second-err'>에러메세지</span>
+						<span className='regist-second-err'>{errorU_email_verf ? ({errortxt}) : null}</span>
 						<button type="button" className='regist-certification'>코드 확인</button>
 					</form>
 				</div>
 				<div>
 					<input type="text" name='u_name' onChange={onChange} value={form.u_name} placeholder='이름을 입력해주세요.' />
-					<span className='regist-second-err'>에러메세지</span>
+					<span className='regist-second-err'>{errorU_name ? ({errortxt}) : null}</span>
 				</div>
 				<div>
 					<form onSubmit={nickNameChk} className='regist-certification-form'>
 						<input type="text" name='u_nickname' onChange={onChange} value={form.u_nickname} placeholder='닉네임을 입력해주세요.' />
-						<span className='regist-second-err'>에러메세지</span>
+						<span className='regist-second-err'>{errorU_nickname ? ({errortxt}) : null}</span>
 						<button type="button" className='regist-certification'>중복 확인</button>
 					</form>
 				</div>
 				<div>
 					<input type="password" name='u_pw' onChange={onChange} value={form.u_pw} placeholder='비밀번호를 입력해주세요.' />
-					<span className='regist-second-err'>에러메세지</span>
+					<span className='regist-second-err'>{errorU_pw ? ({errortxt}) : null}</span>
 				</div>
 				<div>
 					<input type="password" name='u_pw_confirmation' onChange={onChange} value={form.u_pw_confirmation} placeholder='비밀번호 확인' />
-					<span className='regist-second-err'>에러메세지</span>
+					<span className='regist-second-err'>{errorU_pw_confirmation ? ({errortxt}) : null}</span>
 				</div>
 				<div>
 					<form onSubmit={phoneNumber}>
 						<input type="text" name='u_phone_num' onChange={onChange} value={form.u_phone_num} placeholder='전화번호를 입력해주세요.' />
 						<div className='regist-setBtn'>
-							<span className='regist-second-err'>에러메세지</span>
+							<span className='regist-second-err'>{errorU_phone_num ? ({errortxt}) : null}</span>
 							<Button type="button">인증하기</Button>
 						</div>
 					</form>
@@ -254,7 +267,7 @@ function Regist() {
 					<form onSubmit={phoneVerification} className='regist-certification-form'>
 						<input type="text" onChange={onChange} placeholder='인증코드를 입력해주세요.' />
 						<span className='regist-countdown-span'>00:00</span>
-						<span className='regist-second-err'>에러메세지</span>
+						<span className='regist-second-err'>{errorU_phone_verf ? ({errortxt}) : null}</span>
 						<button type="button" className='regist-certification'>코드 확인</button>
 					</form>
 				</div>

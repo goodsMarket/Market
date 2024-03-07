@@ -83,6 +83,9 @@
 }
 
 /* regist */
+.regist-first-section {
+    margin-bottom: 50px;
+}
 .regist-form-section {
     display: flex;
     flex-direction: column;
@@ -97,7 +100,6 @@
 .regist-agreement-txt {
     margin-left: 5px;
 }
-
 .regist-second-section {
     display: grid;
     width: 1198px;

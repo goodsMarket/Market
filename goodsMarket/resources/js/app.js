@@ -9,6 +9,7 @@ import Main from './src/Pages/Main';
 import Chat from './src/Pages/Chat';
 import ProductionDetail from './src/Pages/ProductionDetail';
 import UsedProductionInsert from './src/Pages/UsedProductionInsert';
+import ProductionInsert from './src/Pages/ProductionInsert';
 import Error from './src/Pages/Error';
 import Layout from './src/Layouts/Layout';
 
@@ -24,8 +25,10 @@ const App = () => {
 						<Route path="/regist" element={<Regist />}></Route>
 						<Route path="/mypage" element={<Mypage />}></Route>
 						<Route path="/chat" element={<Chat />}></Route>
-							<Route path="/used/insert" element={<UsedProductionInsert />}></Route>
+						<Route path="/new/used" element={<UsedProductionInsert />}></Route>
+						<Route path="/new/production" element={<ProductionInsert />}></Route>
 						<Route path="/" element={<Main />}></Route>
+						<Route path="/board / [d]" element={<Main />}></Route>
 						<Route path="*" element={<Error />}></Route>
 					</Routes>
 				</Layout>

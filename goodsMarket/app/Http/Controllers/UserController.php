@@ -129,7 +129,7 @@ class UserController extends Controller
             if (empty($request->all())) {
                 throw new Exception('값을 입력하세요.');
             }
-
+            Log::debug($request);
             // 리퀘스트에 지정해놓은 값들이 있으면
             $comparableValue = [
                 "u_name" => "required|regex:/^[가-힣A-Za-z\s]+$/|min:2|max:10",

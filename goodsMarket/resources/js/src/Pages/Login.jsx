@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate, useNavigationType  } from 'react-router-dom';
 import '/css/user.css';
 import Button from "../Components/Button";
+import {useCookies} from 'react-cookie'
 
 
 function Login(props) {
@@ -37,14 +38,10 @@ function Login(props) {
         .then(response => {
             if (response.data === false) {
                 setErrorShow(true);
-                console.log('로그인 실패');
-                console.log(response.data);
+
             } else {
                 setErrorShow(false);
-                console.log('로그인 성공');
-                console.log(response.data);
                 login();
-                cookieset();
             }
         })
         .catch(error => {
@@ -58,14 +55,18 @@ function Login(props) {
     	if(navigationType === "PUSH") navigate(-1); // redirect로 왔다면 이전 페이지로
         else navigate("/"); // 홈으로
     }
+
     function cookieset() {
-        const cookies = document.cookie.split('; ').reduce((prev, current) => {
-            const [name, value] = current.split('=');
-            prev[name] = value;
-            return prev;
-        }, {});
-        const userId = cookies.user_id;
-        console.log(userId);
+
+        // const cookies = document.cookie.split('; ').reduce((prev, current) => {
+        //     const [name, value] = current.split('=');
+        //     if (name === 'user_id') {
+        //         prev[name] = value;
+        //     }
+        //     return prev;
+        // }, {});
+        // // const userId = cookies.user_id;
+
     }
     const onKeyPress = (e) => {
         if (e.key === 'Enter') {

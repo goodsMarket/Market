@@ -5,6 +5,7 @@ import Carousel from '../Components/Carousel';
 import Maintab1 from '../Components/Maintab1';
 import Maintab2 from '../Components/Maintab2';
 import '/css/main.css';
+import { useCookies } from 'react-cookie';
 
 function Main() {
 
@@ -52,6 +53,7 @@ function Main() {
         // 다른 경우에는 null을 반환하거나 기본적으로 렌더링할 컴포넌트를 반환할 수 있습니다.
         return null;
     };
+	const [cookies, setCookie, removeCookie] = useCookies(['user_id']);
 
 	const [activeTab, setActiveTab] = useState(TabData[0].id);
 

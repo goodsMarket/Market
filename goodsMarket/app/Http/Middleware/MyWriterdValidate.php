@@ -25,7 +25,7 @@ class MyWriterdValidate
         $nowUserID = MyModule::myDecrypt($cookieValue);
         // Log::debug($nowUserID);
         if ((int) $request->writer_id !== (int) $nowUserID) {
-            return response()->json(['errors' => '작성자가 일치하지 않습니다.'], 500);
+            return response()->json(['errors' => '작성자가 일치하지 않습니다.']);
         }
 
         return $next($request);

@@ -44,7 +44,7 @@ class MyRegistPartValidate
         $validator = Validator::make($request->all(), $nowCompareValue);
         
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json(['errors' => $validator->errors()]);
         }
         
         return $next($request);

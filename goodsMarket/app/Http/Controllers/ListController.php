@@ -14,17 +14,19 @@ class ListController extends BoardController
     protected function index_ut($page = 1)
     {
         try {
-            $this->boardType = [
-                // 출력개수 => 엘로퀀트 인스턴스,
-                '16' => UsedTrade::class,
-            ];
+            $this->boardType = [];
+
+            // 엘로퀀트 인스턴스, 출력개수
+            array_push($this->boardType, [UsedTrade::class, 5]);
     
-            $this->indexPage = $page;
+            $this->boardPage = $page;
+
+            $this->index() ? $message = $this->index() : throw new Exception('없는 페이지입니다.');
     
-            return response()->json(['message' => $this->index()]);
+            return response()->json(['message' => $message]);
             // return $this->index();
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage());
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
             return response()->json(['error' => $error]);
         }
     }
@@ -35,13 +37,8 @@ class ListController extends BoardController
     protected function index_deleted($page = 1)
     {
         try {
-            $this->boardType = [
-                // 출력개수 => 엘로퀀트 인스턴스,
-                '16' => UsedTrade::class,
-            ];
-    
-            $this->indexPage = $page;
-    
+            // 
+            
             return response()->json(['message' => $this->index()]);
             // return $this->index();
         } catch (Exception $e) {

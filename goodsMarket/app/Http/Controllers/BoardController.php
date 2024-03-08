@@ -31,51 +31,67 @@ class BoardController extends Controller
     protected array|UploadedFile|null $imageFile;
     protected array|string|null $cookie;
     protected object|array $boardType;
-    protected array $safeData;
+    protected array $safeData; // 수정, 작성용 데이터
     protected bool $hasImageFile;
-    protected int $indexPage;
+    protected int $boardPages = 5; // 페이지 묶음: 한번에 몇 페이지 출력할지
+    protected int $boardPage;
     protected int $boardId;
 
     /**
      * 리스트 출력 틀
      * 
-     * 요구변수: $boardType, $indexPage
-     * @return array $list
+     * 요구변수: $boardType, $boardPage
+     * @return array|bool $lists = [$list]|[$list, $leftPages]
      */
     protected function index()
     {
         $list = [];
 
-        $this->indexPage < 1 ? $this->indexPage = 1 : '';
+        // 음수값 오면 첫페이지로
+        $this->boardPage < 1 ? $this->boardPage = 1 : '';
+
         foreach ($this->boardType as $key => $value) {
-            $list = $value::orderByDesc('created_at')
-                ->take($key)
-                ->skip(($this->indexPage - 1) * $key)
+            // 뽑기 시작할 레코드 번수
+            $offset = ($this->boardPage - 1) * $value[1];
+
+            // 레코드 가져오기
+            $list = $value[0]::orderByDesc('created_at')
+                ->take($value[1])
+                ->skip($offset)
                 ->get();
+
+            if(empty($list->count())){
+                return false;
+            }
+
+            // --- 페이지 묶음 출력 분기 ---
+            // 전체 레코드
+            $records = $value[0]::count();
+            
+            // 페이지 총 개수
+            $pages = ceil($records / $value[1]);
+            
+            // 몇개만 출력?
+            $leftPages = $pages % $this->boardPages;
+            
+            // 출력에 변동이 있는지 없는지 // 현재 페이지 >= 안맞아떨어지기 시작하는 페이지
+            $nowPage = $offset / $value[1];
+            Log::debug("{$nowPage} >= {$pages} - {$leftPages}");
+            $lists[] = $nowPage >= $pages - $leftPages ? ['list'=>$list, 'leftPages'=>$leftPages] : ['list'=>$list];
         }
 
-        return $list;
+        return $lists;
     }
 
     /**
      * 삭제된 리스트 출력 틀
      * 
-     * 요구변수: $boardType, $indexPage
+     * 요구변수: $boardType, $boardPage
      * @return array $list
      */
     protected function index_deleted()
     {
         $list = [];
-
-        $this->indexPage < 1 ? $this->indexPage = 1 : '';
-        foreach ($this->boardType as $key => $value) {
-            $list = $value::withTrashed()
-                ->whereNotNull('deleted_at')
-                ->orderByDesc('created_at')
-                ->take($key)
-                ->skip(($this->indexPage - 1) * $key)
-                ->get();
-        }
 
         return $list;
     }
@@ -99,7 +115,7 @@ class BoardController extends Controller
 
             // 이미지 가져오기
             $return = BoardImg::where('board_id', $this->boardId)->pluck('bi_img_path')->toArray();
-            
+
             // 있으면 합치기
             $return ? array_unshift($return, $result) : $return = [$result];
 
@@ -167,7 +183,7 @@ class BoardController extends Controller
 
             return response()->json(["message" => "글이 작성되었습니다."]);
             // return response()->json(true);
-            
+
         } catch (Exception $e) {
             DB::rollBack();
             $error = json_decode($e->getMessage());
@@ -212,7 +228,7 @@ class BoardController extends Controller
     {
         try {
             $result = $this->boardType::find($this->boardId);
-            
+
             // 삭제된 게시물일 때 오류
             if (!$result) {
                 throw new Exception('이미 삭제된 게시글입니다.');
@@ -242,7 +258,7 @@ class BoardController extends Controller
     {
         try {
             $result = $this->boardType::whereNotNull('deleted_at')->find($this->boardId);
-            
+
             // 작성자나 특정 유저만 열람
             UserIdModule::check($this->cookie, $result->writer_id);
 

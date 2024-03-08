@@ -27,9 +27,9 @@ use Illuminate\Support\Facades\Route;
 // })->middleware(['logchk']);
 
 
-Route::get('/{any?}', function () {
-    return view('welcome');
-})->where('any', '.*');
+// Route::get('/{any?}', function () {
+//     return view('welcome');
+// })->where('any', '.*');
 
 Route::middleware(['trim','my.user.val'])->post('/regist', [UserController::class,'registration']);
 Route::middleware(['trim','my.user.val'])->post('/login', [UserController::class,'authenticate']);

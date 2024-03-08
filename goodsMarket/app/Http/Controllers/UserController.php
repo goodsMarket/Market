@@ -108,7 +108,8 @@ class UserController extends Controller
             return response()->json(['message' => '회원가입이 완료되었습니다.']);
         } catch (Exception $e) {
             // 예외 처리 로직
-            return response()->json(['error' => $e->getMessage()]);
+            $error = json_decode($e->getMessage());
+            return response()->json(['error' => $error]);
         }
     }
 
@@ -158,7 +159,6 @@ class UserController extends Controller
             if ($validator->fails()) {
                 throw new Exception($validator->errors());
             }
-            // MessageBag::class;
 
             // 유효성 검사 후 반환
             return response()->json(['message' => $message]);

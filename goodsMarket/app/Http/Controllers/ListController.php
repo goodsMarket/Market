@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UsedTrade;
+use Exception;
 use Illuminate\Http\Request;
 
 class ListController extends BoardController
@@ -12,15 +13,22 @@ class ListController extends BoardController
      */
     protected function index_ut($page = 1)
     {
-        $this->boardType = [
-            // 출력개수 => 엘로퀀트 인스턴스,
-            '16' => UsedTrade::class,
-        ];
+        try {
+            $this->boardType = [];
 
-        $this->indexPage = $page;
+            // 엘로퀀트 인스턴스, 출력개수
+            array_push($this->boardType, [UsedTrade::class, 5]);
+    
+            $this->boardPage = $page;
 
-        return response()->json(['message' => $this->index()]);
-        // return $this->index();
+            $this->index() ? $message = $this->index() : throw new Exception('없는 페이지입니다.');
+    
+            return response()->json(['message' => $message]);
+            // return $this->index();
+        } catch (Exception $e) {
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
+            return response()->json(['error' => $error]);
+        }
     }
 
     /**
@@ -28,14 +36,14 @@ class ListController extends BoardController
      */
     protected function index_deleted($page = 1)
     {
-        $this->boardType = [
-            // 출력개수 => 엘로퀀트 인스턴스,
-            '16' => UsedTrade::class,
-        ];
-
-        $this->indexPage = $page;
-
-        return response()->json(['message' => $this->index()]);
-        // return $this->index();
+        try {
+            // 
+            
+            return response()->json(['message' => $this->index()]);
+            // return $this->index();
+        } catch (Exception $e) {
+            $error = json_decode($e->getMessage());
+            return response()->json(['error' => $error]);
+        }
     }
 }

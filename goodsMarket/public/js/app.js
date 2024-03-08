@@ -6218,17 +6218,15 @@ function Regist() {
       u_pw: '',
       u_pw_confirmation: '',
       u_phone_num: '',
-      token: '',
+      ev_token: '',
       u_phone_num_chk: ''
     }),
     _useState2 = _slicedToArray(_useState, 2),
     form = _useState2[0],
     setForm = _useState2[1];
   // 이메일 input disabled
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState4 = _slicedToArray(_useState3, 2),
-    emaildisabled = _useState4[0],
-    setemaildisabled = _useState4[1];
+  // const [emaildisabled, setemaildisabled] = useState(false);
+
   var onChange = function onChange(e) {
     var _e$target = e.target,
       name = _e$target.name,
@@ -6254,6 +6252,12 @@ function Regist() {
     axios__WEBPACK_IMPORTED_MODULE_4__["default"].post('/regist/mail', {
       u_email: u_email
     }).then(function (response) {
+      setForm(function (prevState) {
+        return _objectSpread(_objectSpread({}, prevState), {}, {
+          // 이전 상태 복사
+          u_email: u_email // 새로운 u_email 값 설정
+        });
+      });
       console.log(response.data);
     })["catch"](function (error) {
       console.error('Error:', error);
@@ -6263,34 +6267,34 @@ function Regist() {
   var emailVerification = function emailVerification(e) {
     e.preventDefault();
     console.log(e);
-    if (form.token === '') {
+    if (form.ev_token === '') {
       alert('인증코드를 입력해주세요.');
       return false;
     }
-    setemaildisabled(function (prevState) {
-      return !prevState;
-    });
+    // setemaildisabled(prevState => !prevState);
     try {
-      // token만 전송
+      // ev_token만 전송
       var u_email = form.u_email,
-        token = form.token;
-      var response = axios__WEBPACK_IMPORTED_MODULE_4__["default"].post('/regist/mail/check', {
+        ev_token = form.ev_token;
+      axios__WEBPACK_IMPORTED_MODULE_4__["default"].post('/regist/mail/check', {
         u_email: u_email,
-        token: token
+        ev_token: ev_token
+      }).then(function (response) {
+        console.log(response.data);
+        if (response.data === 'message') {
+          setForm(function (prevState) {
+            return _objectSpread(_objectSpread({}, prevState), {}, {
+              // 이전 상태 복사
+              ev_token: ev_token
+            });
+          });
+          alert('인증이 완료되었습니다.');
+          // setemaildisabled(prevState => !prevState);
+        } else if (response.data === 'error') {}
+      })["catch"](function (error) {
+        console.error('Error:', error);
       });
-      console.log(response.data);
-      if (response.data === 'message') {
-        setForm({
-          token: token
-        });
-        alert('인증이 완료되었습니다.');
-        setemaildisabled(function (prevState) {
-          return !prevState;
-        });
-      } else if (response.data === 'error') {}
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    } catch (error) {}
   };
   // 닉네임 중복 확인
   var nickNameChk = function nickNameChk(e) {
@@ -6316,14 +6320,14 @@ function Regist() {
     e.preventDefault();
     console.log(e);
   };
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState4 = _slicedToArray(_useState3, 2),
+    minutes = _useState4[0],
+    setMinutes = _useState4[1];
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState6 = _slicedToArray(_useState5, 2),
-    minutes = _useState6[0],
-    setMinutes = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState8 = _slicedToArray(_useState7, 2),
-    seconds = _useState8[0],
-    setSeconds = _useState8[1];
+    seconds = _useState6[0],
+    setSeconds = _useState6[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var intervalId = setInterval(function () {
       if (seconds === 0) {
@@ -6366,38 +6370,38 @@ function Regist() {
   };
 
   // const [errorU_agree_flg, setErrorU_agree_flg] = useState(false);
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    errorU_email = _useState8[0],
+    setErrorU_email = _useState8[1];
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState10 = _slicedToArray(_useState9, 2),
-    errorU_email = _useState10[0],
-    setErrorU_email = _useState10[1];
+    errorU_name = _useState10[0],
+    setErrorU_name = _useState10[1];
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState12 = _slicedToArray(_useState11, 2),
-    errorU_name = _useState12[0],
-    setErrorU_name = _useState12[1];
+    errorU_nickname = _useState12[0],
+    setErrorU_nickname = _useState12[1];
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState14 = _slicedToArray(_useState13, 2),
-    errorU_nickname = _useState14[0],
-    setErrorU_nickname = _useState14[1];
+    errorU_pw = _useState14[0],
+    setErrorU_pw = _useState14[1];
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState16 = _slicedToArray(_useState15, 2),
-    errorU_pw = _useState16[0],
-    setErrorU_pw = _useState16[1];
+    errorU_pw_confirmation = _useState16[0],
+    setErrorU_pw_confirmation = _useState16[1];
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState18 = _slicedToArray(_useState17, 2),
-    errorU_pw_confirmation = _useState18[0],
-    setErrorU_pw_confirmation = _useState18[1];
+    errorU_phone_num = _useState18[0],
+    setErrorU_phone_num = _useState18[1];
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState20 = _slicedToArray(_useState19, 2),
-    errorU_phone_num = _useState20[0],
-    setErrorU_phone_num = _useState20[1];
+    errorU_email_verf = _useState20[0],
+    setErrorU_email_verf = _useState20[1];
   var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState22 = _slicedToArray(_useState21, 2),
-    errorU_email_verf = _useState22[0],
-    setErrorU_email_verf = _useState22[1];
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState24 = _slicedToArray(_useState23, 2),
-    errorU_phone_verf = _useState24[0],
-    setErrorU_phone_verf = _useState24[1];
+    errorU_phone_verf = _useState22[0],
+    setErrorU_phone_verf = _useState22[1];
   var errortxt = '에러 메세지';
   var submit = function submit(e) {
     e.preventDefault();
@@ -6487,10 +6491,9 @@ function Regist() {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "text",
             onChange: onChange,
-            name: "token",
-            value: form.token,
-            placeholder: "\uC778\uC99D\uCF54\uB4DC\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694.",
-            disabled: emaildisabled
+            name: "ev_token",
+            value: form.ev_token,
+            placeholder: "\uC778\uC99D\uCF54\uB4DC\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694."
           }), minutes !== '' && seconds !== '' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "regist-countdown-span",
             children: "".concat(minutes.toString(), ":").concat(seconds.toString().padStart(2, '0'))
@@ -6500,7 +6503,7 @@ function Regist() {
               errortxt: errortxt
             } : null
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-            type: "button",
+            type: "submit",
             className: "regist-certification",
             children: "\uCF54\uB4DC \uD655\uC778"
           })]
@@ -6640,6 +6643,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_insertbox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Components/insertbox */ "./resources/js/src/Components/insertbox.jsx");
 /* harmony import */ var _css_boardinsert_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../css/boardinsert.css */ "./public/css/boardinsert.css");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -6668,6 +6677,12 @@ var UsedProductionInsert = function UsedProductionInsert() {
     _useState2 = _slicedToArray(_useState, 2),
     form = _useState2[0],
     setForm = _useState2[1];
+  var onChange = function onChange(e) {
+    var _e$target = e.target,
+      name = _e$target.name,
+      value = _e$target.value;
+    setForm(_objectSpread(_objectSpread({}, form), {}, _defineProperty({}, name, value)));
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
     className: "usedInsert-main",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {

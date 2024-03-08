@@ -13,11 +13,11 @@ function Regist() {
 		u_pw: '',
 		u_pw_confirmation: '',
 		u_phone_num: '',
-		token: '',
+		ev_token: '',
 		u_phone_num_chk: '',
     });
 	// 이메일 input disabled
-	const [emaildisabled, setemaildisabled] = useState(false);
+	// const [emaildisabled, setemaildisabled] = useState(false);
 	
 	const onChange = (e) => {
 		const { name, value } = e.target;
@@ -44,6 +44,10 @@ function Regist() {
 		const { u_email } = form;
 		axios.post('/regist/mail', { u_email })
         .then(response => {
+			setForm(prevState => ({
+				...prevState, // 이전 상태 복사
+				u_email: u_email, // 새로운 u_email 값 설정
+			}));
             console.log(response.data);
         })
         .catch(error => {
@@ -54,28 +58,33 @@ function Regist() {
 	const emailVerification = (e) => {
 		e.preventDefault();
 		console.log(e);
-		if (form.token === '') {
+		if (form.ev_token === '') {
 			alert('인증코드를 입력해주세요.');
 			return false;
 		}
-		setemaildisabled(prevState => !prevState);
+		// setemaildisabled(prevState => !prevState);
 		try {
-			// token만 전송
-			const { u_email, token } = form;
-			const response = axios.post('/regist/mail/check', { u_email, token });
-			console.log(response.data);
-			if( response.data === 'message' ) {
-				setForm({
-					token: token,
-				});
-				alert('인증이 완료되었습니다.');
-				setemaildisabled(prevState => !prevState);
-			} else if ( response.data === 'error' ) {
-
-			}
-
+			// ev_token만 전송
+			const { u_email, ev_token } = form;
+			axios.post('/regist/mail/check', { u_email, ev_token })
+			.then(response => {
+				console.log(response.data);
+				if( response.data === 'message' ) {
+					setForm(prevState => ({
+						...prevState, // 이전 상태 복사
+						ev_token: ev_token,
+					}));
+					alert('인증이 완료되었습니다.');
+					// setemaildisabled(prevState => !prevState);
+				} else if ( response.data === 'error' ) {
+	
+				}
+			})
+			.catch(error => {
+				console.error('Error:', error);
+			})
 		} catch (error) {
-			console.error('Error:', error);
+
 		}
 	}
 	// 닉네임 중복 확인
@@ -227,12 +236,12 @@ function Regist() {
 				</div>
 				<div>
 					<form onSubmit={emailVerification} className='regist-certification-form'>
-						<input type="text" onChange={onChange} name='token' value={form.token} placeholder='인증코드를 입력해주세요.' disabled={emaildisabled} />
+						<input type="text" onChange={onChange} name='ev_token' value={form.ev_token} placeholder='인증코드를 입력해주세요.'/>
 						{ minutes !== '' && seconds !== '' && (
 						<span className='regist-countdown-span'>{`${minutes.toString()}:${seconds.toString().padStart(2, '0')}`}</span>
 						)}
 						<span className='regist-second-err'>{errorU_email_verf ? ({errortxt}) : null}</span>
-						<button type="button" className='regist-certification'>코드 확인</button>
+						<button type="submit" className='regist-certification'>코드 확인</button>
 					</form>
 				</div>
 				<div>

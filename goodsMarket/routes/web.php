@@ -22,17 +22,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/{any?}', function () {
-//     return view('welcome');
-// })->middleware(['logchk']);
+Route::get('/{any?}', function () {
+    return view('welcome');
+})->where('any', '.*');
 
-
-// Route::get('/{any?}', function () {
-//     return view('welcome');
-// })->where('any', '.*');
-
-Route::middleware(['trim','my.user.val'])->post('/regist', [UserController::class,'registration']);
-Route::middleware(['trim','my.user.val'])->post('/login', [UserController::class,'authenticate']);
+// Route::middleware(['trim','my.user.val'])->post('/regist', [UserController::class,'registration']);
+// Route::middleware(['trim','my.user.val'])->post('/login', [UserController::class,'authenticate']);
 // })->where('any', '.*');
 
 // input 값 있는 애들
@@ -47,17 +42,17 @@ Route::middleware('trim')->group(function () {
     });
     Route::post('/regist', [UserController::class, 'registration'])->middleware(['regist.val','regist.email.val','regist.sms.val']); // 가입
     Route::post('/login', [UserController::class, 'authenticate'])->middleware('login.val'); // 로그인
-    Route::get('/logout', [UserController::class, 'logout']); // 로그아웃
+    Route::patch('/logout', [UserController::class, 'logout']); // 로그아웃
     // 게시글
-    Route::get('/board', [ListController::class, 'index_ut']);
+    Route::patch('/board', [ListController::class, 'index_ut']);
     Route::prefix('/board')->group(function () {
         // 리스트 출력
         Route::prefix('/list')->group(function () {
-            Route::get('/used-trade', [ListController::class, 'index_ut']);
-            Route::get('/used-trade/{page}', [ListController::class, 'index_ut']);
+            Route::patch('/used-trade', [ListController::class, 'index_ut']);
+            Route::patch('/used-trade/{page}', [ListController::class, 'index_ut']);
         });
         // 게시글 조회, 작성, 수정, 삭제
-        Route::get('/used-trade/{id}', [UsedTradeControlloer::class, 'view_ut']);
+        Route::patch('/used-trade/{id}', [UsedTradeControlloer::class, 'view_ut']);
         // 로그인 해야함
         Route::middleware('login.chk')->group(function () {
             // 작성자 같아야 함 // 모듈에서 가저오기로 함
@@ -70,5 +65,5 @@ Route::middleware('trim')->group(function () {
     });
 });
 
-// Route::get('/board/image', [ImageUploadController::class, 'index']);
+// Route::patch('/board/image', [ImageUploadController::class, 'index']);
 // Route::post('/board/image', [ImageUploadController::class, 'store']); // 이미지 업로드

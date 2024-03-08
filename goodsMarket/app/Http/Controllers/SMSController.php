@@ -27,7 +27,7 @@ class SMSController extends Controller
         try {
             // 10분 안에 10번만 가능
 
-            $nowCompareValue = ["phone" => ValidatorList::$phone];
+            $nowCompareValue = ["u_phone_num" => ValidatorList::$phone];
 
             // 유효성 검사
             $validator = Validator::make($request->all(), $nowCompareValue);
@@ -41,7 +41,7 @@ class SMSController extends Controller
             $tenMinutesAgo = $currentTime->subMinutes(10);
 
             // 10분 전의 시간과 비교하여 몇 개인지 카운트
-            $records = PhoneVerified::where('phone', $request->phone)
+            $records = PhoneVerified::where('phone', $request->u_phone_num)
                 ->where('pv_send_time', '>=', $tenMinutesAgo)
                 ->orderByDesc('pv_send_time')
                 ->count();
@@ -56,7 +56,7 @@ class SMSController extends Controller
             $pv_token = mt_rand(100000, 999999);
             Log::debug($pv_token);
             $a = PhoneVerified::create([
-                'phone' => $request->phone,
+                'phone' => $request->u_phone_num,
                 'pv_token' => $pv_token,
             ]);
 
@@ -66,7 +66,7 @@ class SMSController extends Controller
 
             // 보낼대상과 우리 브랜드 이름(명시이름, 메세지에 안뜸)
             // 이거 국제전화라 +82 붙여야 함
-            $TO_NUMBER = '+82' . $request->phone;
+            $TO_NUMBER = '+82' . $request->u_phone_num;
             // $TO_NUMBER = "+8201091713466";
             $BRAND_NAME = "GoodsMarket";
 
@@ -127,7 +127,7 @@ class SMSController extends Controller
         try {
             // 프론트에서는 5분 안에, 백엔드에서는 제한 없음
 
-            $nowCompareValue = ["phone" => ValidatorList::$phone];
+            $nowCompareValue = ["u_phone_num" => ValidatorList::$phone];
 
             // 유효성 검사
             $validator = Validator::make($request->all(), $nowCompareValue);
@@ -141,7 +141,7 @@ class SMSController extends Controller
             $tenMinutesAgo = $currentTime->subMinutes(5);
 
             // 이메일과 토큰을 받아서 레코드에 일치하는 게 있나 체크
-            $emailVerified = PhoneVerified::where('phone', $request->phone)
+            $emailVerified = PhoneVerified::where('phone', $request->u_phone_num)
                 ->where('pv_token', $request->pv_token)
                 ->orderByDesc('pv_send_time')
                 ->first();

@@ -16,8 +16,16 @@ const UsedProductionInsert = () => {
         ut_count: '',
         ut_description: '',
         ut_refund: '',
-
     });
+
+    const onChange = (e) => {
+        const { name, value } = e.target;
+        setForm({
+            ...form,
+            [name]: value,
+        });
+    };
+    
 
     return (
         <div className='usedInsert-main'>

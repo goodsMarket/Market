@@ -5060,7 +5060,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 function InsertBox(_ref) {
   var children = _ref.children,
     props = _objectWithoutProperties(_ref, _excluded);
-  var StyledBox = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n        border-radius: 24px;\n        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;\n        max-width: 90%;\n        width: 1100px;\n        padding: 20px;\n    "])));
+  var StyledBox = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n        border-radius: 19px;\n        box-shadow: rgba(50, 50, 93, 0.2) 0px 3px 6px -1px,rgba(0, 0, 0, 0.2) 0px 1px 2px -1px;\n        border: 1px solid #c1c1c1;\n        max-width: 90%;\n        width: 1100px;\n        padding: 20px;\n        margin: 0 auto;\n    "])));
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(StyledBox, _objectSpread(_objectSpread({}, props), {}, {
     children: children
   }));
@@ -6640,6 +6640,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_insertbox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Components/insertbox */ "./resources/js/src/Components/insertbox.jsx");
 /* harmony import */ var _css_boardinsert_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../../css/boardinsert.css */ "./public/css/boardinsert.css");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -6647,10 +6654,108 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var UsedProductionInsert = function UsedProductionInsert() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      ut_title: '',
+      c_major: '',
+      c_sub: '',
+      c_detail: '',
+      ut_thumbnail: '',
+      ut_price: '',
+      ut_count: '',
+      ut_description: '',
+      ut_refund: ''
+    }),
+    _useState2 = _slicedToArray(_useState, 2),
+    form = _useState2[0],
+    setForm = _useState2[1];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
     className: "usedInsert-main",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_insertbox__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      children: "\uD14C\uC2A4\uD2B8"
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "usedInsert-section",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
+        className: "usedInsert-h3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          className: "usedInsert-essential",
+          children: "*"
+        }), "\uC0C1\uD488\uC815\uBCF4"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_Components_insertbox__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
+          className: "usedInsert-h3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            className: "usedInsert-essential",
+            children: "*"
+          }), "\uC0C1\uD488 \uC0AC\uC9C4"]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+          type: "file",
+          id: "img",
+          name: "bi_img_path[]",
+          value: form.bi_img_path,
+          className: "usedInsert-insertImg"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+          htmlFor: "img",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+            src: "/img/photo_insert.png",
+            alt: ""
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_insertbox__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "usedInsert-div-section",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
+            className: "usedInsert-h3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              className: "usedInsert-essential",
+              children: "*"
+            }), "\uC0C1\uD488\uBA85"]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            type: "text",
+            name: "ut_title",
+            value: form.ut_title,
+            className: "usedInsert-input"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_insertbox__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "usedInsert-div-section",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
+            className: "usedInsert-h3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              className: "usedInsert-essential",
+              children: "*"
+            }), "\uCE74\uD14C\uACE0\uB9AC"]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+              type: "hidden",
+              name: "c_major",
+              value: form.c_major
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+              type: "hidden",
+              name: "c_sub",
+              value: form.c_sub
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+              type: "hidden",
+              name: "c_detail",
+              value: form.c_detail
+            })]
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_insertbox__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "usedInsert-div-section",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h3", {
+            className: "usedInsert-h3",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              className: "usedInsert-essential",
+              children: "*"
+            }), "\uAC00\uACA9"]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+            type: "text",
+            name: "ut_price",
+            value: form.ut_price,
+            className: "usedInsert-input"
+          })]
+        })
+      })]
     })
   });
 };
@@ -8636,7 +8741,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".usedInsert-main {\r\n    width: 90%;\r\n    max-width: 1100px;\r\n    margin: 0 auto;\r\n}\r\n.usedInsert-section {\r\n    border: 1px solid #7A7A7A;\r\n    border-radius: 24px;\r\n    box-sizing: border-box;\r\n    width: 100%;\r\n    padding: 30px 10px;\r\n    margin: 0 auto;\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 30px;\r\n}\r\n.usedInsert-essential {\r\n    color: #98E3FB;\r\n    font-weight: border;\r\n}\r\n.usedInsert-h3 {\r\n    margin: 10px;\r\n}\r\n.usedInsert-insertImg {\r\n    display: none;\r\n}\r\n.usedInsert-input {\r\n    width: 92%;\r\n    padding: 15px;\r\n    border-radius: 13px;\r\n    border: 1px solid #3A3A3A;\r\n    align-items: center;\r\n\r\n}\r\n.usedInsert-div-section {\r\n    display: grid;\r\n    grid-template-columns: 10% 1fr;\r\n    align-items: center;\r\n    justify-items: center;\r\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

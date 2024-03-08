@@ -1,0 +1,40 @@
+.usedInsert-main {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.usedInsert-section {
+    border: 1px solid #7A7A7A;
+    border-radius: 24px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 30px 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.usedInsert-essential {
+    color: #98E3FB;
+    font-weight: border;
+}
+.usedInsert-h3 {
+    margin: 10px;
+}
+.usedInsert-insertImg {
+    display: none;
+}
+.usedInsert-input {
+    width: 92%;
+    padding: 15px;
+    border-radius: 13px;
+    border: 1px solid #3A3A3A;
+    align-items: center;
+
+}
+.usedInsert-div-section {
+    display: grid;
+    grid-template-columns: 10% 1fr;
+    align-items: center;
+    justify-items: center;
+}

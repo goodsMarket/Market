@@ -181,6 +181,7 @@ class BoardController extends Controller
     /**
      * 게시글 수정 틀
      * 
+     * 요구변수: $boardType, $boardId, $cookie, $safeData
      * @return \Illuminate\Http\JsonResponse
      */
     protected function update()

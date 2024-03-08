@@ -44,13 +44,13 @@ Route::middleware('trim')->group(function () {
     Route::post('/login', [UserController::class, 'authenticate'])->middleware('login.val'); // 로그인
     Route::patch('/logout', [UserController::class, 'logout']); // 로그아웃
     // 게시글
-    Route::patch('/board', [ListController::class, 'index_ut']);
+    Route::patch('/list', [ListController::class, 'index_ut']);
+    Route::prefix('/list')->group(function () {
+        Route::patch('/used-trade', [ListController::class, 'index_ut']);
+        Route::patch('/used-trade/{page}', [ListController::class, 'index_ut']);
+    });
     Route::prefix('/board')->group(function () {
         // 리스트 출력
-        Route::prefix('/list')->group(function () {
-            Route::patch('/used-trade', [ListController::class, 'index_ut']);
-            Route::patch('/used-trade/{page}', [ListController::class, 'index_ut']);
-        });
         // 게시글 조회, 작성, 수정, 삭제
         Route::patch('/used-trade/{id}', [UsedTradeControlloer::class, 'view_ut']);
         // 로그인 해야함

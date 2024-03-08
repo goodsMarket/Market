@@ -38,9 +38,6 @@ class UserController extends Controller
                 // 쿠키 생성
                 $cookie = Cookie::make('user_id', MyModule::myEncrypt($user->id), 60); // 이름, 값, 유효기간(분)
 
-                // 로그인 성공 후의 로직, 예를 들어 홈페이지로 리다이렉션
-                $userId = Session::get('user_id');
-
                 return response()->json(true)->withCookie($cookie);
                 // return response()->json(['messsage' => $user->id . ' logined.'])->withCookie($cookie);
             } else {
@@ -85,7 +82,7 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * [카카오키, 네이버키, 이름(필), 닉네임(필), 배경이미지, 이메일(필), 비밀번호(필), 프로필이미지, 액세스토큰, 전화번호(필), 개인고유통관번호, 이용약관동의(필)]
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      * 로그인 화면으로 이동
      */
     public function registration(Request $request)
@@ -96,7 +93,7 @@ class UserController extends Controller
         // 회원가입
         try {
             // 데이터베이스 쿼리 실행
-            User::create([
+            $user = User::create([
                 'u_name' => $request->u_name,
                 'u_nickname' => $request->u_nickname,
                 'u_email' => $request->u_email,
@@ -104,8 +101,14 @@ class UserController extends Controller
                 'u_phone_num' => $request->u_phone_num,
                 'u_agree_flg' => $request->u_agree_flg,
             ]);
+            
+            // 로그인 처리
+            Session::put('user_id' . $user->id, MyModule::myEncrypt($user->id));
 
-            return response()->json(['message' => '회원가입이 완료되었습니다.']);
+            // 쿠키 생성
+            $cookie = Cookie::make('user_id', MyModule::myEncrypt($user->id), 60); // 이름, 값, 유효기간(분)
+
+            return response()->json(['message' => '회원가입이 완료되었습니다.'])->withCookie($cookie);
         } catch (Exception $e) {
             // 예외 처리 로직
             $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();

@@ -63,7 +63,7 @@ class ImageUploadController extends Controller
                         'message' => $message,
                     ]);
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage());
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
             return response()->json(['error' => $error]);
         }
     }
@@ -92,7 +92,7 @@ class ImageUploadController extends Controller
     
             return response()->json(['message'=>'images have compressed']);
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage());
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
             return response()->json(['error' => $error]);
         }
     }

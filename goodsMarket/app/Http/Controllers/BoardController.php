@@ -76,24 +76,10 @@ class BoardController extends Controller
             
             // 출력에 변동이 있는지 없는지 // 현재 페이지 >= 안맞아떨어지기 시작하는 페이지
             $nowPage = $offset / $value[1];
-            Log::debug("{$nowPage} >= {$pages} - {$leftPages}");
             $lists[] = $nowPage >= $pages - $leftPages ? ['list'=>$list, 'leftPages'=>$leftPages] : ['list'=>$list];
         }
 
         return $lists;
-    }
-
-    /**
-     * 삭제된 리스트 출력 틀
-     * 
-     * 요구변수: $boardType, $boardPage
-     * @return array $list
-     */
-    protected function index_deleted()
-    {
-        $list = [];
-
-        return $list;
     }
 
     /**
@@ -122,7 +108,7 @@ class BoardController extends Controller
             return response()->json(['message' => $return]);
             // return $result;
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage());
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
             return response()->json(['error' => $error]);
             // return response()->json(false);
         }
@@ -186,7 +172,7 @@ class BoardController extends Controller
 
         } catch (Exception $e) {
             DB::rollBack();
-            $error = json_decode($e->getMessage());
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
             return response()->json(['error' => $error]);
             // return response()->json(false);
         }
@@ -212,7 +198,7 @@ class BoardController extends Controller
             return response()->json(['message' => '게시글이 수정되었습니다.']);
             // return response()->json(true);
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage());
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
             return response()->json(['error' => $error]);
             // return response()->json(false);
         }
@@ -242,22 +228,68 @@ class BoardController extends Controller
             return response()->json(['message' => '게시글이 삭제되었습니다.']);
             // return response()->json(true);
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage());
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
             return response()->json(['error' => $error]);
             // return response()->json(false);
         }
     }
 
     /**
+     * 삭제된 리스트 출력 틀
+     * 
+     * 요구변수: $boardType, $boardPage
+     * @return array|bool $lists = [$list]|[$list, $leftPages]
+     */
+    protected function index_deleted()
+    {
+        $list = [];
+
+        // 음수값 오면 첫페이지로
+        $this->boardPage < 1 ? $this->boardPage = 1 : '';
+
+        foreach ($this->boardType as $key => $value) {
+            // 뽑기 시작할 레코드 번수
+            $offset = ($this->boardPage - 1) * $value[1];
+
+            // 레코드 가져오기
+            $list = $value[0]::onlyTrashed()
+                ->orderByDesc('created_at')
+                ->take($value[1])
+                ->skip($offset)
+                ->get();
+
+            if(empty($list->count())){
+                return false;
+            }
+
+            // --- 페이지 묶음 출력 분기 ---
+            // 전체 레코드
+            $records = $value[0]::count();
+            
+            // 페이지 총 개수
+            $pages = ceil($records / $value[1]);
+            
+            // 몇개만 출력?
+            $leftPages = $pages % $this->boardPages;
+            
+            // 출력에 변동이 있는지 없는지 // 현재 페이지 >= 안맞아떨어지기 시작하는 페이지
+            $nowPage = $offset / $value[1];
+            $lists[] = $nowPage >= $pages - $leftPages ? ['list'=>$list, 'leftPages'=>$leftPages] : ['list'=>$list];
+        }
+
+        return $lists;
+    }
+
+    /**
      * 삭제된 게시글 개별 출력 틀
      * 
-     * 요구변수: $boardType, $viewId
+     * 요구변수: $boardType, $boardId, $cookie
      * @return \Illuminate\Http\JsonResponse
      */
     protected function view_deleted()
     {
         try {
-            $result = $this->boardType::whereNotNull('deleted_at')->find($this->boardId);
+            $result = $this->boardType::onlyTrashed()->find($this->boardId);
 
             // 작성자나 특정 유저만 열람
             UserIdModule::check($this->cookie, $result->writer_id);
@@ -270,7 +302,7 @@ class BoardController extends Controller
             return response()->json(['message' => $result]);
             // return $result;
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage());
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
             return response()->json(['error' => $error]);
             // return response()->json(false);
         }

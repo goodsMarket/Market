@@ -61,7 +61,7 @@ class EmailController extends Controller
             return response()->json(['message' => '메일을 송신하였습니다.']);
         } catch (Exception $e) {
             // return false;
-            $error = json_decode($e->getMessage());
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
             return response()->json(['error' => $error]);
         }
     }
@@ -109,7 +109,7 @@ class EmailController extends Controller
 
             return response()->json(['message' => '인증되었습니다.']);
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage());
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
             return response()->json(['error' => $error]);
         }
     }

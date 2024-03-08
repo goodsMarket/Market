@@ -110,7 +110,7 @@ class SMSController extends Controller
             // // }
             // // echo "Sent message to " . $data->getTo() . ". Balance is now " . $data->getRemainingBalance() . PHP_EOL;
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage());
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
             return response()->json(['error' => $error]);
         }
     }
@@ -158,7 +158,7 @@ class SMSController extends Controller
 
             return response()->json(['message' => '인증되었습니다.']);
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage());
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
             return response()->json(['error' => $error]);
         }
     }

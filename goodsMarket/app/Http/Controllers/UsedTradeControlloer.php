@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class UsedTradeControlloer extends BoardController
 {
+    // used_trades의 손댈곳
     private array $only = [
         'writer_id',
         'c_id',
@@ -85,5 +86,19 @@ class UsedTradeControlloer extends BoardController
         $this->cookie = $request->cookie('user_id');
 
         return $this->delete();
+    }
+    
+    /**
+     * 삭제된 게시글 개별 출력
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     */
+    public function view_deleted_ut(Request $request)
+    {
+        $this->cookie = $request->cookie('user_id');
+        $this->boardId = $request->input('id');
+
+        return $this->view_deleted();
     }
 }

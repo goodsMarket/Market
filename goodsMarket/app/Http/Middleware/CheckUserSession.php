@@ -43,7 +43,7 @@ class CheckUserSession
             // 값이 일치할 경우, 다음 미들웨어로 요청을 전달합니다.
             return $next($request);
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage());
+            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
             return response()->json(['error' => $error]);
         }
     }

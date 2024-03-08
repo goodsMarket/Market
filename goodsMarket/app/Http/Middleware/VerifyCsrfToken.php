@@ -13,6 +13,14 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         '/regist',
+        '/regist/part',
+        '/regist/mail',
+        '/regist/mail/check',
+        '/regist/sms',
+        '/regist/sms/check',
         '/login',
+        // '/logout',
+        '/board/used-trade',
+        '/board/image',
     ];
 }

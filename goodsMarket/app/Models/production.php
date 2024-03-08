@@ -4,8 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class production extends Model
+class Production extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+    
+    
+    protected $fillable = [
+        'u_id',
+        'c_id',
+        'p_title',
+        'p_start_date',
+        'p_end_date',
+        'p_schedule',
+        'p_content',
+        'p_age_limit',
+        'p_password',
+        'p_thumbnail',
+        'p_notice_agreement',
+        'p_twitter',
+        'p_instagram',
+        'p_question',
+    ];
+    
+    protected $dates = ['deleted_at']; // deleted_at 컬럼을 날짜로 취급하도록 설정
 }

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\ShippingAddress;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +16,6 @@ class ShippingAddressSeeder extends Seeder
      */
     public function run()
     {
-        //
+        ShippingAddress::factory()->count(ceil((User::count())*1.5))->create();
     }
 }

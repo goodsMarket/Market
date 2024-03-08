@@ -21,7 +21,7 @@ class TrimStrings extends Middleware
     /**
      * 좌우 공백 제거
      * 
-     * @param string 공백있는 문자열
+     * @param \Illuminate\Http\Request $request -> :string 공백있는 문자열
      * @return string 공백제거 문자열
      */
     public function handle($request, Closure $next)

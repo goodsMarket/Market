@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\UsedTrade;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +16,7 @@ class UsedTradeSeeder extends Seeder
      */
     public function run()
     {
-        //
+        // UsedTrade::factory()->count(1)->create();
+        UsedTrade::factory()->count(User::count() * 5)->create();
     }
 }

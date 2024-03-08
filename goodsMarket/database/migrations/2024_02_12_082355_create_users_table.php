@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('u_access_token', 255)->nullable();
             $table->string('u_phone_num', 20)->unique();
             $table->string('u_pccc', 50)->nullable();
-            $table->timestamp('email_verified_at')->nullable();
+            // $table->timestamp('email_verified_at')->nullable(); // 
             $table->char('u_agree_flg', 1);
             $table->timestamp('u_adult_flg')->nullable();
             $table->timestamps();

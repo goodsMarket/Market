@@ -42,7 +42,7 @@ class ProductionControlloer extends BoardController
      * 
      * @param int $id
      */
-    public function view_ut($id)
+    public function view_p($id)
     {
         $this->boardId = $id;
 
@@ -55,7 +55,7 @@ class ProductionControlloer extends BoardController
      * @param \Illuminate\Http\Request $request
      * $request에 보드 정보, 이미지 첨부 필요
      */
-    public function store_ut(Request $request)
+    public function store_p(Request $request)
     {
         // 작성할 컬럼
         $this->safeData = $request->only($this->only);
@@ -73,7 +73,7 @@ class ProductionControlloer extends BoardController
      * 
      * @param \Illuminate\Http\Request
      */
-    public function update_ut(Request $request)
+    public function update_p(Request $request)
     {
         $this->safeData = $request->only($this->only);
 
@@ -86,7 +86,7 @@ class ProductionControlloer extends BoardController
      * @param \Illuminate\Http\Request $request
      * $request = { id:int }
      */
-    public function delete_ut(Request $request)
+    public function delete_p(Request $request)
     {
         $this->boardId = $request->id;
         $this->cookie = $request->cookie('user_id');
@@ -100,7 +100,7 @@ class ProductionControlloer extends BoardController
      * @param \Illuminate\Http\Request $request
      * @param int $id
      */
-    public function view_deleted_ut(Request $request)
+    public function view_deleted_p(Request $request)
     {
         $this->cookie = $request->cookie('user_id');
         $this->boardId = $request->input('id');

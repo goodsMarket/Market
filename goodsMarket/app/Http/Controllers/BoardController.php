@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BoardImg;
 use App\Models\UsedTrade;
+use App\Modules\CallModel;
 use App\Modules\MyModule;
 use App\Modules\ImageModule;
 use App\Modules\UserIdModule;
@@ -30,9 +31,10 @@ class BoardController extends Controller
 {
     protected array|UploadedFile|null $imageFile;
     protected array|string|null $cookie;
-    protected object|array $boardType;
-    protected array $safeData; // 수정, 작성용 데이터
+    protected array $callPacakge; // 모델, 페이지당 레코드 수, 뽑을 방법(함수)
     protected bool $hasImageFile;
+    protected object $boardType;
+    protected array $safeData; // 수정, 작성용 데이터
     protected int $boardPages = 5; // 페이지 묶음: 한번에 몇 페이지 출력할지
     protected int $boardPage;
     protected int $boardId;
@@ -40,7 +42,7 @@ class BoardController extends Controller
     /**
      * 리스트 출력 틀
      * 
-     * 요구변수: $boardType, $boardPage
+     * 요구변수: $callPacakge, $boardPage
      * @return array|bool $lists = [$list]|[$list, $leftPages]
      */
     protected function index()
@@ -50,15 +52,13 @@ class BoardController extends Controller
         // 음수값 오면 첫페이지로
         $this->boardPage < 1 ? $this->boardPage = 1 : '';
 
-        foreach ($this->boardType as $key => $value) {
+        foreach ($this->callPacakge as $key => $value) {
             // 뽑기 시작할 레코드 번수
             $offset = ($this->boardPage - 1) * $value[1];
 
             // 레코드 가져오기
-            $list = $value[0]::orderByDesc('created_at')
-                ->take($value[1])
-                ->skip($offset)
-                ->get();
+            $funcName = $value[2];
+            $list = CallModel::$funcName($value, $offset);
 
             if(empty($list->count())){
                 return false;

@@ -5,6 +5,7 @@ use Database\Factories\UserFactory;
 use Database\Seeders\BankAccountSeeder;
 use Database\Seeders\BoardImgSeeder;
 use Database\Seeders\CategorySeeder;
+use Database\Seeders\ProductionSeeder;
 use Database\Seeders\ShippingAddressSeeder;
 use Database\Seeders\UsedTradeSeeder;
 use Database\Seeders\UserSeeder;
@@ -20,7 +21,8 @@ class DatabaseSeeder extends Seeder
             // ShippingAddressSeeder::class,
             // BankAccountSeeder::class,
             // UsedTradeSeeder::class,
-            // BoardImgSeeder::class,
+            ProductionSeeder::class,
+            BoardImgSeeder::class,
         ]);
     }
 }

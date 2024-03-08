@@ -34,6 +34,7 @@ class MyUsedTradeValidate
 
         // 유효성 검사
         $validator = Validator::make($request->all(), $comparableValue);
+        
         // 수정 시 유효성 검사
         if($request->method() === 'PUT'){
             // 작성자 변경 금지

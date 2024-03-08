@@ -12,12 +12,12 @@ class Production extends Model
     
     
     protected $fillable = [
-        'u_id',
+        'writer_id',
         'c_id',
         'p_title',
         'p_start_date',
         'p_end_date',
-        'p_schedule',
+        'p_schedule', // 배송예정일
         'p_content',
         'p_age_limit',
         'p_password',

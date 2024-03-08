@@ -41,6 +41,34 @@ class MyProductionValidate
         // 유효성 검사
         $validator = Validator::make($request->all(), $comparableValue);
 
+        // 수정 시 유효성 검사
+        if($request->method() === 'PUT'){
+            // 작성자 변경 금지
+            unset(
+                $comparableValue['writer_id'],
+            );
+
+            // 저장할 배열
+            $nowCompareValue = [];
+
+            // 키값 저장
+            $nowKeys = [];
+            
+            // 있는지 보고 추가
+            foreach($comparableValue as $key => $value) {
+                if($request->has($key)) {
+                    $nowCompareValue[$key] = $value;
+                    $nowKeys[] = $key;
+                }
+            }
+            
+            // 유효성 검사
+            $validator = Validator::make($request->all(), $nowCompareValue);
+        } else {
+            // 유효성 검사
+            $validator = Validator::make($request->all(), $comparableValue);
+        }
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }

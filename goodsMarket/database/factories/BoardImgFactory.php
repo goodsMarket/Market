@@ -49,8 +49,7 @@ class BoardImgFactory extends Factory
         }
 
         return [
-            // 'bi_board_flg' => rand(0),
-            'bi_board_flg' => 0,
+            'bi_board_flg' => rand(0,1),
             'board_id' => empty($missings) ? UsedTrade::inRandomOrder()->value('id') : $missings[array_rand($missings)],
             'bi_img_path' => $path . '\\' .$files[array_rand($files)],
             'created_at' => $created_at,

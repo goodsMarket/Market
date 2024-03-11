@@ -29,6 +29,8 @@ return new class extends Migration
             $table->char('p_twitter', 1)->nullable();
             $table->char('p_instagram', 1)->nullable();
             $table->string('p_question', 255)->nullable();
+            $table->unsignedInteger('p_view');
+            $table->unsignedInteger('p_like');
             $table->timestamps();
             $table->softDeletes();
         });

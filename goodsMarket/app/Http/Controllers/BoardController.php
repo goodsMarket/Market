@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BoardImg;
 use App\Models\UsedTrade;
+use App\Models\User;
 use App\Modules\CallModel;
 use App\Modules\MyModule;
 use App\Modules\ImageModule;
@@ -20,18 +21,18 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 /**
  * index(): 리스트 출력 틀
- * index_deleted(): 삭제된 리스트 출력 툴
  * view(): 게시글 하나 조회 툴
  * store(): 게시글 작성 툴
  * update(): 게시글 수정 툴
  * delete(): 게시글 삭제 툴
+ * index_deleted(): 삭제된 리스트 출력 툴
  * view_deleted(): 삭제된 게시글 하나 조회 툴
  */
 class BoardController extends Controller
 {
     protected array|UploadedFile|null $imageFile;
-    protected array|string|null $cookie;
-    protected array $callPacakge; // 모델, 페이지당 레코드 수, 뽑을 방법(함수)
+    protected array|string|null $cookie = '';
+    protected array $callPacakge = []; // 모델, 페이지당 레코드 수, 뽑을 방법(함수)
     protected bool $hasImageFile;
     protected object $boardType;
     protected array $safeData; // 수정, 작성용 데이터
@@ -40,12 +41,39 @@ class BoardController extends Controller
     protected int $boardId;
 
     /**
-     * 리스트 출력 틀
+     * 메인 출력 틀
      * 
-     * 요구변수: $callPacakge, $boardPage
+     * 요구멤버: $callPacakge, $cookie
      * @return array|bool $lists = [$list]|[$list, $leftPages]
      */
     protected function index()
+    {
+        $list = [];
+        $lists = [];
+        isset($this->cookie) ? $cookie = $this->cookie : '';
+
+        foreach ($this->callPacakge as $table => $counts) {
+            foreach ($counts as $count => $methods) {
+                foreach ($methods as $method) {
+                    // --- 레코드 가져오기 ---
+                    $callModel = new CallModel($table, $cookie);
+                    $list = $callModel->$method($count);
+                    
+                    $lists[] = empty($list->count()) ? [$method => []] : [$method => $list];
+                }
+            }
+        }
+
+        return $lists;
+    }
+
+    /**
+     * 리스트 출력 틀
+     * 
+     * 요구멤버: $callPacakge, $boardPage, $cookie
+     * @return array|bool $lists = [$list]|[$list, $leftPages]
+     */
+    protected function list()
     {
         $list = [];
 
@@ -56,27 +84,27 @@ class BoardController extends Controller
             // 뽑기 시작할 레코드 번수
             $offset = ($this->boardPage - 1) * $value[1];
 
-            // 레코드 가져오기
+            // --- 레코드 가져오기 ---
             $funcName = $value[2];
-            $list = CallModel::$funcName($value, $offset);
+            $list = CallModel::$funcName([$value[0], $value[1]], $offset);
 
-            if(empty($list->count())){
+            if (empty($list->count())) {
                 return false;
             }
 
-            // --- 페이지 묶음 출력 분기 ---
+            // --- 페이지 묶음 출력 분기 --- // 모듈로 빼놓기
             // 전체 레코드
             $records = $value[0]::count();
-            
+
             // 페이지 총 개수
             $pages = ceil($records / $value[1]);
-            
+
             // 몇개만 출력?
             $leftPages = $pages % $this->boardPages;
-            
+
             // 출력에 변동이 있는지 없는지 // 현재 페이지 >= 안맞아떨어지기 시작하는 페이지
             $nowPage = $offset / $value[1];
-            $lists[] = $nowPage >= $pages - $leftPages ? ['list'=>$list, 'leftPages'=>$leftPages] : ['list'=>$list];
+            $lists[] = $nowPage >= $pages - $leftPages ? ['list' => $list, 'leftPages' => $leftPages] : [$funcName => $list];
         }
 
         return $lists;
@@ -85,7 +113,7 @@ class BoardController extends Controller
     /**
      * 게시글 개별 출력 틀
      * 
-     * 요구변수: $boardType, $viewId
+     * 요구멤버: $boardType, $boardId
      * @return \Illuminate\Http\JsonResponse
      */
     protected function view()
@@ -117,7 +145,7 @@ class BoardController extends Controller
     /**
      * 게시글 작성 틀
      * 
-     * 요구변수: $boardType, $safeData, $hasImageFile
+     * 요구멤버: $boardType, $safeData, $hasImageFile
      * 
      * 1. 게시글 생성
      * 2. 이미지 생성
@@ -181,7 +209,7 @@ class BoardController extends Controller
     /**
      * 게시글 수정 틀
      * 
-     * 요구변수: $boardType, $boardId, $cookie, $safeData
+     * 요구멤버: $boardType, $boardId, $cookie, $safeData
      * @return \Illuminate\Http\JsonResponse
      */
     protected function update()
@@ -208,7 +236,7 @@ class BoardController extends Controller
     /**
      * 게시글 삭제 틀
      * 
-     * 요구변수: $boardType, $deleteId
+     * 요구멤버: $boardType, $deleteId
      * @return \Illuminate\Http\JsonResponse
      */
     protected function delete()
@@ -238,7 +266,7 @@ class BoardController extends Controller
     /**
      * 삭제된 리스트 출력 틀
      * 
-     * 요구변수: $boardType, $boardPage
+     * 요구멤버: $boardType, $boardPage
      * @return array|bool $lists = [$list]|[$list, $leftPages]
      */
     protected function index_deleted()
@@ -259,23 +287,23 @@ class BoardController extends Controller
                 ->skip($offset)
                 ->get();
 
-            if(empty($list->count())){
+            if (empty($list->count())) {
                 return false;
             }
 
             // --- 페이지 묶음 출력 분기 ---
             // 전체 레코드
             $records = $value[0]::count();
-            
+
             // 페이지 총 개수
             $pages = ceil($records / $value[1]);
-            
+
             // 몇개만 출력?
             $leftPages = $pages % $this->boardPages;
-            
+
             // 출력에 변동이 있는지 없는지 // 현재 페이지 >= 안맞아떨어지기 시작하는 페이지
             $nowPage = $offset / $value[1];
-            $lists[] = $nowPage >= $pages - $leftPages ? ['list'=>$list, 'leftPages'=>$leftPages] : ['list'=>$list];
+            $lists[] = $nowPage >= $pages - $leftPages ? ['list' => $list, 'leftPages' => $leftPages] : ['list' => $list];
         }
 
         return $lists;
@@ -284,7 +312,7 @@ class BoardController extends Controller
     /**
      * 삭제된 게시글 개별 출력 틀
      * 
-     * 요구변수: $boardType, $boardId, $cookie
+     * 요구멤버: $boardType, $boardId, $cookie
      * @return \Illuminate\Http\JsonResponse
      */
     protected function view_deleted()

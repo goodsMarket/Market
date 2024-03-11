@@ -34,11 +34,11 @@ class UsedTradeControlloer extends BoardController
     /**
      * 게시글 개별 출력
      * 
-     * @param int $id
+     * @param \Illuminate\Http\Request $request
      */
-    public function view_ut($id)
+    public function view_ut(Request $request)
     {
-        $this->boardId = $id;
+        $this->boardId = $request->id;
 
         return $this->view();
     }

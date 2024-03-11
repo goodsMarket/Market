@@ -45,18 +45,18 @@ Route::middleware('trim')->group(function () {
     Route::post('/login', [UserController::class, 'authenticate'])->middleware('login.val'); // 로그인
     Route::patch('/logout', [UserController::class, 'logout']); // 로그아웃
     // 리스트 출력
-    Route::patch('/list', [ListController::class, 'recent_ut']);
+    Route::patch('/list', [ListController::class, 'main_ut']);
     Route::prefix('/list')->group(function () {
-        Route::patch('/used-trade', [ListController::class, 'recent_ut']);
+        Route::patch('/used-trade', [ListController::class, 'main_ut']);
         // Route::patch('/used-trade/{page}', [ListController::class, 'recent_ut']);
-        Route::patch('/production', [ListController::class, 'recent_p']);
+        Route::patch('/production', [ListController::class, 'main_p']);
         // Route::patch('/production/{page}', [ListController::class, 'recent_p']);
     });
     // 게시글
     Route::prefix('/board')->group(function () {
         // 게시글 조회, 작성, 수정, 삭제
-        Route::patch('/used-trade/{id}', [UsedTradeControlloer::class, 'view_ut']);
-        Route::patch('/production/{id}', [ProductionControlloer::class, 'view_p']);
+        Route::patch('/used-trade', [UsedTradeControlloer::class, 'view_ut']);
+        Route::patch('/production', [ProductionControlloer::class, 'view_p']);
         // 로그인 해야함
         Route::middleware('login.chk')->group(function () {
             // 작성자 같아야 함 // 모듈에서 가저오기로 함

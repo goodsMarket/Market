@@ -96,6 +96,7 @@
     margin-top: 40px;
     font-size: 2.5rem;
     font-weight: 800;
+    text-align: center;
 }
 .regist-agreement-txt {
     margin-left: 5px;
@@ -175,4 +176,15 @@
 }
 .regist-certification:hover:disabled {
     background-color: #eaeaea;
+}
+
+
+
+/* display */
+
+.display-none {
+    display: none;
+}
+.display-grid {
+    display: grid;
 }

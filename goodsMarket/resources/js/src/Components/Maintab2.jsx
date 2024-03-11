@@ -11,7 +11,7 @@ const Maintab2 = () => {
 
         <div>
             <section >
-                <h2 className="main-author-title">
+                <h2 className="main-titles">
                     최근게시물
                 </h2>
                 <div className="maintab-second-lastboard">
@@ -20,7 +20,7 @@ const Maintab2 = () => {
                     <ProductionBox />
                     <ProductionBox />
                 </div>
-                <h2 className="main-author-title">
+                <h2 className="main-titles">
                     인기 게시글
                 </h2>
                 <div className="maintab-second-lastboard">
@@ -29,7 +29,7 @@ const Maintab2 = () => {
                     <ProductionBox />
                     <ProductionBox />
                 </div>
-                <h2 className="main-author-title">
+                <h2 className="main-titles">
                     실시간 검색 순위
                 <img src="/img/crown.png" alt="" className="maintab-second-titleimg"/>
                 </h2>

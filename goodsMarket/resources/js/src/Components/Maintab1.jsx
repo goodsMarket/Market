@@ -1,6 +1,8 @@
 
 import React, { useState } from "react";
 import Searchchart from "./Searchchart";
+import UsedProductionBox from '../Components/UsedProductionBox';
+import Event from "./Event";
 
 const Maintab1 = () => {
     
@@ -13,9 +15,57 @@ const Maintab1 = () => {
     // const lastBoardList = lists.map(item => <li key={item.id}>{item.p_title}</li>);
 
     return (
-        <div>
-            Maintab1
-            <Searchchart />
+        <div>                                      
+            <section >
+                <h2 className="main-titles">
+                    최근 본 게시물
+                </h2>
+                <div className="maintab-second-lastboard">
+                    <UsedProductionBox />
+                    <UsedProductionBox />
+                    <UsedProductionBox />
+                    <UsedProductionBox />
+                </div>
+                <h2 className="main-titles">
+                    추천순
+                </h2>
+                <div className="maintab-second-lastboard">
+                    <UsedProductionBox />
+                    <UsedProductionBox />
+                    <UsedProductionBox />
+                    <UsedProductionBox />
+                </div>
+                <h2 className="main-titles">
+                    실시간 검색 순위
+                <img src="/img/crown.png" alt="" className="maintab-second-titleimg"/>
+                </h2>
+                <div className="maintab-second-searchArea">
+                    <Searchchart />
+                </div>
+                <h2 className="main-titles">
+                    최근 게시글
+                </h2>
+                <div className="maintab-second-lastboard-eight">
+                    <UsedProductionBox />
+                    <UsedProductionBox />
+                    <UsedProductionBox />
+                    <UsedProductionBox />
+                    <UsedProductionBox />
+                    <UsedProductionBox />
+                    <UsedProductionBox />
+                    <UsedProductionBox />
+                </div>
+                <h2 className="main-titles">
+                    행사 홍보
+                </h2>
+                <div className="main-event-section">
+                    <Event />
+                    <Event />
+                    <Event />
+                    <Event />
+                </div>
+
+            </section>
         </div>
     );
 

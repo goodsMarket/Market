@@ -109,7 +109,7 @@ class BoardController extends Controller
             // return $result;
         } catch (Exception $e) {
             $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return response()->json(['errors' => $error]);
             // return response()->json(false);
         }
     }
@@ -173,7 +173,7 @@ class BoardController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return response()->json(['errors' => $error]);
             // return response()->json(false);
         }
     }
@@ -199,7 +199,7 @@ class BoardController extends Controller
             // return response()->json(true);
         } catch (Exception $e) {
             $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return response()->json(['errors' => $error]);
             // return response()->json(false);
         }
     }
@@ -229,7 +229,7 @@ class BoardController extends Controller
             // return response()->json(true);
         } catch (Exception $e) {
             $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return response()->json(['errors' => $error]);
             // return response()->json(false);
         }
     }
@@ -303,7 +303,7 @@ class BoardController extends Controller
             // return $result;
         } catch (Exception $e) {
             $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return response()->json(['errors' => $error]);
             // return response()->json(false);
         }
     }

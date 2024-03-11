@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Vonage\Client;
@@ -55,6 +56,7 @@ class SMSController extends Controller
             // 유저한테서 이메일 주소를 받고 레코드 생성
             $pv_token = mt_rand(100000, 999999);
             Log::debug($pv_token);
+            DB::beginTransaction();
             $a = PhoneVerified::create([
                 'phone' => $request->u_phone_num,
                 'pv_token' => $pv_token,
@@ -91,12 +93,14 @@ class SMSController extends Controller
                 $sms->setType('unicode');
             }
 
+
             // 전송 ---------------------------------------------------
             // $response = $client->sms()->send($sms); // 돈 없음
 
             // 상태 반환
             // $message = $response->current();
             // if ($message->getStatus() == 0) {
+            DB::commit();
             return response()->json(['message' => '문자를 송신하였습니다.']);
             // } else {
             //     throw new Exception('문자송신을 실패하였습니다.');
@@ -110,8 +114,9 @@ class SMSController extends Controller
             // // }
             // // echo "Sent message to " . $data->getTo() . ". Balance is now " . $data->getRemainingBalance() . PHP_EOL;
         } catch (Exception $e) {
+            DB::rollBack();
             $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return response()->json(['errors' => $error]);
         }
     }
 
@@ -159,7 +164,7 @@ class SMSController extends Controller
             return response()->json(['message' => '인증되었습니다.']);
         } catch (Exception $e) {
             $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return response()->json(['errors' => $error]);
         }
     }
 }

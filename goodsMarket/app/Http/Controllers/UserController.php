@@ -51,7 +51,7 @@ class UserController extends Controller
         } catch (Exception $e) {
             // 예외 처리 로직
             // return false;
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['errors' => $e->getMessage()]);
         }
         // return back()->withErrors([
         //     'email' => 'The provided credentials do not match our records.',
@@ -109,7 +109,7 @@ class UserController extends Controller
         } catch (Exception $e) {
             // 예외 처리 로직
             $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return response()->json(['errors' => $error]);
         }
     }
 
@@ -164,7 +164,7 @@ class UserController extends Controller
         } catch (Exception $e) {
             // return response()->json($e->getMessage());
             $decode = json_decode($e->getMessage());
-            return response()->json(['error' => $decode]);
+            return response()->json(['errors' => $decode]);
         }
     }
 }

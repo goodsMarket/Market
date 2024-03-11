@@ -27,7 +27,7 @@ class ListController extends BoardController
             // return $this->index();
         } catch (Exception $e) {
             $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return response()->json(['errors' => $error]);
         }
     }
 
@@ -50,7 +50,7 @@ class ListController extends BoardController
             // return $this->index();
         } catch (Exception $e) {
             $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return response()->json(['errors' => $error]);
         }
     }
 }

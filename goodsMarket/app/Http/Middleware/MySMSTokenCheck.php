@@ -46,7 +46,7 @@ class MySMSTokenCheck
             // return response()->json(['message' => '인증되었습니다.']);
             return $next($request);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['errors' => $e->getMessage()]);
         }
     }
 }

@@ -14,7 +14,8 @@
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.4",
-        "vonage/client": "^4.0"
+        "vonage/client": "^4.0",
+        "vonage/vonage-laravel": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

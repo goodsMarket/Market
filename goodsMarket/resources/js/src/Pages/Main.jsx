@@ -9,6 +9,10 @@ import { useCookies } from 'react-cookie';
 
 function Main() {
 
+	const miniTitle = {
+    	padding: '40px 30px 30px 30px',
+	};
+
 	const Box = styled.div`
     display: flex;
     flex-direction: column;
@@ -65,7 +69,7 @@ function Main() {
 			</section>
 			<section className='main-author-section'>
 				<div>
-					<h2 className='main-author-title'>금주의 인기 작가</h2>
+					<h2 className='main-titles' style={miniTitle}>금주의 인기 작가</h2>
 				</div>
 				<div className='main-author-list'>
 					<Link to='/' className='main-author-profile'>

@@ -53,7 +53,7 @@ class ImageModule
             return $firstImagePath;
         } catch (Exception $e) {
             DB::rollBack();
-            return response()->json(['message' => $e->getMessage()]);
+            return MyRes::err($e->getMessage());
         }
     }
 }

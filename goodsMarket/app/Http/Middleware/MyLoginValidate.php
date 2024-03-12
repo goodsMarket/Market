@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Modules\MyRes;
 use App\Modules\ValidatorList;
 use Closure;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class MyLoginValidate
         $validator = Validator::make($request->all(), $comparableValue);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()]);
+            return MyRes::err($validator->errors());
         }
 
         return $next($request);

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Modules\CallModel;
 use App\Modules\MyModule;
 use App\Modules\ImageModule;
+use App\Modules\MyRes;
 use App\Modules\UserIdModule;
 use Exception;
 use Illuminate\Http\Request;
@@ -138,11 +139,10 @@ class BoardController extends Controller
             // 있으면 합치기
             $return ? array_unshift($return, $result) : $return = [$result];
 
-            return response()->json(['message' => $return]);
+            return MyRes::res($return);
             // return $result;
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
             // return response()->json(false);
         }
     }
@@ -200,13 +200,12 @@ class BoardController extends Controller
 
             DB::commit();
 
-            return response()->json(["message" => "글이 작성되었습니다."]);
+            return MyRes::res("글이 작성되었습니다.");
             // return response()->json(true);
 
         } catch (Exception $e) {
             DB::rollBack();
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
             // return response()->json(false);
         }
     }
@@ -229,11 +228,10 @@ class BoardController extends Controller
             // 수정 작업
             $result->update($this->safeData);
 
-            return response()->json(['message' => '게시글이 수정되었습니다.']);
+            return MyRes::res('게시글이 수정되었습니다.');
             // return response()->json(true);
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
             // return response()->json(false);
         }
     }
@@ -259,11 +257,10 @@ class BoardController extends Controller
 
             $result->delete();
 
-            return response()->json(['message' => '게시글이 삭제되었습니다.']);
+            return MyRes::res('게시글이 삭제되었습니다.');
             // return response()->json(true);
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
             // return response()->json(false);
         }
     }
@@ -333,11 +330,10 @@ class BoardController extends Controller
                 throw new Exception('삭제하지 않은 게시글입니다.');
             }
 
-            return response()->json(['message' => $result]);
+            return MyRes::res($result);
             // return $result;
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
             // return response()->json(false);
         }
     }

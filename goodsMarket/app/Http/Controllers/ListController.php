@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Production;
 use App\Models\UsedTrade;
 use App\Modules\ArrayToParam;
+use App\Modules\MyRes;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -43,11 +44,10 @@ class ListController extends BoardController
 
             !is_null($request) ? $request->hasCookie('recent_view') ? $this->cookie = $request->cookie('recent_view') : '' : '';
 
-            return response()->json(['message' => $this->index()]);
+            return MyRes::res($this->index());
             // return $this->index();
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
         }
     }
 
@@ -66,11 +66,10 @@ class ListController extends BoardController
 
             $this->index() ? $message = $this->index() : throw new Exception('없는 페이지입니다.');
 
-            return response()->json(['message' => $message]);
+            return MyRes::res($message);
             // return $this->index();
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
         }
     }
 
@@ -89,11 +88,10 @@ class ListController extends BoardController
 
             $this->index() ? $message = $this->index() : throw new Exception('없는 페이지입니다.');
 
-            return response()->json(['message' => $message]);
+            return MyRes::res($message);
             // return $this->index();
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
         }
     }
 
@@ -112,11 +110,10 @@ class ListController extends BoardController
 
             $this->index() ? $message = $this->index() : throw new Exception('없는 페이지입니다.');
 
-            return response()->json(['message' => $message]);
+            return MyRes::res($message);
             // return $this->index();
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
         }
     }
 
@@ -134,11 +131,10 @@ class ListController extends BoardController
 
             $this->index_deleted() ? $message = $this->index_deleted() : throw new Exception('없는 페이지입니다.');
 
-            return response()->json(['message' => $message]);
+            return MyRes::res($message);
             // return $this->index();
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
         }
     }
 }

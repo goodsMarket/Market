@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Modules\MyModule;
+use App\Modules\MyRes;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,7 +71,7 @@ class MyProductionValidate
         }
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()]);
+            return MyRes::err($validator->errors());
         }
 
         return $next($request);

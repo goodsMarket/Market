@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\EmailVerify;
 use App\Models\EmailVerified;
+use App\Modules\MyRes;
 use App\Modules\ValidatorList;
 use Carbon\Carbon;
 use Exception;
@@ -57,11 +58,10 @@ class EmailController extends Controller
             Mail::to($request->u_email)->send(new EmailVerify($emailVerified));
 
             // return true;
-            return response()->json(['message' => '메일을 송신하였습니다.']);
+            return MyRes::res('메일을 송신하였습니다.');
         } catch (Exception $e) {
             // return false;
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
         }
     }
 
@@ -106,10 +106,9 @@ class EmailController extends Controller
                 throw new Exception('만료된 토큰 입니다.');
             }
 
-            return response()->json(['message' => '인증되었습니다.']);
+            return MyRes::res('인증되었습니다.');
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
         }
     }
 }

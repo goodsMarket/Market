@@ -4,6 +4,7 @@ use App\Http\Controllers\BoardController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ListController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductionControlloer;
 use App\Http\Controllers\SMSController;
 use App\Http\Controllers\UsedTradeControlloer;
@@ -42,6 +43,7 @@ Route::middleware('trim')->group(function () {
         Route::post('/sms/check', [SMSController::class, 'check']); // SMS 인증 확인
     });
     Route::post('/regist', [UserController::class, 'registration'])->middleware(['regist.val', 'regist.email.val', 'regist.sms.val']); // 가입
+    // 로그인, 로그아웃
     Route::post('/login', [UserController::class, 'authenticate'])->middleware('login.val'); // 로그인
     Route::patch('/logout', [UserController::class, 'logout']); // 로그아웃
     // 리스트 출력
@@ -59,14 +61,16 @@ Route::middleware('trim')->group(function () {
         Route::patch('/production', [ProductionControlloer::class, 'view_p']);
         // 로그인 해야함
         Route::middleware('login.chk')->group(function () {
-            // 작성자 같아야 함 // 모듈에서 가저오기로 함
-            // Route::middleware('wri.val')->group(function () {
+            // 작성자 비교는 모듈에서 가저오기로 함
             Route::post('/used-trade', [UsedTradeControlloer::class, 'store_ut'])->middleware('ut.val');// 중고 작성
             Route::post('/production', [ProductionControlloer::class, 'store_p'])->middleware('p.val');
             Route::put('/used-trade', [UsedTradeControlloer::class, 'update_ut'])->middleware('ut.val');// 중고 작성
             Route::put('/production', [ProductionControlloer::class, 'update_p'])->middleware('p.val');
             Route::delete('/used-trade', [UsedTradeControlloer::class, 'delete_ut']);
             Route::delete('/production', [ProductionControlloer::class, 'delete_p']);
+            // 결제
+            Route::post('/pay', [PaymentController::class, 'pay']);
+            
             // });
         });
     });

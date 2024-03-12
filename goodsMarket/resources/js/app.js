@@ -27,6 +27,7 @@ const App = () => {
 						<Route path="/chat" element={<Chat />}></Route>
 						<Route path="/new/used" element={<UsedProductionInsert />}></Route>
 						<Route path="/new/production" element={<ProductionInsert />}></Route>
+						<Route path="/production" element={<ProductionDetail />}></Route>
 						<Route path="/" element={<Main />}></Route>
 						<Route path="/board / [d]" element={<Main />}></Route>
 						<Route path="*" element={<Error />}></Route>

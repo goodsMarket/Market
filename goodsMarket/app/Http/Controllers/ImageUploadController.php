@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BoardImg;
 use App\Modules\ManualCompress;
+use App\Modules\MyRes;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -59,12 +60,9 @@ class ImageUploadController extends Controller
                 $message = "The post upload has succeeded";
             }
 
-                    return response()->json([
-                        'message' => $message,
-                    ]);
+            return MyRes::res($message);
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
         }
     }
 
@@ -79,21 +77,20 @@ class ImageUploadController extends Controller
             "height" => "required",
             "prefix" => "required",
         ];
-        
+
         $validator = Validator::make($request->all(), $comparableValue);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return MyRes::err($validator->errors());
         }
 
         try {
             $manualCompress = new ManualCompress($request->path); // '\\images\\samples'
-            $manualCompress->compress($request->toPath,$request->height, $request->prefix); // '\\images\\thumbnail_samples',10,'thumbnail'
-    
-            return response()->json(['message'=>'images have compressed']);
+            $manualCompress->compress($request->toPath, $request->height, $request->prefix); // '\\images\\thumbnail_samples',10,'thumbnail'
+
+            return MyRes::res('이미지가 압축되었습니다.');
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
         }
     }
 }

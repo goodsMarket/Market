@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Modules\MyModule;
+use App\Modules\MyRes;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -39,7 +40,7 @@ class UserController extends Controller
                 $cookie = Cookie::make('user_id', MyModule::myEncrypt($user->id), 60); // 이름, 값, 유효기간(분)
 
                 return response()->json(true)->withCookie($cookie);
-                // return response()->json(['messsage' => $user->id . ' logined.'])->withCookie($cookie);
+                // return MyRes::res($user->id . ' logined.', $cookie);
             } else {
                 // 인증 실패 처리
                 return response()->json(false);
@@ -48,7 +49,7 @@ class UserController extends Controller
         } catch (Exception $e) {
             // 예외 처리 로직
             // return false;
-            return response()->json(['error' => $e->getMessage()]);
+            return MyRes::err($e->getMessage());
         }
         // return back()->withErrors([
         //     'email' => 'The provided credentials do not match our records.',
@@ -72,6 +73,7 @@ class UserController extends Controller
             Session::forget('user_id' . $nowUserID);
 
             return response()->json(true)->withCookie(Cookie::forget('user_id'));
+            // return MyRes::res('로그아웃 되었습니다.', Cookie::forget('user_id'));
         } catch (Exception $e) {
             return response()->json(false);
         }
@@ -108,11 +110,10 @@ class UserController extends Controller
             // 쿠키 생성
             $cookie = Cookie::make('user_id', MyModule::myEncrypt($user->id), 60); // 이름, 값, 유효기간(분)
 
-            return response()->json(['message' => '회원가입이 완료되었습니다.'])->withCookie($cookie);
+            return MyRes::res('회원가입이 완료되었습니다.', $cookie);
         } catch (Exception $e) {
             // 예외 처리 로직
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
         }
     }
 
@@ -163,11 +164,9 @@ class UserController extends Controller
             }
 
             // 유효성 검사 후 반환
-            return response()->json(['message' => $message]);
+            return MyRes::res($message);
         } catch (Exception $e) {
-            // return response()->json($e->getMessage());
-            $decode = json_decode($e->getMessage());
-            return response()->json(['error' => $decode]);
+            return MyRes::err($e->getMessage());
         }
     }
 }

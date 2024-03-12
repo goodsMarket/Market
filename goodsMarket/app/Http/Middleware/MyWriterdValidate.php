@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Modules\MyModule;
+use App\Modules\MyRes;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -25,7 +26,7 @@ class MyWriterdValidate
         $nowUserID = MyModule::myDecrypt($cookieValue);
         // Log::debug($nowUserID);
         if ((int) $request->writer_id !== (int) $nowUserID) {
-            return response()->json(['errors' => '작성자가 일치하지 않습니다.']);
+            return MyRes::err('작성자가 일치하지 않습니다.');
         }
 
         return $next($request);

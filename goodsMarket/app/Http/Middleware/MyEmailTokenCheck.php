@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\EmailVerified;
+use App\Modules\MyRes;
 use App\Modules\ValidatorList;
 use Closure;
 use Exception;
@@ -43,11 +44,10 @@ class MyEmailTokenCheck
                 throw new Exception('이메일 토큰이 올바르지 않습니다.');
             }
 
-            // return response()->json(['message' => '인증되었습니다.']);
+            // return MyRes::res('인증되었습니다.');
             return $next($request);
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
         }
     }
 }

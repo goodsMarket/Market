@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PhoneVerified;
+use App\Modules\MyRes;
 use App\Modules\ValidatorList;
 use Carbon\Carbon;
 use Exception;
@@ -97,7 +98,7 @@ class SMSController extends Controller
             // 상태 반환
             // $message = $response->current();
             // if ($message->getStatus() == 0) {
-            return response()->json(['message' => '문자를 송신하였습니다.']);
+                return MyRes::res('문자를 송신하였습니다.');
             // } else {
             //     throw new Exception('문자송신을 실패하였습니다.');
             // }
@@ -110,8 +111,7 @@ class SMSController extends Controller
             // // }
             // // echo "Sent message to " . $data->getTo() . ". Balance is now " . $data->getRemainingBalance() . PHP_EOL;
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
         }
     }
 
@@ -156,10 +156,9 @@ class SMSController extends Controller
                 throw new Exception('만료된 토큰 입니다.');
             }
 
-            return response()->json(['message' => '인증되었습니다.']);
+            return MyRes::res('인증되었습니다.');
         } catch (Exception $e) {
-            $error = json_decode($e->getMessage()) !== null ? json_decode($e->getMessage()) : $e->getMessage();
-            return response()->json(['error' => $error]);
+            return MyRes::err($e->getMessage());
         }
     }
 }

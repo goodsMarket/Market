@@ -61,6 +61,8 @@ class ProductionFactory extends Factory
             'p_thumbnail' => '\\images\\thumbnail_samples\\' . $fileList->fileNames[$rand_img], // public/images/thumbnail_samples 중 랜덤 선택
             'p_notice_agreement' => rand(0,9) > 8 ? 1 : 0,
             'p_question' => $this->faker->text(255),
+            'p_view' => rand(0, 100),
+            'p_like' => rand(0, 1500),
             'created_at' => $created_at,
             'updated_at' => $updated_at,
             'deleted_at' => rand(0,9) < 1 ? $deleted_at : null,

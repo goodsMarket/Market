@@ -16,6 +16,6 @@ class ShippingAddressSeeder extends Seeder
      */
     public function run()
     {
-        ShippingAddress::factory()->count(ceil((User::count())*1.5))->create();
+        ShippingAddress::factory()->count(floor((User::count())*1.5))->create();
     }
 }

@@ -26,6 +26,8 @@ class Production extends Model
         'p_twitter',
         'p_instagram',
         'p_question',
+        'p_view',
+        'p_like',
     ];
     
     protected $dates = ['deleted_at']; // deleted_at 컬럼을 날짜로 취급하도록 설정

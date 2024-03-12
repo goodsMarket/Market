@@ -17,6 +17,6 @@ class BankAccountSeeder extends Seeder
     public function run()
     {
         // BankAccount::factory()->count(1)->create();
-        BankAccount::factory()->count(ceil((User::count())*2.4))->create();
+        BankAccount::factory()->count(floor((User::count())*2.4))->create();
     }
 }

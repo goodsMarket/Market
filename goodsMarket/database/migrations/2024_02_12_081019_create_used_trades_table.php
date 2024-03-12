@@ -23,8 +23,8 @@ return new class extends Migration {
             $table->char('ut_quality',1); // 품질
             $table->string('ut_description', 3000); // 설명
             $table->char('ut_refund',1)->default('0'); // 환불
-            $table->unsignedInteger('p_view');
-            $table->unsignedInteger('p_like');
+            $table->unsignedInteger('ut_view');
+            $table->unsignedInteger('ut_like');
             $table->timestamps();
             $table->softDeletes();
         });

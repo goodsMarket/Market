@@ -14,34 +14,34 @@ class ListController extends BoardController
      * 메인 페이지 중고
      * @param \Illuminate\Http\Request $request
      */
-    protected function main_ut(Request $request)
+    protected function main_ut(Request $request = null)
     {
         try {
             // 엘로퀀트 인스턴스 => [출력개수, 불러올 종류]
             $this->callPacakge = [
                 'used_trades' => [
-                    16 => [
+                    3 => [
                         'recent_view',
                         'recent',
                     ],
-                    40 => [
+                    7 => [
                         'recommand',
                         'sold_out',
                     ],
                 ],
                 'productions' => [
-                    16 => [
+                    3 => [
                         'recent_view',
                         'recent',
                     ],
-                    40 => [
+                    7 => [
                         'recommand',
                         'sold_out',
                     ],
                 ],
             ];
 
-            $request->hasCookie('recent_view') ? $this->cookie = $request->cookie('recent_view') : '';
+            !is_null($request) ? $request->hasCookie('recent_view') ? $this->cookie = $request->cookie('recent_view') : '' : '';
 
             return response()->json(['message' => $this->index()]);
             // return $this->index();

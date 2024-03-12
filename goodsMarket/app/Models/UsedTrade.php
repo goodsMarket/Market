@@ -20,6 +20,8 @@ class UsedTrade extends Model
         'ut_quality',
         'ut_description',
         'ut_refund',
+        'ut_view',
+        'ut_like',
     ];
 
     protected $dates = ['deleted_at']; // deleted_at 컬럼을 날짜로 취급하도록 설정

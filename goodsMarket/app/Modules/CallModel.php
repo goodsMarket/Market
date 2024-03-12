@@ -28,7 +28,11 @@ class CallModel
      */
     public function recent_view($limit, $offset = 0)
     {
-        $boardIds = $this->cookie;
+        if($this->cookie){
+            $boardIds = $this->cookie;
+        } else {
+            return [];
+        }
 
         return DB::table($this->table)
             ->where(function ($q) use ($boardIds) {
@@ -50,13 +54,18 @@ class CallModel
      */
     public function recommand($limit, $offset = 0)
     {
-        return DB::table($this->table)
+        $result = DB::table($this->table)
             ->orderByDesc($this->table . '.created_at')
             ->take($limit)
             ->skip(rand(1, DB::table($this->table)->count() - $limit))
             ->select($this->select)
-            ->get()
-            ->random(floor($limit / 2.5));
+            ->get();
+
+        if($result->count() > 0){
+            return $result->random(floor($limit / 2.5));
+        } else {
+            return $result;
+        }
     }
 
     /**
@@ -84,20 +93,31 @@ class CallModel
     }
 
     /**
-     * 최근 거래: 거래 완료 처리된 receipt가 있는 판매글 반환하면 될듯
+     * 최근 거래 / 최근 리뷰 
      * 
      * @param int $limit
      * @param int $offset
      */
     public function sold_out($limit, $offset = 0)
     {
-        return DB::table($this->table)
-            ->where('ut_count', 0)
+        $result = DB::table($this->table)
+            ->when($this->table === 'used_trades', function($q) {
+                return $q->where('ut_count', 0);
+            })
+            ->when($this->table === 'productions', function($q) {
+                // return $q->rightJoin('리뷰', '리뷰.p_id', $this->table.'.id')
+                // ->addSelect(리뷰.'.유저플필, .이름, .별점, .날짜, .내용'); // 리뷰뽑는거 따로해야하나
+            })
             ->orderByDesc('created_at')
             ->take($limit)
             ->skip($offset)
             ->select($this->select)
-            ->get()
-            ->random(floor($limit / 2.5));
+            ->get();
+            
+        if($result->count() > 0){
+            return $result->random(floor($limit / 2.5));
+        } else {
+            return $result;
+        }
     }
 }

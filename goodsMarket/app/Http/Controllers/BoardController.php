@@ -51,15 +51,20 @@ class BoardController extends Controller
         $list = [];
         $lists = [];
         isset($this->cookie) ? $cookie = $this->cookie : '';
-
+        
         foreach ($this->callPacakge as $table => $counts) {
             foreach ($counts as $count => $methods) {
                 foreach ($methods as $method) {
                     // --- 레코드 가져오기 ---
                     $callModel = new CallModel($table, $cookie);
                     $list = $callModel->$method($count);
-                    
-                    $lists[] = empty($list->count()) ? [$method => []] : [$method => $list];
+
+                    // 빈배열인지, 0개 반환 객체인지
+                    !empty($list) ? 
+                    !empty($list->count()) ? 
+                    $lists[$table][$method] = $list : 
+                    $lists[$table][$method] = [] : 
+                    $lists[$table][$method] = [] ;
                 }
             }
         }

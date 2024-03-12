@@ -64,6 +64,8 @@ class UsedTradeFactory extends Factory
             'ut_description' => $this->faker->text(1000),
             // 'ut_description' => Str::limit($this->faker->sentence, rand(200, 1000)),
             'ut_refund' => rand(0, 1),
+            'ut_view' => rand(0, 100),
+            'ut_like' => rand(0, 1500),
             'created_at' => $created_at,
             'updated_at' => $updated_at,
             'deleted_at' => rand(0,9) < 1 ? $deleted_at : null,

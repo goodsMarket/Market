@@ -17,6 +17,7 @@ class ColumnForList
             'p_start_date',
             'p_end_date',
             'p_thumbnail',
+            'p_view',
         ],
     ];
 }

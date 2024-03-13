@@ -4,6 +4,7 @@ import axios from 'axios';
 function ProductionDetail() {
     // 결제 테스트
     useEffect(() => {
+        // 결제 SDK 장착
         const script = document.createElement('script');
         script.src = 'https://cdn.iamport.kr/v1/iamport.js';
         script.async = true;

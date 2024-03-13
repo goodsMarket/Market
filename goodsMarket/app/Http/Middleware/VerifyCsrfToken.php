@@ -22,8 +22,8 @@ class VerifyCsrfToken extends Middleware
         '/list',
         '/list/used-trade',
         '/list/production',
-        '/board/used-trade',
-        '/board/production',
-        '/board/image',
+        // '/board/used-trade',
+        // '/board/production',
+        // '/board/image',
     ];
 }

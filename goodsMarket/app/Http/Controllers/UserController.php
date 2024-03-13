@@ -21,7 +21,7 @@ class UserController extends Controller
      * 로그인
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse 쿠키도 줌
+     * @return \Illuminate\Http\JsonResponse 쿠키, csrf도 줌
      */
     public function authenticate(Request $request)
     {
@@ -39,8 +39,8 @@ class UserController extends Controller
                 // 쿠키 생성
                 $cookie = Cookie::make('user_id', MyModule::myEncrypt($user->id), 60); // 이름, 값, 유효기간(분)
 
-                return response()->json(true)->withCookie($cookie);
-                // return MyRes::res($user->id . ' logined.', $cookie);
+                return response()->json(['csrf' => csrf_token()])->withCookie($cookie);
+                // return MyRes::csrf($user->id . ' logined.', $cookie);
             } else {
                 // 인증 실패 처리
                 return response()->json(false);

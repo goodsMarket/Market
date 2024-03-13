@@ -22,8 +22,10 @@ class VerifyCsrfToken extends Middleware
         '/list',
         '/list/used-trade',
         '/list/production',
-        // '/board/used-trade',
-        // '/board/production',
-        // '/board/image',
+        '/board/pay',
+        '/board/used-trade',
+        '/board/production',
+        '/board/image',
+        'https://cdn.portone.io/v2/browser-sdk.js',
     ];
 }

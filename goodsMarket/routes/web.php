@@ -42,7 +42,7 @@ Route::middleware('trim')->group(function () {
         Route::post('/sms', [SMSController::class, 'send']); // SMS 인증 발송
         Route::post('/sms/check', [SMSController::class, 'check']); // SMS 인증 확인
     });
-    Route::post('/regist', [UserController::class, 'registration'])->middleware(['regist.val', 'regist.email.val', 'regist.sms.val']); // 가입
+    Route::post('/regist', [UserController::class, 'registration']); // ->middleware(['regist.val', 'regist.email.val', 'regist.sms.val']); // 가입
     // 로그인, 로그아웃
     Route::post('/login', [UserController::class, 'authenticate'])->middleware('login.val'); // 로그인
     Route::patch('/logout', [UserController::class, 'logout']); // 로그아웃
@@ -61,6 +61,9 @@ Route::middleware('trim')->group(function () {
         Route::patch('/production', [ProductionControlloer::class, 'view_p']);
         // 로그인 해야함
         Route::middleware('login.chk')->group(function () {
+            // 결제
+            Route::post('/pay', [PaymentController::class, 'pay']);
+            Route::patch('/pay', [PaymentController::class, 'check']);
             // 작성자 비교는 모듈에서 가저오기로 함
             Route::post('/used-trade', [UsedTradeControlloer::class, 'store_ut'])->middleware('ut.val');// 중고 작성
             Route::post('/production', [ProductionControlloer::class, 'store_p'])->middleware('p.val');
@@ -68,10 +71,6 @@ Route::middleware('trim')->group(function () {
             Route::put('/production', [ProductionControlloer::class, 'update_p'])->middleware('p.val');
             Route::delete('/used-trade', [UsedTradeControlloer::class, 'delete_ut']);
             Route::delete('/production', [ProductionControlloer::class, 'delete_p']);
-            // 결제
-            Route::post('/pay', [PaymentController::class, 'pay']);
-            
-            // });
         });
     });
 });

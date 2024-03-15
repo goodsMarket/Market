@@ -1,51 +1,32 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
-import * as PortOne from "@portone/browser-sdk/v2";
+// import * as PortOne from "@portone/browser-sdk/v2";
+import * as Pay from '../Module/Payment';
 
 function ProductionDetail() {
-    // 결제 테스트
     useEffect(() => {
         // 결제 SDK 장착
-        // const script = document.createElement('script');
-        // script.src = 'https://cdn.portone.io/v2/browser-sdk.js';
-        // script.async = true;
-        // document.body.appendChild(script);
+        const loadScripts = async () => {
+            try {
+                await Promise.all([
+                    Pay.loadScript('https://cdn.iamport.kr/v1/iamport.js'),
+                    Pay.loadScript('https://code.jquery.com/jquery-1.12.4.min.js', 'text/javascript'),
+                    Pay.loadScript('https://cdn.iamport.kr/js/iamport.payment-1.2.0.js', 'text/javascript'),
+                ]);
+            } catch (error) {
+                console.error('Error loading scripts:', error);
+            }
+        };
 
+        loadScripts();
         return () => {
             // 언마운트 시 스크립트 제거
-            // document.body.removeChild(script);
+            Pay.removeScript();
         };
     }, []); // 여기 배열에 있는 값이 바뀌면 useEffect 다시 호출 => 없으니 시작할 때 한번만 실행
 
-    // Authorization 토큰
-    const token = 'Bearer YOUR_TOKEN';
-
-    // Axios 인스턴스 생성
-    const instance = axios.create({
-        baseURL: 'https://api.example.com',
-        headers: {
-            'Authorization': token
-        }
-    });
-
-    // 결제 모듈 형식
-    const portData = {
-        // Store ID 설정
-        storeId: 'store-9902f23f-c7a3-48d5-943b-23fb8eb28d69',
-        // 채널 키 설정
-        channelKey: 'channel-key-ff79c826-5ed4-441c-add3-71e9b51dcff3',
-        paymentId: `payment-${crypto.randomUUID()}`,
-        orderName: "나이키 와플 트레이너 2 SD",
-        totalAmount: 1000,
-        currency: "CURRENCY_KRW",
-        payMethod: "CARD",
-        // 모바일의 경우 redirect 해야한다고 함
-        // redirectUrl: `${BASE_URL}/payment-redirect`,
-    }
-
-    PortOne.requestPayment(portData);
-    
+    // 결제 호출 버튼
     const PayTest = () => {
         axios.post('/board/pay')
             .then(res => {
@@ -53,39 +34,42 @@ function ProductionDetail() {
                 return res.data.message;
             })
             .then(msg => {
-                // 결제 모듈 호출
-                // PortOne.requestPayment(portData);
+                if (confirm("구매 하시겠습니까?")) { // 구매 클릭시 한번 더 확인하기
+                    if (true) { // localStorage.getItem("access")) { // 회원만 결제 가능
+                        // 전달 데이터 수정
+                        Pay.PayForm.pg = msg.pg_name;
+                        Pay.PayForm.pay_method = msg.method, // 결제 방식 'card'
+                        // Pay.PayForm.name = msg.item_name, // 제품명
+                        // amount: 0, // 가격
+                        // //구매자 정보 ↓
+                        // buyer_email: '', // `${useremail}`
+                        // buyer_name: '', // `${username}`
+                        // // 안필요 ↓
+                        // buyer_tel : '', // '010-1234-5678'
+                        // buyer_addr : '', // '서울특별시 강남구 삼성동'
+                        // buyer_postcode : '' // '123-456'
+
+                        // 구매 요청
+                        Pay.Payment(imp, 'production');
+                    }
+                    else { // 비회원 결제 불가
+                        alert('로그인이 필요합니다!')
+                    }
+                } else { // 구매 확인 알림창 취소 클릭시 돌아가기
+                    return false;
+                }
             })
-            // .then(response => {
-            //     if (response.code != null) {
-            //         // 오류 발생
-            //         return alert(response.message);
-            //     }
-            // })
-            // .then(()=>{
-            //     // 결제 잘 됐는지 조회
-            //     axios.patch('/pay', {
-            //         paymentId: paymentId,
-            //         // 주문 정보...
-            //     })
-            //     .then(response => {
-            //         console.log(response.data);
-            //     })
-            //     .catch(error => {
-            //         console.error(error);
-            //     });
-            // })
             .catch(err => {
                 console.log(err.message);
             })
     }
 
+    // {/* Content-Security-Policy 헤더 설정 */}
+    // <meta http-equiv="Content-Security-Policy" content="script-src 'self'" />
+
     return (
         <div>
             <Helmet>
-                {/* Content-Security-Policy 헤더 설정 */}
-                <meta http-equiv="Content-Security-Policy" content="script-src 'self'" />
-
                 {/* X-XSS-Protection 헤더 설정 */}
                 <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
             </Helmet>

@@ -28,18 +28,19 @@ class CallModel
      */
     public function recent_view($limit, $offset = 0)
     {
-        if($this->cookie){
-            $boardIds = $this->cookie;
-        } else {
-            return [];
-        }
+        // if($this->cookie){
+        //     $boardIds = $this->cookie;
+        // } else {
+        //     return [];
+        // }
 
         return DB::table($this->table)
-            ->where(function ($q) use ($boardIds) {
-                foreach ($boardIds as $value) {
-                    $q->orWhere('id', $value);
-                }
-            })
+            // 쿠키 가져오면 출력할거임
+            // ->where(function ($q) use ($boardIds) {
+            //     foreach ($boardIds as $value) {
+            //         $q->orWhere('id', $value);
+            //     }
+            // })
             ->take($limit)
             ->skip($offset)
             ->select($this->select)
@@ -101,13 +102,13 @@ class CallModel
     public function sold_out($limit, $offset = 0)
     {
         $result = DB::table($this->table)
-            ->when($this->table === 'used_trades', function($q) {
-                return $q->where('ut_count', 0);
-            })
-            ->when($this->table === 'productions', function($q) {
-                // return $q->rightJoin('리뷰', '리뷰.p_id', $this->table.'.id')
-                // ->addSelect(리뷰.'.유저플필, .이름, .별점, .날짜, .내용'); // 리뷰뽑는거 따로해야하나
-            })
+            // ->when($this->table === 'used_trades', function($q) { // 얘는 구매로직 만들고 나서 출력
+            //     return $q->where('ut_count', 0);
+            // })
+            // ->when($this->table === 'productions', function($q) {
+            //     // return $q->rightJoin('리뷰', '리뷰.p_id', $this->table.'.id')
+            //     // ->addSelect(리뷰.'.유저플필, .이름, .별점, .날짜, .내용'); // 리뷰뽑는거 따로해야하나
+            // })
             ->orderByDesc('created_at')
             ->take($limit)
             ->skip($offset)

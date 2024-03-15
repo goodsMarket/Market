@@ -6,6 +6,9 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Decoders\FilePathImageDecoder;
 
 class ImageModule
 {
@@ -16,7 +19,7 @@ class ImageModule
      * @param object $post 중고, 제작
      * @param int $boardType 중고0, 제작1, 문의2
      * 
-     * @return string 최상위 이미지 주소 반환 (중고용)
+     * @return string|\Illuminate\Http\JsonResponse 최상위 이미지 주소 반환 (중고용)
      */
     public static function saveImages($images, $post, $boardType)
     {
@@ -55,5 +58,34 @@ class ImageModule
             DB::rollBack();
             return MyRes::err($e->getMessage());
         }
+    }
+
+    /**
+     * 이미지 주면 board_imgs에 저장함
+     * 
+     * @param object $post 중고, 제작
+     * @param string $firstImgPath 썸네일 주소
+     */
+    public static function saveThumb($post, $firstImgPath)
+    {
+        // 편집 드라이버 호출
+        $manager = new ImageManager(Driver::class);
+                
+        // 이미지 인스턴스
+        $image = $manager->read(public_path($firstImgPath), FilePathImageDecoder::class);
+
+        // 크기 조절
+        $image->resize(height: 300);
+
+        // 인스턴스 -> 이미지파일
+        $encoded = $image->toJpg();
+
+        // public/images/thumbnails 에따 저장
+        $compressedImage = time() . $post->id . rand(000, 999) . '.jpg';
+        $encoded->save(public_path('\\images\\thumbnails\\') . $compressedImage);
+
+        // post->thumbnail 값 바꾸고 저장
+        $post->ut_thumbnail = '\\images\\thumbnails\\' . $compressedImage;
+        $post->save();
     }
 }

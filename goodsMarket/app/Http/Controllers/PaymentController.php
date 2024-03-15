@@ -9,7 +9,12 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
     public function pay(Request $request){
+        // 뭐 주문시켰는지 뒤에서 확인
+
         $message = [
+            'pg_name' => env('PAY_PG_NAME'),
+            'method' => env('PAY_METHOD'),
+            'item_name' => '',
             'store_id' => env('PAY_STORE_ID'),
             'channel_name' => env('PAY_CHANNEL_NAME'),
             'channel_key' => env('PAY_CHANNEL_KEY'),

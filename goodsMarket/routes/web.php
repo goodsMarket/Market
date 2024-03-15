@@ -8,7 +8,9 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductionControlloer;
 use App\Http\Controllers\SMSController;
 use App\Http\Controllers\UsedTradeControlloer;
+use App\Http\Controllers\UsedTradeReceiptController;
 use App\Http\Controllers\UserController;
+use App\Models\UsedTradeReceipt;
 use App\Modules\ManualCompress;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -72,6 +74,18 @@ Route::middleware('trim')->group(function () {
             Route::delete('/used-trade', [UsedTradeControlloer::class, 'delete_ut']);
             Route::delete('/production', [ProductionControlloer::class, 'delete_p']);
         });
+    });
+    // 주문 내역
+    Route::prefix('/receipt')->group(function () {
+        // 주문
+        Route::post('/used-trade', [UsedTradeReceiptController::class, 'store_utr']);
+        Route::post('/production', [UsedTradeReceiptController::class, 'store_pr']);
+        // 주문 조회
+        Route::patch('/used-trade', [UsedTradeReceiptController::class, 'view_utr']);
+        Route::patch('/production', [UsedTradeReceiptController::class, 'view_pr']);
+        // 주문 수정
+        Route::put('/used-trade', [UsedTradeReceiptController::class, 'update_utr']);
+        Route::put('/production', [UsedTradeReceiptController::class, 'update_pr']);
     });
 });
 

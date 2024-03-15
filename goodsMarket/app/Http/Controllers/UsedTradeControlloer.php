@@ -10,19 +10,6 @@ use Illuminate\Support\Facades\Log;
 
 class UsedTradeControlloer extends BoardController
 {
-    // used_trades의 손댈곳
-    private array $only = [
-        'writer_id',
-        'c_id',
-        'ut_title',
-        'ut_thumbnail',
-        'ut_price',
-        'ut_count',
-        'ut_quality',
-        'ut_description',
-        'ut_refund',
-    ];
-
     /**
      * 적용 엘로퀀트 정의
      */
@@ -52,7 +39,7 @@ class UsedTradeControlloer extends BoardController
     public function store_ut(Request $request)
     {
         // 작성할 컬럼
-        $this->safeData = $request->only($this->only);
+        $this->safeData = $request;
 
         // 이미지관련 내용 넘겨주기
         $this->hasImageFile = $request->hasFile('images');

@@ -11,24 +11,6 @@ use Illuminate\Support\Facades\Log;
 
 class ProductionControlloer extends BoardController
 {
-    // used_trades의 손댈곳
-    private array $only = [
-        'u_id',
-        'c_id',
-        'p_title',
-        'p_start_date',
-        'p_end_date',
-        'p_schedule',
-        'p_content',
-        'p_age_limit',
-        'p_password',
-        'p_thumbnail',
-        'p_notice_agreement',
-        'p_twitter',
-        'p_instagram',
-        'p_question',
-    ];
-
     /**
      * 적용 엘로퀀트 정의
      */
@@ -58,7 +40,7 @@ class ProductionControlloer extends BoardController
     public function store_p(Request $request)
     {
         // 작성할 컬럼
-        $this->safeData = $request->only($this->only);
+        $this->safeData = $request;
 
         // 이미지관련 내용 넘겨주기
         $this->hasImageFile = $request->hasFile('images');

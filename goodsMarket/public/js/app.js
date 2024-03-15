@@ -4779,7 +4779,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var Maintab1 = function Maintab1() {
+var Maintab1 = function Maintab1(props) {
+  var data = props.data;
+  console.log(data);
+
   // [lists, setLists] = useState([
   //     {id: 1,  p_start_date: 20240218, p_end_date: 20240231, p_title:'제목'},
   //     {id: 1,  p_start_date: 20240218, p_end_date: 20240231, p_title:'제목'},
@@ -4788,7 +4791,9 @@ var Maintab1 = function Maintab1() {
   // const lastBoardList = lists.map(item => <li key={item.id}>{item.p_title}</li>);
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    children: ["Maintab1", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Searchchart__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
+    children: ["Maintab1", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+      children: "\uCD5C\uADFC \uBCF8 \uAC8C\uC2DC\uBB3C"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Searchchart__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Maintab1);
@@ -5713,6 +5718,150 @@ function Sidebar(props) {
 
 /***/ }),
 
+/***/ "./resources/js/src/Module/Payment.jsx":
+/*!*********************************************!*\
+  !*** ./resources/js/src/Module/Payment.jsx ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PayForm: () => (/* binding */ PayForm),
+/* harmony export */   Payment: () => (/* binding */ Payment),
+/* harmony export */   loadScript: () => (/* binding */ loadScript),
+/* harmony export */   makeMerchantUid: () => (/* binding */ makeMerchantUid),
+/* harmony export */   removeScript: () => (/* binding */ removeScript)
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+/**
+ * SDK 스크립트 불러오기
+ * @param {string} src 
+ * @param {string} type 
+ * @param {boolean} async 
+ * @returns {Promise}
+ */
+var loadScript = function loadScript(src) {
+  var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  var async = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  return new Promise(function (resolve, reject) {
+    var script = document.createElement('script');
+    script.async = async;
+    script.type = type;
+    script.src = src;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+};
+
+/**
+ * 스크립트 삭제 메소드
+ */
+var removeScript = function removeScript() {
+  var scripts = document.head.querySelectorAll('script');
+  while (scripts.length > 0) {
+    var script = document.head.querySelector('script');
+    document.head.removeChild(script);
+  }
+};
+
+/**
+ *  구매자 정보
+ */
+var useremail = 'goods.market.project@gmail.com';
+var username = 'GoodsMarket';
+
+/**
+ * 결제고유번호 => IMP.request_pay({merchant_uid})
+ */
+var today = new Date();
+var hours = today.getHours(); // 시
+var minutes = today.getMinutes(); // 분
+var seconds = today.getSeconds(); // 초
+var milliseconds = today.getMilliseconds();
+var makeMerchantUid = "".concat(hours) + "".concat(minutes) + "".concat(seconds) + "".concat(milliseconds);
+
+/**
+ * 결제 요구 데이터 형식
+ */
+var PayForm = {
+  pg: '',
+  // PG사 코드표에서 선택 'html5_inicis.INIpayTest'
+  pay_method: '',
+  // 결제 방식 'card'
+  merchant_uid: "IMP" + makeMerchantUid,
+  // 결제 고유 번호
+  name: '',
+  // 제품명
+  amount: 0,
+  // 가격
+  //구매자 정보 ↓
+  buyer_email: '',
+  // `${useremail}`
+  buyer_name: '',
+  // `${username}`
+  // 안필요 ↓
+  buyer_tel: '',
+  // '010-1234-5678'
+  buyer_addr: '',
+  // '서울특별시 강남구 삼성동'
+  buyer_postcode: '' // '123-456'
+};
+
+/**
+ * 결제 모듈
+ * @param {string} imp 가맹점 번호
+ * @param {string} boardType 보드타입
+*/
+
+var Payment = function Payment(imp, boardType) {
+  var IMP = window.IMP;
+  IMP.init(imp); // 가맹점 식별코드 "imp14001070"
+  IMP.request_pay(PayForm, /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(rsp) {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            // callback
+            if (rsp.success) {
+              //결제 성공시
+              console.log(rsp);
+              //결제 성공시 프로젝트 DB저장 요청
+              axios.post('/receipt/' + boardType).then(function (response) {
+                if (response.status == 200) {
+                  // DB저장 성공시
+                  alert('결제 완료!');
+                  window.location.reload();
+                } else {
+                  // 결제완료 후 DB저장 실패시
+                  alert("error:[".concat(response.status, "]\n\uACB0\uC81C\uC694\uCCAD\uC774 \uC2B9\uC778\uB41C \uACBD\uC6B0 \uAD00\uB9AC\uC790\uC5D0\uAC8C \uBB38\uC758\uBC14\uB78D\uB2C8\uB2E4."));
+                  // DB저장 실패시 status에 따라 추가적인 작업 가능성
+                }
+              })["catch"](function (error) {
+                console.log(error.stack);
+              });
+            } else if (rsp.success == false) {
+              // 결제 실패시
+              alert(rsp.error_msg);
+            }
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee);
+    }));
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
+};
+
+/***/ }),
+
 /***/ "./resources/js/src/Pages/Chat.jsx":
 /*!*****************************************!*\
   !*** ./resources/js/src/Pages/Chat.jsx ***!
@@ -5943,14 +6092,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _Components_Carousel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Components/Carousel */ "./resources/js/src/Components/Carousel.jsx");
 /* harmony import */ var _Components_Carousel__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_Components_Carousel__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Components_Maintab1__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Components/Maintab1 */ "./resources/js/src/Components/Maintab1.jsx");
 /* harmony import */ var _Components_Maintab2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Components/Maintab2 */ "./resources/js/src/Components/Maintab2.jsx");
 /* harmony import */ var _css_main_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../css/main.css */ "./public/css/main.css");
-/* harmony import */ var react_cookie__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-cookie */ "./node_modules/react-cookie/esm/index.mjs");
+/* harmony import */ var react_cookie__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-cookie */ "./node_modules/react-cookie/esm/index.mjs");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -5960,6 +6110,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
 
 
 
@@ -5991,24 +6142,87 @@ function Main() {
     id: 2,
     button: '굿즈 제작 판매'
   }];
+  var listForm = {
+    call_package: {
+      used_trades: {
+        12: ['recent_view', 'recommand']
+      },
+      productions: {
+        12: ['recent_view', 'recent']
+      }
+    }
+  };
+
+  // 스크롤 발생을 위한 감시
+  var points = document.querySelectorAll('.ajaxPoint');
+  var lastPoint = points[points.length - 1];
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(lastPoint),
+    _useState2 = _slicedToArray(_useState, 2),
+    targetElement = _useState2[0],
+    setTargetElement = _useState2[1];
+
+  // 대상 관찰 시 ajax 요청
+  function handleElementVisibility() {
+    axios__WEBPACK_IMPORTED_MODULE_7__["default"].patch('/list', listForm).then(function (res) {
+      if ('message' in res.data) {
+        return res.data.message;
+      } else {
+        console.log(res.data);
+      }
+    }).then(function (res) {
+      setusedList(res.used_trades);
+      setprodList(res.productions);
+    })["catch"](function (err) {
+      console.log(err.stack);
+    });
+  }
+
+  // 리스트 받아오기
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    usedList = _useState4[0],
+    setusedList = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState6 = _slicedToArray(_useState5, 2),
+    prodList = _useState6[0],
+    setprodList = _useState6[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!targetElement) return; // 초기에는 관찰하지 않음
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          handleElementVisibility();
+        }
+      });
+    });
+    observer.observe(targetElement);
+    return function () {
+      observer.unobserve(targetElement);
+    };
+  }, [/* 탭 누를때마다 가져오기 vs 가져오는건 F5해라 */]);
   var renderTabComponent = function renderTabComponent() {
     if (activeTab === 1) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Components_Maintab1__WEBPACK_IMPORTED_MODULE_2__["default"], {});
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Components_Maintab1__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        data: usedList
+      });
     } else if (activeTab === 2) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Components_Maintab2__WEBPACK_IMPORTED_MODULE_3__["default"], {});
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Components_Maintab2__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        data: prodList
+      });
     }
     // 다른 경우에는 null을 반환하거나 기본적으로 렌더링할 컴포넌트를 반환할 수 있습니다.
     return null;
   };
-  var _useCookies = (0,react_cookie__WEBPACK_IMPORTED_MODULE_7__.useCookies)(['user_id']),
+  var _useCookies = (0,react_cookie__WEBPACK_IMPORTED_MODULE_8__.useCookies)(['user_id']),
     _useCookies2 = _slicedToArray(_useCookies, 3),
     cookies = _useCookies2[0],
     setCookie = _useCookies2[1],
     removeCookie = _useCookies2[2];
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(TabData[0].id),
-    _useState2 = _slicedToArray(_useState, 2),
-    activeTab = _useState2[0],
-    setActiveTab = _useState2[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(TabData[0].id),
+    _useState8 = _slicedToArray(_useState7, 2),
+    activeTab = _useState8[0],
+    setActiveTab = _useState8[1];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("section", {
       className: "main-carousel",
@@ -6025,7 +6239,7 @@ function Main() {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "main-author-list",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
           to: "/",
           className: "main-author-profile",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
@@ -6034,7 +6248,7 @@ function Main() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
             children: "\uB2C9\uB124\uC784"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
           to: "/",
           className: "main-author-profile",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
@@ -6043,7 +6257,7 @@ function Main() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
             children: "\uB2C9\uB124\uC784"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
           to: "/",
           className: "main-author-profile",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
@@ -6052,7 +6266,7 @@ function Main() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
             children: "\uB2C9\uB124\uC784"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
           to: "/",
           className: "main-author-profile",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
@@ -6061,7 +6275,7 @@ function Main() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
             children: "\uB2C9\uB124\uC784"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
           to: "/",
           className: "main-author-profile",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
@@ -6070,7 +6284,7 @@ function Main() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
             children: "\uB2C9\uB124\uC784"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
           to: "/",
           className: "main-author-profile",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
@@ -6079,7 +6293,7 @@ function Main() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
             children: "\uB2C9\uB124\uC784"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
           to: "/",
           className: "main-author-profile",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
@@ -6088,7 +6302,7 @@ function Main() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
             children: "\uB2C9\uB124\uC784"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
           to: "/",
           className: "main-author-profile",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
@@ -6170,95 +6384,99 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/lib/axios.js");
 /* harmony import */ var react_helmet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-helmet */ "./node_modules/react-helmet/es/Helmet.js");
-/* harmony import */ var _portone_browser_sdk_v2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @portone/browser-sdk/v2 */ "./node_modules/@portone/browser-sdk/dist/v2.js");
+/* harmony import */ var _Module_Payment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Module/Payment */ "./resources/js/src/Module/Payment.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
 
+// import * as PortOne from "@portone/browser-sdk/v2";
 
 
 
 function ProductionDetail() {
-  // 결제 테스트
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     // 결제 SDK 장착
-    // const script = document.createElement('script');
-    // script.src = 'https://cdn.portone.io/v2/browser-sdk.js';
-    // script.async = true;
-    // document.body.appendChild(script);
-
+    var loadScripts = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return Promise.all([_Module_Payment__WEBPACK_IMPORTED_MODULE_2__.loadScript('https://cdn.iamport.kr/v1/iamport.js'), _Module_Payment__WEBPACK_IMPORTED_MODULE_2__.loadScript('https://code.jquery.com/jquery-1.12.4.min.js', 'text/javascript'), _Module_Payment__WEBPACK_IMPORTED_MODULE_2__.loadScript('https://cdn.iamport.kr/js/iamport.payment-1.2.0.js', 'text/javascript')]);
+            case 3:
+              _context.next = 8;
+              break;
+            case 5:
+              _context.prev = 5;
+              _context.t0 = _context["catch"](0);
+              console.error('Error loading scripts:', _context.t0);
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, null, [[0, 5]]);
+      }));
+      return function loadScripts() {
+        return _ref.apply(this, arguments);
+      };
+    }();
+    loadScripts();
     return function () {
       // 언마운트 시 스크립트 제거
-      // document.body.removeChild(script);
+      _Module_Payment__WEBPACK_IMPORTED_MODULE_2__.removeScript();
     };
   }, []); // 여기 배열에 있는 값이 바뀌면 useEffect 다시 호출 => 없으니 시작할 때 한번만 실행
 
-  // Authorization 토큰
-  var token = 'Bearer YOUR_TOKEN';
-
-  // Axios 인스턴스 생성
-  var instance = axios__WEBPACK_IMPORTED_MODULE_4__["default"].create({
-    baseURL: 'https://api.example.com',
-    headers: {
-      'Authorization': token
-    }
-  });
-
-  // 결제 모듈 형식
-  var portData = {
-    // Store ID 설정
-    storeId: 'store-9902f23f-c7a3-48d5-943b-23fb8eb28d69',
-    // 채널 키 설정
-    channelKey: 'channel-key-ff79c826-5ed4-441c-add3-71e9b51dcff3',
-    paymentId: "payment-".concat(crypto.randomUUID()),
-    orderName: "나이키 와플 트레이너 2 SD",
-    totalAmount: 1000,
-    currency: "CURRENCY_KRW",
-    payMethod: "CARD"
-    // 모바일의 경우 redirect 해야한다고 함
-    // redirectUrl: `${BASE_URL}/payment-redirect`,
-  };
-  _portone_browser_sdk_v2__WEBPACK_IMPORTED_MODULE_2__.requestPayment(portData);
+  // 결제 호출 버튼
   var PayTest = function PayTest() {
     axios__WEBPACK_IMPORTED_MODULE_4__["default"].post('/board/pay').then(function (res) {
       console.log(res.data.message);
       return res.data.message;
     }).then(function (msg) {
-      // 결제 모듈 호출
-      // PortOne.requestPayment(portData);
-    })
-    // .then(response => {
-    //     if (response.code != null) {
-    //         // 오류 발생
-    //         return alert(response.message);
-    //     }
-    // })
-    // .then(()=>{
-    //     // 결제 잘 됐는지 조회
-    //     axios.patch('/pay', {
-    //         paymentId: paymentId,
-    //         // 주문 정보...
-    //     })
-    //     .then(response => {
-    //         console.log(response.data);
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
-    // })
-    ["catch"](function (err) {
+      if (confirm("구매 하시겠습니까?")) {
+        // 구매 클릭시 한번 더 확인하기
+        if (true) {
+          // localStorage.getItem("access")) { // 회원만 결제 가능
+          // 전달 데이터 수정
+          _Module_Payment__WEBPACK_IMPORTED_MODULE_2__.PayForm.pg = msg.pg_name;
+          _Module_Payment__WEBPACK_IMPORTED_MODULE_2__.PayForm.pay_method = msg.method,
+          // 결제 방식 'card'
+          // Pay.PayForm.name = msg.item_name, // 제품명
+          // amount: 0, // 가격
+          // //구매자 정보 ↓
+          // buyer_email: '', // `${useremail}`
+          // buyer_name: '', // `${username}`
+          // // 안필요 ↓
+          // buyer_tel : '', // '010-1234-5678'
+          // buyer_addr : '', // '서울특별시 강남구 삼성동'
+          // buyer_postcode : '' // '123-456'
+
+          // 구매 요청
+          _Module_Payment__WEBPACK_IMPORTED_MODULE_2__.Payment(imp, 'production');
+        } else {}
+      } else {
+        // 구매 확인 알림창 취소 클릭시 돌아가기
+        return false;
+      }
+    })["catch"](function (err) {
       console.log(err.message);
     });
   };
+
+  // {/* Content-Security-Policy 헤더 설정 */}
+  // <meta http-equiv="Content-Security-Policy" content="script-src 'self'" />
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_helmet__WEBPACK_IMPORTED_MODULE_1__.Helmet, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("meta", {
-        "http-equiv": "Content-Security-Policy",
-        content: "script-src 'self'"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("meta", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_helmet__WEBPACK_IMPORTED_MODULE_1__.Helmet, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("meta", {
         "http-equiv": "X-XSS-Protection",
         content: "1; mode=block"
-      })]
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
       children: "ProductionDetail"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
@@ -46533,964 +46751,6 @@ function __classPrivateFieldIn(state, receiver) {
     if (receiver === null || (typeof receiver !== "object" && typeof receiver !== "function")) throw new TypeError("Cannot use 'in' operator on non-object");
     return typeof state === "function" ? receiver === state : state.has(receiver);
 }
-
-
-/***/ }),
-
-/***/ "./node_modules/@portone/browser-sdk/dist/v2.js":
-/*!******************************************************!*\
-  !*** ./node_modules/@portone/browser-sdk/dist/v2.js ***!
-  \******************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Entity: () => (/* binding */ index),
-/* harmony export */   IdentityVerificationError: () => (/* binding */ IdentityVerificationError),
-/* harmony export */   IssueBillingKeyAndPayError: () => (/* binding */ IssueBillingKeyAndPayError),
-/* harmony export */   IssueBillingKeyError: () => (/* binding */ IssueBillingKeyError),
-/* harmony export */   LoadIssueBillingKeyUIError: () => (/* binding */ LoadIssueBillingKeyUIError),
-/* harmony export */   LoadPaymentUIError: () => (/* binding */ LoadPaymentUIError),
-/* harmony export */   ModuleError: () => (/* binding */ ModuleError),
-/* harmony export */   PaymentError: () => (/* binding */ PaymentError),
-/* harmony export */   __INTERNAL__setPortOneSdkUrl: () => (/* binding */ setPortOneJsSdkUrl),
-/* harmony export */   "default": () => (/* binding */ PortOne),
-/* harmony export */   isIdentityVerificationError: () => (/* binding */ isIdentityVerificationError),
-/* harmony export */   isIssueBillingKeyAndPayError: () => (/* binding */ isIssueBillingKeyAndPayError),
-/* harmony export */   isIssueBillingKeyError: () => (/* binding */ isIssueBillingKeyError),
-/* harmony export */   isLoadIssueBillingKeyUIError: () => (/* binding */ isLoadIssueBillingKeyUIError),
-/* harmony export */   isLoadPaymentUIError: () => (/* binding */ isLoadPaymentUIError),
-/* harmony export */   isModuleError: () => (/* binding */ isModuleError),
-/* harmony export */   isPaymentError: () => (/* binding */ isPaymentError),
-/* harmony export */   isPortOneError: () => (/* binding */ isPortOneError),
-/* harmony export */   loadIssueBillingKeyUI: () => (/* binding */ loadIssueBillingKeyUI),
-/* harmony export */   loadPaymentUI: () => (/* binding */ loadPaymentUI),
-/* harmony export */   requestIdentityVerification: () => (/* binding */ requestIdentityVerification),
-/* harmony export */   requestIssueBillingKey: () => (/* binding */ requestIssueBillingKey),
-/* harmony export */   requestIssueBillingKeyAndPay: () => (/* binding */ requestIssueBillingKeyAndPay),
-/* harmony export */   requestPayment: () => (/* binding */ requestPayment),
-/* harmony export */   updateLoadIssueBillingKeyUIRequest: () => (/* binding */ updateLoadIssueBillingKeyUIRequest),
-/* harmony export */   updateLoadPaymentUIRequest: () => (/* binding */ updateLoadPaymentUIRequest)
-/* harmony export */ });
-var _a;
-let promise = null;
-const portone = {
-    jsSdkUrl: (_a = '/v2/browser-sdk.js') !== null && _a !== void 0 ? _a : 'https://cdn.portone.io/v2/browser-sdk.js',
-};
-function findScript() {
-    return document.querySelector(`script[src="${portone.jsSdkUrl}"]`);
-}
-function injectScript() {
-    const script = document.createElement('script');
-    script.src = portone.jsSdkUrl;
-    const headOrBody = document.head || document.body;
-    if (!headOrBody)
-        throw new Error('[PortOne] Expected document.body not to be null');
-    return headOrBody.appendChild(script);
-}
-function loadScript() {
-    if (promise != null) {
-        // SDK is already loaded
-        return promise;
-    }
-    return (promise = new Promise((resolve, reject) => {
-        if (window.PortOne) {
-            // window.PortOne is already injected by CDN
-            return resolve(window.PortOne);
-        }
-        try {
-            // window.PortOne will be injected by @portone/browser-sdk
-            const script = findScript() || injectScript();
-            script.addEventListener('load', () => {
-                // script has just loaded
-                if (window.PortOne) {
-                    // window.PortOne is successfully injected @portone/browser-sdk
-                    return resolve(window.PortOne);
-                }
-                reject(new Error('[PortOne] Failed to load window.PortOne'));
-            });
-            script.addEventListener('error', () => {
-                reject(new Error('[PortOne] Failed to load window.PortOne'));
-            });
-        }
-        catch (error) {
-            return reject(error);
-        }
-    }));
-}
-function setPortOneJsSdkUrl(url) {
-    return (portone.jsSdkUrl = url);
-}
-
-function requestIdentityVerification(request) {
-    return loadScript().then((sdk) => sdk.requestIdentityVerification(request));
-}
-
-function requestIssueBillingKeyAndPay(request) {
-    return loadScript().then((sdk) => sdk.requestIssueBillingKeyAndPay(request));
-}
-
-function requestIssueBillingKey(request) {
-    return loadScript().then((sdk) => sdk.requestIssueBillingKey(request));
-}
-
-function requestPayment(request) {
-    return loadScript().then((sdk) => sdk.requestPayment(request));
-}
-
-function loadPaymentUI(request, callbacks) {
-    return loadScript().then((sdk) => sdk.loadPaymentUI(request, callbacks));
-}
-
-function loadIssueBillingKeyUI(request, callbacks) {
-    return loadScript().then((sdk) => sdk.loadIssueBillingKeyUI(request, callbacks));
-}
-
-function updateLoadPaymentUIRequest(request) {
-    return loadScript().then((sdk) => sdk.updateLoadPaymentUIRequest(request));
-}
-
-function updateLoadIssueBillingKeyUIRequest(request) {
-    return loadScript().then((sdk) => sdk.updateLoadIssueBillingKeyUIRequest(request));
-}
-
-// 계좌이체, 가상계좌 발급시 사용되는 은행 코드
-const Bank = {
-    BANK_OF_KOREA: 'BANK_BANK_OF_KOREA',
-    KOREA_DEVELOPMENT_BANK: 'BANK_KOREA_DEVELOPMENT_BANK',
-    INDUSTRIAL_BANK_OF_KOREA: 'BANK_INDUSTRIAL_BANK_OF_KOREA',
-    KOOKMIN_BANK: 'BANK_KOOKMIN_BANK',
-    SUHYUP_BANK: 'BANK_SUHYUP_BANK',
-    EXPORT_IMPORT_BANK_OF_KOREA: 'BANK_EXPORT_IMPORT_BANK_OF_KOREA',
-    NH_NONGHYUP_BANK: 'BANK_NH_NONGHYUP_BANK',
-    LOCAL_NONGHYUP: 'BANK_LOCAL_NONGHYUP',
-    WOORI_BANK: 'BANK_WOORI_BANK',
-    SC_BANK_KOREA: 'BANK_SC_BANK_KOREA',
-    CITI_BANK_KOREA: 'BANK_CITI_BANK_KOREA',
-    DAEGU_BANK: 'BANK_DAEGU_BANK',
-    BUSAN_BANK: 'BANK_BUSAN_BANK',
-    GWANGJU_BANK: 'BANK_GWANGJU_BANK',
-    JEJU_BANK: 'BANK_JEJU_BANK',
-    JEONBUK_BANK: 'BANK_JEONBUK_BANK',
-    KYONGNAM_BANK: 'BANK_KYONGNAM_BANK',
-    KFCC: 'BANK_KFCC',
-    SHINHYUP: 'BANK_SHINHYUP',
-    SAVINGS_BANK_KOREA: 'BANK_SAVINGS_BANK_KOREA',
-    MORGAN_STANLEY_BANK: 'BANK_MORGAN_STANLEY_BANK',
-    HSBC_BANK: 'BANK_HSBC_BANK',
-    DEUTSCHE_BANK: 'BANK_DEUTSCHE_BANK',
-    JP_MORGAN_CHASE_BANK: 'BANK_JP_MORGAN_CHASE_BANK',
-    MIZUHO_BANK: 'BANK_MIZUHO_BANK',
-    MUFG_BANK: 'BANK_MUFG_BANK',
-    BANK_OF_AMERICA_BANK: 'BANK_BANK_OF_AMERICA_BANK',
-    BNP_PARIBAS_BANK: 'BANK_BNP_PARIBAS_BANK',
-    ICBC: 'BANK_ICBC',
-    BANK_OF_CHINA: 'BANK_BANK_OF_CHINA',
-    NATIONAL_FORESTRY_COOPERATIVE_FEDERATION: 'BANK_NATIONAL_FORESTRY_COOPERATIVE_FEDERATION',
-    UNITED_OVERSEAS_BANK: 'BANK_UNITED_OVERSEAS_BANK',
-    BANK_OF_COMMUNICATIONS: 'BANK_BANK_OF_COMMUNICATIONS',
-    CHINA_CONSTRUCTION_BANK: 'BANK_CHINA_CONSTRUCTION_BANK',
-    EPOST: 'BANK_EPOST',
-    KODIT: 'BANK_KODIT',
-    KIBO: 'BANK_KIBO',
-    HANA_BANK: 'BANK_HANA_BANK',
-    SHINHAN_BANK: 'BANK_SHINHAN_BANK',
-    K_BANK: 'BANK_K_BANK',
-    KAKAO_BANK: 'BANK_KAKAO_BANK',
-    TOSS_BANK: 'BANK_TOSS_BANK',
-    KCIS: 'BANK_KCIS',
-    DAISHIN_SAVINGS_BANK: 'BANK_DAISHIN_SAVINGS_BANK',
-    SBI_SAVINGS_BANK: 'BANK_SBI_SAVINGS_BANK',
-    HK_SAVINGS_BANK: 'BANK_HK_SAVINGS_BANK',
-    WELCOME_SAVINGS_BANK: 'BANK_WELCOME_SAVINGS_BANK',
-    SHINHAN_SAVINGS_BANK: 'BANK_SHINHAN_SAVINGS_BANK',
-    // 증권사
-    KYOBO_SECURITIES: 'BANK_KYOBO_SECURITIES',
-    DAISHIN_SECURITIES: 'BANK_DAISHIN_SECURITIES',
-    MERITZ_SECURITIES: 'BANK_MERITZ_SECURITIES',
-    MIRAE_ASSET_SECURITIES: 'BANK_MIRAE_ASSET_SECURITIES',
-    BOOKOOK_SECURITIES: 'BANK_BOOKOOK_SECURITIES',
-    SAMSUNG_SECURITIES: 'BANK_SAMSUNG_SECURITIES',
-    SHINYOUNG_SECURITIES: 'BANK_SHINYOUNG_SECURITIES',
-    SHINHAN_FINANCIAL_INVESTMENT: 'BANK_SHINHAN_FINANCIAL_INVESTMENT',
-    YUANTA_SECURITIES: 'BANK_YUANTA_SECURITIES',
-    EUGENE_INVESTMENT_SECURITIES: 'BANK_EUGENE_INVESTMENT_SECURITIES',
-    KAKAO_PAY_SECURITIES: 'BANK_KAKAO_PAY_SECURITIES',
-    TOSS_SECURITIES: 'BANK_TOSS_SECURITIES',
-    KOREA_FOSS_SECURITIES: 'BANK_KOREA_FOSS_SECURITIES',
-    HANA_FINANCIAL_INVESTMENT: 'BANK_HANA_FINANCIAL_INVESTMENT',
-    HI_INVESTMENT_SECURITIES: 'BANK_HI_INVESTMENT_SECURITIES',
-    KOREA_INVESTMENT_SECURITIES: 'BANK_KOREA_INVESTMENT_SECURITIES',
-    HANWHA_INVESTMENT_SECURITIES: 'BANK_HANWHA_INVESTMENT_SECURITIES',
-    HYUNDAI_MOTOR_SECURITIES: 'BANK_HYUNDAI_MOTOR_SECURITIES',
-    DB_FINANCIAL_INVESTMENT: 'BANK_DB_FINANCIAL_INVESTMENT',
-    KB_SECURITIES: 'BANK_KB_SECURITIES',
-    KTB_INVESTMENT_SECURITIES: 'BANK_KTB_INVESTMENT_SECURITIES',
-    NH_INVESTMENT_SECURITIES: 'BANK_NH_INVESTMENT_SECURITIES',
-    SK_SECURITIES: 'BANK_SK_SECURITIES',
-    SCI: 'BANK_SGI',
-    KIWOOM_SECURITIES: 'BANK_KIWOOM_SECURITIES',
-    EBEST_INVESTMENT_SECURITIES: 'BANK_EBEST_INVESTMENT_SECURITIES',
-    CAPE_INVESTMENT_CERTIFICATE: 'BANK_CAPE_INVESTMENT_CERTIFICATE', // 케이프투자증권
-};
-
-// 빌링키 발급 및 결제 수단
-const BillingKeyAndPayMethod = {
-    MOBILE: 'MOBILE', // 휴대폰
-};
-
-// 빌링키 발급 수단
-const BillingKeyMethod = {
-    CARD: 'CARD',
-    MOBILE: 'MOBILE',
-    EASY_PAY: 'EASY_PAY',
-    PAYPAL: 'PAYPAL', // 페이팔(RT)
-};
-
-// 카드 결제시 사용되는 카드사 코드
-const CardCompany = {
-    KOREA_DEVELOPMENT_BANK: 'CARD_COMPANY_KOREA_DEVELOPMENT_BANK',
-    KFCC: 'CARD_COMPANY_KFCC',
-    SHINHYUP: 'CARD_COMPANY_SHINHYUP',
-    EPOST: 'CARD_COMPANY_EPOST',
-    SAVINGS_BANK_KOREA: 'CARD_COMPANY_SAVINGS_BANK_KOREA',
-    KAKAO_BANK: 'CARD_COMPANY_KAKAO_BANK',
-    WOORI_CARD: 'CARD_COMPANY_WOORI_CARD',
-    BC_CARD: 'CARD_COMPANY_BC_CARD',
-    GWANGJU_CARD: 'CARD_COMPANY_GWANGJU_CARD',
-    SAMSUNG_CARD: 'CARD_COMPANY_SAMSUNG_CARD',
-    SHINHAN_CARD: 'CARD_COMPANY_SHINHAN_CARD',
-    HYUNDAI_CARD: 'CARD_COMPANY_HYUNDAI_CARD',
-    LOTTE_CARD: 'CARD_COMPANY_LOTTE_CARD',
-    SUHYUP_CARD: 'CARD_COMPANY_SUHYUP_CARD',
-    CITI_CARD: 'CARD_COMPANY_CITI_CARD',
-    NH_CARD: 'CARD_COMPANY_NH_CARD',
-    JEONBUK_CARD: 'CARD_COMPANY_JEONBUK_CARD',
-    JEJU_CARD: 'CARD_COMPANY_JEJU_CARD',
-    HANA_CARD: 'CARD_COMPANY_HANA_CARD',
-    KOOKMIN_CARD: 'CARD_COMPANY_KOOKMIN_CARD',
-    K_BANK: 'CARD_COMPANY_K_BANK',
-    TOSS_BANK: 'CARD_COMPANY_TOSS_BANK',
-};
-
-/**
- * 통신사 코드
- * - SKT: SK 텔레콤
- * - KT: KT
- * - LGU: LG 유플러스
- * - HELLO: CJ 헬로 모바일
- * - KCT: 티플러스
- * - SK7: SK 세븐 모바일
- */
-const Carrier = {
-    SKT: 'CARRIER_SKT',
-    KT: 'CARRIER_KT',
-    LGU: 'CARRIER_LGU',
-    HELLO: 'CARRIER_HELLO',
-    KCT: 'CARRIER_KCT',
-    SK7: 'CARRIER_SK7',
-};
-
-// 국가 유형
-// https://www.iban.com/country-codes
-const Country = {
-    AF: 'COUNTRY_AF',
-    AX: 'COUNTRY_AX',
-    AL: 'COUNTRY_AL',
-    DZ: 'COUNTRY_DZ',
-    AS: 'COUNTRY_AS',
-    AD: 'COUNTRY_AD',
-    AO: 'COUNTRY_AO',
-    AI: 'COUNTRY_AI',
-    AQ: 'COUNTRY_AQ',
-    AG: 'COUNTRY_AG',
-    AR: 'COUNTRY_AR',
-    AM: 'COUNTRY_AM',
-    AW: 'COUNTRY_AW',
-    AU: 'COUNTRY_AU',
-    AT: 'COUNTRY_AT',
-    AZ: 'COUNTRY_AZ',
-    BH: 'COUNTRY_BH',
-    BS: 'COUNTRY_BS',
-    BD: 'COUNTRY_BD',
-    BB: 'COUNTRY_BB',
-    BY: 'COUNTRY_BY',
-    BE: 'COUNTRY_BE',
-    BZ: 'COUNTRY_BZ',
-    BJ: 'COUNTRY_BJ',
-    BM: 'COUNTRY_BM',
-    BT: 'COUNTRY_BT',
-    BO: 'COUNTRY_BO',
-    BQ: 'COUNTRY_BQ',
-    BA: 'COUNTRY_BA',
-    BW: 'COUNTRY_BW',
-    BV: 'COUNTRY_BV',
-    BR: 'COUNTRY_BR',
-    IO: 'COUNTRY_IO',
-    BN: 'COUNTRY_BN',
-    BG: 'COUNTRY_BG',
-    BF: 'COUNTRY_BF',
-    BI: 'COUNTRY_BI',
-    KH: 'COUNTRY_KH',
-    CM: 'COUNTRY_CM',
-    CA: 'COUNTRY_CA',
-    CV: 'COUNTRY_CV',
-    KY: 'COUNTRY_KY',
-    CF: 'COUNTRY_CF',
-    TD: 'COUNTRY_TD',
-    CL: 'COUNTRY_CL',
-    CN: 'COUNTRY_CN',
-    CX: 'COUNTRY_CX',
-    CC: 'COUNTRY_CC',
-    CO: 'COUNTRY_CO',
-    KM: 'COUNTRY_KM',
-    CG: 'COUNTRY_CG',
-    CD: 'COUNTRY_CD',
-    CK: 'COUNTRY_CK',
-    CR: 'COUNTRY_CR',
-    CI: 'COUNTRY_CI',
-    HR: 'COUNTRY_HR',
-    CU: 'COUNTRY_CU',
-    CW: 'COUNTRY_CW',
-    CY: 'COUNTRY_CY',
-    CZ: 'COUNTRY_CZ',
-    DK: 'COUNTRY_DK',
-    DJ: 'COUNTRY_DJ',
-    DM: 'COUNTRY_DM',
-    DO: 'COUNTRY_DO',
-    EC: 'COUNTRY_EC',
-    EG: 'COUNTRY_EG',
-    SV: 'COUNTRY_SV',
-    GQ: 'COUNTRY_GQ',
-    ER: 'COUNTRY_ER',
-    EE: 'COUNTRY_EE',
-    ET: 'COUNTRY_ET',
-    FK: 'COUNTRY_FK',
-    FO: 'COUNTRY_FO',
-    FJ: 'COUNTRY_FJ',
-    FI: 'COUNTRY_FI',
-    FR: 'COUNTRY_FR',
-    GF: 'COUNTRY_GF',
-    PF: 'COUNTRY_PF',
-    TF: 'COUNTRY_TF',
-    GA: 'COUNTRY_GA',
-    GM: 'COUNTRY_GM',
-    GE: 'COUNTRY_GE',
-    DE: 'COUNTRY_DE',
-    GH: 'COUNTRY_GH',
-    GI: 'COUNTRY_GI',
-    GR: 'COUNTRY_GR',
-    GL: 'COUNTRY_GL',
-    GD: 'COUNTRY_GD',
-    GP: 'COUNTRY_GP',
-    GU: 'COUNTRY_GU',
-    GT: 'COUNTRY_GT',
-    GG: 'COUNTRY_GG',
-    GN: 'COUNTRY_GN',
-    GW: 'COUNTRY_GW',
-    GY: 'COUNTRY_GY',
-    HT: 'COUNTRY_HT',
-    HM: 'COUNTRY_HM',
-    VA: 'COUNTRY_VA',
-    HN: 'COUNTRY_HN',
-    HK: 'COUNTRY_HK',
-    HU: 'COUNTRY_HU',
-    IS: 'COUNTRY_IS',
-    IN: 'COUNTRY_IN',
-    ID: 'COUNTRY_ID',
-    IR: 'COUNTRY_IR',
-    IQ: 'COUNTRY_IQ',
-    IE: 'COUNTRY_IE',
-    IM: 'COUNTRY_IM',
-    IL: 'COUNTRY_IL',
-    IT: 'COUNTRY_IT',
-    JM: 'COUNTRY_JM',
-    JP: 'COUNTRY_JP',
-    JE: 'COUNTRY_JE',
-    JO: 'COUNTRY_JO',
-    KZ: 'COUNTRY_KZ',
-    KE: 'COUNTRY_KE',
-    KI: 'COUNTRY_KI',
-    KP: 'COUNTRY_KP',
-    KR: 'COUNTRY_KR',
-    KW: 'COUNTRY_KW',
-    KG: 'COUNTRY_KG',
-    LA: 'COUNTRY_LA',
-    LV: 'COUNTRY_LV',
-    LB: 'COUNTRY_LB',
-    LS: 'COUNTRY_LS',
-    LR: 'COUNTRY_LR',
-    LY: 'COUNTRY_LY',
-    LI: 'COUNTRY_LI',
-    LT: 'COUNTRY_LT',
-    LU: 'COUNTRY_LU',
-    MO: 'COUNTRY_MO',
-    MK: 'COUNTRY_MK',
-    MG: 'COUNTRY_MG',
-    MW: 'COUNTRY_MW',
-    MY: 'COUNTRY_MY',
-    MV: 'COUNTRY_MV',
-    ML: 'COUNTRY_ML',
-    MT: 'COUNTRY_MT',
-    MH: 'COUNTRY_MH',
-    MQ: 'COUNTRY_MQ',
-    MR: 'COUNTRY_MR',
-    MU: 'COUNTRY_MU',
-    YT: 'COUNTRY_YT',
-    MX: 'COUNTRY_MX',
-    FM: 'COUNTRY_FM',
-    MD: 'COUNTRY_MD',
-    MC: 'COUNTRY_MC',
-    MN: 'COUNTRY_MN',
-    ME: 'COUNTRY_ME',
-    MS: 'COUNTRY_MS',
-    MA: 'COUNTRY_MA',
-    MZ: 'COUNTRY_MZ',
-    MM: 'COUNTRY_MM',
-    NA: 'COUNTRY_NA',
-    NR: 'COUNTRY_NR',
-    NP: 'COUNTRY_NP',
-    NL: 'COUNTRY_NL',
-    NC: 'COUNTRY_NC',
-    NZ: 'COUNTRY_NZ',
-    NI: 'COUNTRY_NI',
-    NE: 'COUNTRY_NE',
-    NG: 'COUNTRY_NG',
-    NU: 'COUNTRY_NU',
-    NF: 'COUNTRY_NF',
-    MP: 'COUNTRY_MP',
-    NO: 'COUNTRY_NO',
-    OM: 'COUNTRY_OM',
-    PK: 'COUNTRY_PK',
-    PW: 'COUNTRY_PW',
-    PS: 'COUNTRY_PS',
-    PA: 'COUNTRY_PA',
-    PG: 'COUNTRY_PG',
-    PY: 'COUNTRY_PY',
-    PE: 'COUNTRY_PE',
-    PH: 'COUNTRY_PH',
-    PN: 'COUNTRY_PN',
-    PL: 'COUNTRY_PL',
-    PT: 'COUNTRY_PT',
-    PR: 'COUNTRY_PR',
-    QA: 'COUNTRY_QA',
-    RE: 'COUNTRY_RE',
-    RO: 'COUNTRY_RO',
-    RU: 'COUNTRY_RU',
-    RW: 'COUNTRY_RW',
-    BL: 'COUNTRY_BL',
-    SH: 'COUNTRY_SH',
-    KN: 'COUNTRY_KN',
-    LC: 'COUNTRY_LC',
-    MF: 'COUNTRY_MF',
-    PM: 'COUNTRY_PM',
-    VC: 'COUNTRY_VC',
-    WS: 'COUNTRY_WS',
-    SM: 'COUNTRY_SM',
-    ST: 'COUNTRY_ST',
-    SA: 'COUNTRY_SA',
-    SN: 'COUNTRY_SN',
-    RS: 'COUNTRY_RS',
-    SC: 'COUNTRY_SC',
-    SL: 'COUNTRY_SL',
-    SG: 'COUNTRY_SG',
-    SX: 'COUNTRY_SX',
-    SK: 'COUNTRY_SK',
-    SI: 'COUNTRY_SI',
-    SB: 'COUNTRY_SB',
-    SO: 'COUNTRY_SO',
-    ZA: 'COUNTRY_ZA',
-    GS: 'COUNTRY_GS',
-    SS: 'COUNTRY_SS',
-    ES: 'COUNTRY_ES',
-    LK: 'COUNTRY_LK',
-    SD: 'COUNTRY_SD',
-    SR: 'COUNTRY_SR',
-    SJ: 'COUNTRY_SJ',
-    SZ: 'COUNTRY_SZ',
-    SE: 'COUNTRY_SE',
-    CH: 'COUNTRY_CH',
-    SY: 'COUNTRY_SY',
-    TW: 'COUNTRY_TW',
-    TJ: 'COUNTRY_TJ',
-    TZ: 'COUNTRY_TZ',
-    TH: 'COUNTRY_TH',
-    TL: 'COUNTRY_TL',
-    TG: 'COUNTRY_TG',
-    TK: 'COUNTRY_TK',
-    TO: 'COUNTRY_TO',
-    TT: 'COUNTRY_TT',
-    TN: 'COUNTRY_TN',
-    TR: 'COUNTRY_TR',
-    TM: 'COUNTRY_TM',
-    TC: 'COUNTRY_TC',
-    TV: 'COUNTRY_TV',
-    UG: 'COUNTRY_UG',
-    UA: 'COUNTRY_UA',
-    AE: 'COUNTRY_AE',
-    GB: 'COUNTRY_GB',
-    US: 'COUNTRY_US',
-    UM: 'COUNTRY_UM',
-    UY: 'COUNTRY_UY',
-    UZ: 'COUNTRY_UZ',
-    VU: 'COUNTRY_VU',
-    VE: 'COUNTRY_VE',
-    VN: 'COUNTRY_VN',
-    VG: 'COUNTRY_VG',
-    VI: 'COUNTRY_VI',
-    WF: 'COUNTRY_WF',
-    EH: 'COUNTRY_EH',
-    YE: 'COUNTRY_YE',
-    ZM: 'COUNTRY_ZM',
-    ZW: 'COUNTRY_ZW', // Zimbabwe
-};
-
-// 결제 통화
-const Currency = {
-    KRW: 'CURRENCY_KRW',
-    USD: 'CURRENCY_USD',
-    EUR: 'CURRENCY_EUR',
-    JPY: 'CURRENCY_JPY',
-    CNY: 'CURRENCY_CNY',
-    VND: 'CURRENCY_VND',
-    THB: 'CURRENCY_THB',
-    SGD: 'CURRENCY_SGD',
-    AUD: 'CURRENCY_AUD',
-    HKD: 'CURRENCY_HKD',
-    AED: 'CURRENCY_AED',
-    AFN: 'CURRENCY_AFN',
-    ALL: 'CURRENCY_ALL',
-    AMD: 'CURRENCY_AMD',
-    ANG: 'CURRENCY_ANG',
-    AOA: 'CURRENCY_AOA',
-    ARS: 'CURRENCY_ARS',
-    AWG: 'CURRENCY_AWG',
-    AZN: 'CURRENCY_AZN',
-    BAM: 'CURRENCY_BAM',
-    BBD: 'CURRENCY_BBD',
-    BDT: 'CURRENCY_BDT',
-    BGN: 'CURRENCY_BGN',
-    BHD: 'CURRENCY_BHD',
-    BIF: 'CURRENCY_BIF',
-    BMD: 'CURRENCY_BMD',
-    BND: 'CURRENCY_BND',
-    BOB: 'CURRENCY_BOB',
-    BOV: 'CURRENCY_BOV',
-    BRL: 'CURRENCY_BRL',
-    BSD: 'CURRENCY_BSD',
-    BTN: 'CURRENCY_BTN',
-    BWP: 'CURRENCY_BWP',
-    BYN: 'CURRENCY_BYN',
-    BZD: 'CURRENCY_BZD',
-    CAD: 'CURRENCY_CAD',
-    CDF: 'CURRENCY_CDF',
-    CHE: 'CURRENCY_CHE',
-    CHF: 'CURRENCY_CHF',
-    CHW: 'CURRENCY_CHW',
-    CLF: 'CURRENCY_CLF',
-    CLP: 'CURRENCY_CLP',
-    COP: 'CURRENCY_COP',
-    COU: 'CURRENCY_COU',
-    CRC: 'CURRENCY_CRC',
-    CUC: 'CURRENCY_CUC',
-    CUP: 'CURRENCY_CUP',
-    CVE: 'CURRENCY_CVE',
-    CZK: 'CURRENCY_CZK',
-    DJF: 'CURRENCY_DJF',
-    DKK: 'CURRENCY_DKK',
-    DOP: 'CURRENCY_DOP',
-    DZD: 'CURRENCY_DZD',
-    EGP: 'CURRENCY_EGP',
-    ERN: 'CURRENCY_ERN',
-    ETB: 'CURRENCY_ETB',
-    FJD: 'CURRENCY_FJD',
-    FKP: 'CURRENCY_FKP',
-    GBP: 'CURRENCY_GBP',
-    GEL: 'CURRENCY_GEL',
-    GHS: 'CURRENCY_GHS',
-    GIP: 'CURRENCY_GIP',
-    GMD: 'CURRENCY_GMD',
-    GNF: 'CURRENCY_GNF',
-    GTQ: 'CURRENCY_GTQ',
-    GYD: 'CURRENCY_GYD',
-    HNL: 'CURRENCY_HNL',
-    HRK: 'CURRENCY_HRK',
-    HTG: 'CURRENCY_HTG',
-    HUF: 'CURRENCY_HUF',
-    IDR: 'CURRENCY_IDR',
-    ILS: 'CURRENCY_ILS',
-    INR: 'CURRENCY_INR',
-    IQD: 'CURRENCY_IQD',
-    IRR: 'CURRENCY_IRR',
-    ISK: 'CURRENCY_ISK',
-    JMD: 'CURRENCY_JMD',
-    JOD: 'CURRENCY_JOD',
-    KES: 'CURRENCY_KES',
-    KGS: 'CURRENCY_KGS',
-    KHR: 'CURRENCY_KHR',
-    KMF: 'CURRENCY_KMF',
-    KPW: 'CURRENCY_KPW',
-    KWD: 'CURRENCY_KWD',
-    KYD: 'CURRENCY_KYD',
-    KZT: 'CURRENCY_KZT',
-    LAK: 'CURRENCY_LAK',
-    LBP: 'CURRENCY_LBP',
-    LKR: 'CURRENCY_LKR',
-    LRD: 'CURRENCY_LRD',
-    LSL: 'CURRENCY_LSL',
-    LYD: 'CURRENCY_LYD',
-    MAD: 'CURRENCY_MAD',
-    MDL: 'CURRENCY_MDL',
-    MGA: 'CURRENCY_MGA',
-    MKD: 'CURRENCY_MKD',
-    MMK: 'CURRENCY_MMK',
-    MNT: 'CURRENCY_MNT',
-    MOP: 'CURRENCY_MOP',
-    MRU: 'CURRENCY_MRU',
-    MUR: 'CURRENCY_MUR',
-    MVR: 'CURRENCY_MVR',
-    MWK: 'CURRENCY_MWK',
-    MXN: 'CURRENCY_MXN',
-    MXV: 'CURRENCY_MXV',
-    MZN: 'CURRENCY_MZN',
-    NAD: 'CURRENCY_NAD',
-    NGN: 'CURRENCY_NGN',
-    NIO: 'CURRENCY_NIO',
-    NOK: 'CURRENCY_NOK',
-    NPR: 'CURRENCY_NPR',
-    NZD: 'CURRENCY_NZD',
-    OMR: 'CURRENCY_OMR',
-    PAB: 'CURRENCY_PAB',
-    PEN: 'CURRENCY_PEN',
-    PGK: 'CURRENCY_PGK',
-    PHP: 'CURRENCY_PHP',
-    PKR: 'CURRENCY_PKR',
-    PLN: 'CURRENCY_PLN',
-    PYG: 'CURRENCY_PYG',
-    QAR: 'CURRENCY_QAR',
-    RON: 'CURRENCY_RON',
-    RSD: 'CURRENCY_RSD',
-    RUB: 'CURRENCY_RUB',
-    RWF: 'CURRENCY_RWF',
-    SAR: 'CURRENCY_SAR',
-    SBD: 'CURRENCY_SBD',
-    SCR: 'CURRENCY_SCR',
-    SDG: 'CURRENCY_SDG',
-    SEK: 'CURRENCY_SEK',
-    SHP: 'CURRENCY_SHP',
-    SLE: 'CURRENCY_SLE',
-    SLL: 'CURRENCY_SLL',
-    SOS: 'CURRENCY_SOS',
-    SRD: 'CURRENCY_SRD',
-    SSP: 'CURRENCY_SSP',
-    STN: 'CURRENCY_STN',
-    SVC: 'CURRENCY_SVC',
-    SYP: 'CURRENCY_SYP',
-    SZL: 'CURRENCY_SZL',
-    TJS: 'CURRENCY_TJS',
-    TMT: 'CURRENCY_TMT',
-    TND: 'CURRENCY_TND',
-    TOP: 'CURRENCY_TOP',
-    TRY: 'CURRENCY_TRY',
-    TTD: 'CURRENCY_TTD',
-    TWD: 'CURRENCY_TWD',
-    TZS: 'CURRENCY_TZS',
-    UAH: 'CURRENCY_UAH',
-    UGX: 'CURRENCY_UGX',
-    USN: 'CURRENCY_USN',
-    UYI: 'CURRENCY_UYI',
-    UYU: 'CURRENCY_UYU',
-    UYW: 'CURRENCY_UYW',
-    UZS: 'CURRENCY_UZS',
-    VED: 'CURRENCY_VED',
-    VES: 'CURRENCY_VES',
-    VUV: 'CURRENCY_VUV',
-    WST: 'CURRENCY_WST',
-    XAF: 'CURRENCY_XAF',
-    XAG: 'CURRENCY_XAG',
-    XAU: 'CURRENCY_XAU',
-    XBA: 'CURRENCY_XBA',
-    XBB: 'CURRENCY_XBB',
-    XBC: 'CURRENCY_XBC',
-    XBD: 'CURRENCY_XBD',
-    XCD: 'CURRENCY_XCD',
-    XDR: 'CURRENCY_XDR',
-    XOF: 'CURRENCY_XOF',
-    XPD: 'CURRENCY_XPD',
-    XPF: 'CURRENCY_XPF',
-    XPT: 'CURRENCY_XPT',
-    XSU: 'CURRENCY_XSU',
-    XTS: 'CURRENCY_XTS',
-    XUA: 'CURRENCY_XUA',
-    XXX: 'CURRENCY_XXX',
-    YER: 'CURRENCY_YER',
-    ZAR: 'CURRENCY_ZAR',
-    ZMW: 'CURRENCY_ZMW',
-    ZWL: 'CURRENCY_ZWL',
-};
-
-// 간편 결제 유형
-const EasyPayProvider = {
-    PAYCO: 'EASY_PAY_PROVIDER_PAYCO',
-    SAMSUNGPAY: 'EASY_PAY_PROVIDER_SAMSUNGPAY',
-    SSGPAY: 'EASY_PAY_PROVIDER_SSGPAY',
-    KAKAOPAY: 'EASY_PAY_PROVIDER_KAKAOPAY',
-    NAVERPAY: 'EASY_PAY_PROVIDER_NAVERPAY',
-    CHAI: 'EASY_PAY_PROVIDER_CHAI',
-    LPAY: 'EASY_PAY_PROVIDER_LPAY',
-    KPAY: 'EASY_PAY_PROVIDER_KPAY',
-    TOSSPAY: 'EASY_PAY_PROVIDER_TOSSPAY',
-    LGPAY: 'EASY_PAY_PROVIDER_LGPAY',
-    APPLEPAY: 'EASY_PAY_PROVIDER_APPLEPAY',
-    PINPAY: 'EASY_PAY_PROVIDER_PINPAY',
-    SKPAY: 'EASY_PAY_PROVIDER_SKPAY',
-    TOSS_BRANDPAY: 'EASY_PAY_PROVIDER_TOSS_BRANDPAY',
-};
-
-// 구매자 성별
-const Gender = {
-    MALE: 'GENDER_MALE',
-    FEMALE: 'GENDER_FEMALE',
-    OTHER: 'GENDER_OTHER',
-};
-
-// 상품권 유형
-const GiftCertificateType = {
-    BOOKNLIFE: 'GIFT_CERTIFICATE_TYPE_BOOKNLIFE',
-    SMART_MUNSANG: 'GIFT_CERTIFICATE_TYPE_SMART_MUNSANG',
-    CULTURELAND: 'GIFT_CERTIFICATE_TYPE_CULTURELAND',
-    HAPPYMONEY: 'GIFT_CERTIFICATE_TYPE_HAPPYMONEY',
-    CULTURE_GIFT: 'GIFT_CERTIFICATE_TYPE_CULTURE_GIFT',
-};
-
-// PG사 창 언어 설정
-const Locale = {
-    KO_KR: 'KO_KR',
-    EN_US: 'EN_US',
-    ZH_CN: 'ZH_CN', // 중국어
-};
-
-// PG사
-const PgProvider = {
-    HTML5_INICIS: 'PG_PROVIDER_HTML5_INICIS',
-    PAYPAL: 'PG_PROVIDER_PAYPAL',
-    INICIS: 'PG_PROVIDER_INICIS',
-    DANAL: 'PG_PROVIDER_DANAL',
-    NICE: 'PG_PROVIDER_NICE',
-    DANAL_TPAY: 'PG_PROVIDER_DANAL_TPAY',
-    JTNET: 'PG_PROVIDER_JTNET',
-    UPLUS: 'PG_PROVIDER_UPLUS',
-    NAVERPAY: 'PG_PROVIDER_NAVERPAY',
-    KAKAO: 'PG_PROVIDER_KAKAO',
-    SETTLE: 'PG_PROVIDER_SETTLE',
-    KCP: 'PG_PROVIDER_KCP',
-    MOBILIANS: 'PG_PROVIDER_MOBILIANS',
-    KAKAOPAY: 'PG_PROVIDER_KAKAOPAY',
-    NAVERCO: 'PG_PROVIDER_NAVERCO',
-    SYRUP: 'PG_PROVIDER_SYRUP',
-    KICC: 'PG_PROVIDER_KICC',
-    EXIMBAY: 'PG_PROVIDER_EXIMBAY',
-    SMILEPAY: 'PG_PROVIDER_SMILEPAY',
-    PAYCO: 'PG_PROVIDER_PAYCO',
-    KCP_BILLING: 'PG_PROVIDER_KCP_BILLING',
-    ALIPAY: 'PG_PROVIDER_ALIPAY',
-    PAYPLE: 'PG_PROVIDER_PAYPLE',
-    CHAI: 'PG_PROVIDER_CHAI',
-    BLUEWALNUT: 'PG_PROVIDER_BLUEWALNUT',
-    SMARTRO: 'PG_PROVIDER_SMARTRO',
-    PAYMENTWALL: 'PG_PROVIDER_PAYMENTWALL',
-    TOSSPAYMENTS: 'PG_PROVIDER_TOSSPAYMENTS',
-    KCP_QUICK: 'PG_PROVIDER_KCP_QUICK',
-    DAOU: 'PG_PROVIDER_DAOU',
-    GALAXIA: 'PG_PROVIDER_GALAXIA',
-    TOSSPAY: 'PG_PROVIDER_TOSSPAY',
-    KCP_DIRECT: 'PG_PROVIDER_KCP_DIRECT',
-    SETTLE_ACC: 'PG_PROVIDER_SETTLE_ACC',
-    SETTLE_FIRM: 'PG_PROVIDER_SETTLE_FIRM',
-    INICIS_UNIFIED: 'PG_PROVIDER_INICIS_UNIFIED',
-    KSNET: 'PG_PROVIDER_KSNET',
-    PAYPAL_V2: 'PG_PROVIDER_PAYPAL_V2',
-    SMARTRO_V2: 'PG_PROVIDER_SMARTRO_V2',
-    NICE_V2: 'PG_PROVIDER_NICE_V2',
-    TOSS_BRANDPAY: 'PG_PROVIDER_TOSS_BRANDPAY',
-    WELCOME: 'PG_PROVIDER_WELCOME',
-    TOSSPAY_V2: 'PG_PROVIDER_TOSSPAY_V2',
-};
-
-/**
- * 트랜잭션 유형
- * - PAYMENT: 결제
- * - ISSUE_BILLING_KEY: 빌링키 발급
- * - IDENTITY_VERIFICATION: 본인 인증
- * - ISSUE_BILLING_KEY_AND_PAY: 빌링키 발급과 동시에 결제
- */
-const TransactionType = {
-    PAYMENT: 'PAYMENT',
-    ISSUE_BILLING_KEY: 'ISSUE_BILLING_KEY',
-    IDENTITY_VERIFICATION: 'IDENTITY_VERIFICATION',
-    ISSUE_BILLING_KEY_AND_PAY: 'ISSUE_BILLING_KEY_AND_PAY',
-};
-
-/**
- * PG사 창 렌더링 방식
- * PG사나 결제 환경에 따라 허용되는 창 종류가 다름
- */
-const WindowType = {
-    IFRAME: 'IFRAME',
-    POPUP: 'POPUP',
-    REDIRECTION: 'REDIRECTION',
-    UI: 'UI',
-};
-
-const PaymentUIType = {
-    PAYPAL_SPB: 'PAYPAL_SPB',
-};
-
-const IssueBillingKeyUIType = {
-    PAYPAL_RT: 'PAYPAL_RT',
-};
-
-var index = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    Bank: Bank,
-    BillingKeyAndPayMethod: BillingKeyAndPayMethod,
-    BillingKeyMethod: BillingKeyMethod,
-    CardCompany: CardCompany,
-    Carrier: Carrier,
-    Country: Country,
-    Currency: Currency,
-    EasyPayProvider: EasyPayProvider,
-    Gender: Gender,
-    GiftCertificateType: GiftCertificateType,
-    IssueBillingKeyUIType: IssueBillingKeyUIType,
-    Locale: Locale,
-    PaymentUIType: PaymentUIType,
-    PgProvider: PgProvider,
-    TransactionType: TransactionType,
-    WindowType: WindowType
-});
-
-function isIdentityVerificationError(error) {
-    return (isPortOneError(error) &&
-        error.__portOneErrorType === 'IdentityVerificationError');
-}
-class IdentityVerificationError extends Error {
-    constructor({ code, message, identityVerificationId, identityVerificationTxId, }) {
-        super(message);
-        this.__portOneErrorType = 'IdentityVerificationError';
-        this.transactionType = TransactionType.IDENTITY_VERIFICATION;
-        this.code = code;
-        this.message = message;
-        this.identityVerificationId = identityVerificationId;
-        this.identityVerificationTxId = identityVerificationTxId;
-    }
-}
-
-function isIssueBillingKeyAndPayError(error) {
-    return (isPortOneError(error) &&
-        error.__portOneErrorType === 'IssueBillingKeyAndPayError');
-}
-class IssueBillingKeyAndPayError extends Error {
-    constructor({ txId, paymentId, billingKey, code, message, }) {
-        super(message);
-        this.__portOneErrorType = 'IssueBillingKeyAndPayError';
-        this.transactionType = TransactionType.ISSUE_BILLING_KEY_AND_PAY;
-        this.txId = txId;
-        this.paymentId = paymentId;
-        this.billingKey = billingKey;
-        this.code = code;
-        this.message = message;
-    }
-}
-
-function isIssueBillingKeyError(error) {
-    return (isPortOneError(error) && error.__portOneErrorType === 'IssueBillingKeyError');
-}
-class IssueBillingKeyError extends Error {
-    constructor({ code, message, billingKey, }) {
-        super(message);
-        this.__portOneErrorType = 'IssueBillingKeyError';
-        this.transactionType = TransactionType.ISSUE_BILLING_KEY;
-        this.code = code;
-        this.message = message;
-        this.billingKey = billingKey;
-    }
-}
-
-function isModuleError(error) {
-    return isPortOneError(error) && error.__portOneErrorType === 'ModuleError';
-}
-class ModuleError extends Error {
-    constructor({ code, message }) {
-        super(message);
-        this.__portOneErrorType = 'ModuleError';
-        this.code = code;
-        this.message = message;
-    }
-}
-
-function isPaymentError(error) {
-    return isPortOneError(error) && error.__portOneErrorType === 'PaymentError';
-}
-class PaymentError extends Error {
-    constructor({ code, message, txId, paymentId, }) {
-        super(message);
-        this.__portOneErrorType = 'PaymentError';
-        this.transactionType = TransactionType.PAYMENT;
-        this.code = code;
-        this.message = message;
-        this.txId = txId;
-        this.paymentId = paymentId;
-    }
-}
-
-function isLoadIssueBillingKeyUIError(error) {
-    return (isPortOneError(error) &&
-        error.__portOneErrorType === 'LoadIssueBillingKeyUIError');
-}
-class LoadIssueBillingKeyUIError extends Error {
-    constructor({ code, message, }) {
-        super(message);
-        this.__portOneErrorType = 'LoadIssueBillingKeyUIError';
-        this.transactionType = TransactionType.ISSUE_BILLING_KEY;
-        this.code = code;
-        this.message = message;
-    }
-}
-
-function isLoadPaymentUIError(error) {
-    return (isPortOneError(error) && error.__portOneErrorType === 'LoadPaymentUIError');
-}
-class LoadPaymentUIError extends Error {
-    constructor({ code, message, }) {
-        super(message);
-        this.__portOneErrorType = 'LoadPaymentUIError';
-        this.transactionType = TransactionType.PAYMENT;
-        this.code = code;
-        this.message = message;
-    }
-}
-
-function isPortOneError(error) {
-    return (error != null &&
-        typeof error === 'object' &&
-        '__portOneErrorType' in error &&
-        typeof error.__portOneErrorType === 'string');
-}
-
-const PortOne = {
-    requestIdentityVerification,
-    requestIssueBillingKeyAndPay,
-    requestIssueBillingKey,
-    requestPayment,
-    loadPaymentUI,
-    loadIssueBillingKeyUI,
-    updateLoadPaymentUIRequest,
-    updateLoadIssueBillingKeyUIRequest,
-};
-
-
 
 
 /***/ }),

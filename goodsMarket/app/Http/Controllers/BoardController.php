@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BoardImg;
-use App\Models\UsedTrade;
-use App\Models\User;
 use App\Modules\CallModel;
-use App\Modules\MyModule;
 use App\Modules\ImageModule;
 use App\Modules\MyRes;
 use App\Modules\UserIdModule;
@@ -15,10 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-use Intervention\Image;
-use Intervention\Image\Decoders\FilePathImageDecoder;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
 
 /**
  * index(): 리스트 출력 틀
@@ -33,10 +26,10 @@ class BoardController extends Controller
 {
     protected array|UploadedFile|null $imageFile;
     protected array|string|null $cookie = '';
-    protected array $callPacakge = []; // 모델, 페이지당 레코드 수, 뽑을 방법(함수)
+    protected array $callPackage = []; // 모델, 페이지당 레코드 수, 뽑을 방법(함수)
     protected bool $hasImageFile;
     protected object $boardType;
-    protected array $safeData; // 수정, 작성용 데이터
+    protected Request $safeData; // 수정, 작성용 데이터
     protected int $boardPages = 5; // 페이지 묶음: 한번에 몇 페이지 출력할지
     protected int $boardPage;
     protected int $boardId;
@@ -44,7 +37,7 @@ class BoardController extends Controller
     /**
      * 메인 출력 틀
      * 
-     * 요구멤버: $callPacakge, $cookie
+     * 요구멤버: $callPackage, $cookie
      * @return array|bool $lists = [$list]|[$list, $leftPages]
      */
     protected function index()
@@ -53,7 +46,7 @@ class BoardController extends Controller
         $lists = [];
         isset($this->cookie) ? $cookie = $this->cookie : '';
         
-        foreach ($this->callPacakge as $table => $counts) {
+        foreach ($this->callPackage as $table => $counts) {
             foreach ($counts as $count => $methods) {
                 foreach ($methods as $method) {
                     // --- 레코드 가져오기 ---
@@ -76,7 +69,7 @@ class BoardController extends Controller
     /**
      * 리스트 출력 틀
      * 
-     * 요구멤버: $callPacakge, $boardPage, $cookie
+     * 요구멤버: $callPackage, $boardPage, $cookie
      * @return array|bool $lists = [$list]|[$list, $leftPages]
      */
     protected function list()
@@ -86,7 +79,7 @@ class BoardController extends Controller
         // 음수값 오면 첫페이지로
         $this->boardPage < 1 ? $this->boardPage = 1 : '';
 
-        foreach ($this->callPacakge as $key => $value) {
+        foreach ($this->callPackage as $key => $value) {
             // 뽑기 시작할 레코드 번수
             $offset = ($this->boardPage - 1) * $value[1];
 
@@ -169,29 +162,11 @@ class BoardController extends Controller
             // 이미지 생성
             // 보드 작성 트랜잭션 안에 있으니 이미지 잘못 되어도 롤백 가능
             if ($this->hasImageFile) {
-                // 이미지 생성 후 썸네일 설정 (중고는 최상위)
-                // 최상위 이미지를 압축해서 public/images/thumbnails로
+                // 이미지 레코드 생성
                 $firstImgPath = ImageModule::saveImages($this->imageFile, $post, 0); // 중고 0, 제작 1, 문의 2
-
-                // 편집 드라이버 호출
-                $manager = new ImageManager(Driver::class);
-
-                // 이미지 인스턴스
-                $image = $manager->read(public_path($firstImgPath), FilePathImageDecoder::class);
-
-                // 크기 조절
-                $image->resize(height: 300);
-
-                // 인스턴스 -> 이미지파일
-                $encoded = $image->toJpg();
-
-                // public/images/thumbnails 에따 저장
-                $compressedImage = time() . $post->id . rand(000, 999) . '.jpg';
-                $encoded->save(public_path('\\images\\thumbnails\\') . $compressedImage);
-
-                // post->thumbnail 값 바꾸고 저장
-                $post->ut_thumbnail = '\\images\\thumbnails\\' . $compressedImage;
-                $post->save();
+                
+                // --- 썸네일 제작 ---
+                ImageModule::saveThumb($post, $firstImgPath);
             }
 
             if (trim($post->ut_thumbnail) === '') {

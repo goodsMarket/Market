@@ -44,7 +44,7 @@
 .productionbox-grid {
     display: grid;
     position: relative;
-    max-width: 280px;
+    min-width: 280px;
     width: 280px;
     border: 1px solid #CDCDCD;
     justify-content: center;
@@ -116,7 +116,8 @@
     display: flex;
     /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
     justify-items: center;
-    gap: 18px;
+    gap: 17px;
+    max-width: 1100px;
 }
 .maintab-second-titleimg {
     margin-left: 10px;

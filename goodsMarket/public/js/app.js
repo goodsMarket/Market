@@ -4780,9 +4780,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Maintab1 = function Maintab1(props) {
-  var data = props.data;
-  console.log(data);
-
   // [lists, setLists] = useState([
   //     {id: 1,  p_start_date: 20240218, p_end_date: 20240231, p_title:'제목'},
   //     {id: 1,  p_start_date: 20240218, p_end_date: 20240231, p_title:'제목'},
@@ -4822,21 +4819,43 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var Maintab2 = function Maintab2() {
+var Maintab2 = function Maintab2(props) {
+  var data = props.data;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // 첨에 안돌림: 받아오느라 시간 걸려서 오류날거임
+    if (!data) return null;
+
+    // 값 돌리면서 렌더링 된 애들한테 뿌려줄 것임 : 원래는 렌더링 할 때 이미 데이터를 받아야 하는 상태
+    data['recent_view'].forEach(function (element) {
+      // 클래스는 rendering하면서 줬으니까 클래스 가지고 와서 
+      console.log(element);
+    });
+  }, [data]); // 데이타 받아오면 호출
+
+  var printCount = 16;
+  var nowCount = 0;
+  var rendering = function rendering(selectType) {
+    var result = [];
+    for (var i = 0; i < printCount; i++) {
+      // key는 되도록 id같은 유니크한거 지향이지만 일단 실행ㅡid주려면 렌더링과 동시에 출력하는 로직으로 다시 짜야 함ㅡ            result.push(<ProductionBox key={nowCount} data={selectType} />); 
+      nowCount++;
+    }
+    return result;
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("section", {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
         className: "main-author-title",
-        children: "\uCD5C\uADFC\uAC8C\uC2DC\uBB3C"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: "\uCD5C\uADFC \uBCF8 \uAC8C\uC2DC\uBB3C"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "maintab-second-lastboard",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+        children: rendering('recent_view')
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
         className: "main-author-title",
         children: "\uC778\uAE30 \uAC8C\uC2DC\uAE00"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "maintab-second-lastboard",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+        children: rendering('recommand')
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h2", {
         className: "main-author-title",
         children: ["\uC2E4\uC2DC\uAC04 \uAC80\uC0C9 \uC21C\uC704", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
@@ -4879,7 +4898,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var ProductionBox = function ProductionBox() {
+var ProductionBox = function ProductionBox(props) {
+  var data = props === null || props === void 0 ? void 0 : props.data;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('/img/heart.png'),
     _useState2 = _slicedToArray(_useState, 2),
     heart2 = _useState2[0],
@@ -4896,7 +4916,7 @@ var ProductionBox = function ProductionBox() {
     }
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "productionbox-grid",
+    className: data ? "productionbox-grid " + data : "productionbox-grid",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "productionbox-titleimg-area",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
@@ -5201,6 +5221,12 @@ function Header(props) {
     setIsVisible(false);
     setcategory(false);
   };
+  var closeModals = function closeModals() {
+    setIsVisible(false);
+    setcategory(false);
+    setsearchList(false);
+    setinsertBoard(false);
+  };
   var displayFlex = searchList ? 'header-search-list' : 'display-none';
   var iconRotate = searchList ? 'header-seacrh-list-bar header-seacrh-list-bar-rotated' : 'header-seacrh-list-bar';
   var categoryBlock = category ? 'header-category-list' : 'display-none';
@@ -5233,16 +5259,23 @@ function Header(props) {
   if (categoryOption && categoryOptionDetail) {
     // 두 개의 라디오 버튼이 모두 선택되었을 때 제출 처리
   } else {}
-  var _useCookies = (0,react_cookie__WEBPACK_IMPORTED_MODULE_3__.useCookies)(['user_id']),
+  var _useCookies = (0,react_cookie__WEBPACK_IMPORTED_MODULE_3__.useCookies)(),
     _useCookies2 = _slicedToArray(_useCookies, 3),
     cookies = _useCookies2[0],
     setCookie = _useCookies2[1],
     removeCookie = _useCookies2[2];
   var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useNavigate)();
+
+  // Axios 인스턴스 생성
+  var withCookie = axios__WEBPACK_IMPORTED_MODULE_5__["default"].create({
+    withCredentials: true // 쿠키를 보낼 수 있도록 설정
+  });
   var Logout = function Logout() {
-    axios__WEBPACK_IMPORTED_MODULE_5__["default"].get('/logout').then(function (response) {
-      alert('로그아웃되었습니다.');
+    withCookie.patch('/logout').then(function (response) {
       if (response.data) {
+        // close 모달
+        closeModals();
+        alert('로그아웃되었습니다.');
         navigate("/"); // 홈으로
       }
     })["catch"](function (error) {
@@ -5357,9 +5390,13 @@ function Header(props) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
           to: "/lastshow",
           children: "\uCD5C\uADFC \uBCF8 \uD56D\uBAA9"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+        }), 'user_id' in cookies ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
           onClick: Logout,
           children: "\uB85C\uADF8\uC544\uC6C3"
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+          onClick: closeModals,
+          to: "/login",
+          children: "\uB85C\uADF8\uC778"
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
@@ -6142,73 +6179,30 @@ function Main() {
     id: 2,
     button: '굿즈 제작 판매'
   }];
-  var listForm = {
-    call_package: {
-      used_trades: {
-        12: ['recent_view', 'recommand']
-      },
-      productions: {
-        12: ['recent_view', 'recent']
-      }
-    }
-  };
-
-  // 스크롤 발생을 위한 감시
-  var points = document.querySelectorAll('.ajaxPoint');
-  var lastPoint = points[points.length - 1];
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(lastPoint),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState2 = _slicedToArray(_useState, 2),
-    targetElement = _useState2[0],
-    setTargetElement = _useState2[1];
-
-  // 대상 관찰 시 ajax 요청
-  function handleElementVisibility() {
-    axios__WEBPACK_IMPORTED_MODULE_7__["default"].patch('/list', listForm).then(function (res) {
-      if ('message' in res.data) {
-        return res.data.message;
-      } else {
-        console.log(res.data);
-      }
-    }).then(function (res) {
-      setusedList(res.used_trades);
-      setprodList(res.productions);
+    usedTrades = _useState2[0],
+    setUsedTrade = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    productions = _useState4[0],
+    setProduction = _useState4[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    axios__WEBPACK_IMPORTED_MODULE_7__["default"].patch('/list').then(function (res) {
+      setUsedTrade(res.data.message.used_trades);
+      setProduction(res.data.message.productions);
     })["catch"](function (err) {
       console.log(err.stack);
     });
-  }
-
-  // 리스트 받아오기
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState4 = _slicedToArray(_useState3, 2),
-    usedList = _useState4[0],
-    setusedList = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState6 = _slicedToArray(_useState5, 2),
-    prodList = _useState6[0],
-    setprodList = _useState6[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!targetElement) return; // 초기에는 관찰하지 않음
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          handleElementVisibility();
-        }
-      });
-    });
-    observer.observe(targetElement);
-    return function () {
-      observer.unobserve(targetElement);
-    };
-  }, [/* 탭 누를때마다 가져오기 vs 가져오는건 F5해라 */]);
+  }, []);
   var renderTabComponent = function renderTabComponent() {
     if (activeTab === 1) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Components_Maintab1__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        data: usedList
+        data: usedTrades
       });
     } else if (activeTab === 2) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Components_Maintab2__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        data: prodList
+        data: productions
       });
     }
     // 다른 경우에는 null을 반환하거나 기본적으로 렌더링할 컴포넌트를 반환할 수 있습니다.
@@ -6219,10 +6213,10 @@ function Main() {
     cookies = _useCookies2[0],
     setCookie = _useCookies2[1],
     removeCookie = _useCookies2[2];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(TabData[0].id),
-    _useState8 = _slicedToArray(_useState7, 2),
-    activeTab = _useState8[0],
-    setActiveTab = _useState8[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(TabData[0].id),
+    _useState6 = _slicedToArray(_useState5, 2),
+    activeTab = _useState6[0],
+    setActiveTab = _useState6[1];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("section", {
       className: "main-carousel",
@@ -9140,7 +9134,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".main-carousel {\r\n    background-color: #EEEEEE;\r\n    width: 100%;\r\n    height: 425px;\r\n}\r\n.main-author-section {\r\n    height: 335px;\r\n}\r\n.main-author-list {\r\n    display: grid;\r\n    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));\r\n}\r\n.main-author-profile {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n}\r\n.main-author-profile img {\r\n    width: 125px;\r\n    height: 125px;\r\n    border-radius: 70%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\r\n}\r\n.main-author-profile span {\r\n    font-size: 1.2rem;\r\n    font-weight: bolder;\r\n    padding: 20px;\r\n}\r\n.main-author-title {\r\n    font-size: 2rem;\r\n    padding: 40px 30px 30px 30px;\r\n    display: flex;\r\n}\r\n.main-promotion {\r\n    width: 100%;\r\n    height: 130px;\r\n    background: #FFE2E2;\r\n}\r\n.main-tab {\r\n    margin-top: 35px;\r\n}\r\n\r\n/* production box */\r\n.productionbox-grid {\r\n    display: grid;\r\n    position: relative;\r\n    max-width: 280px;\r\n    width: 280px;\r\n    border: 1px solid #CDCDCD;\r\n    justify-content: center;\r\n    border-radius: 5px;\r\n}\r\n.productionbox-titleimg-area {\r\n    width: 100%;\r\n    max-width: 100%;\r\n    height: 250px;\r\n    overflow: hidden;\r\n}\r\n.productionbox-title-img {\r\n    width: 100%;\r\n    border-top-left-radius: 5px;\r\n    border-top-right-radius: 5px;\r\n}\r\n.productionbox-views-img {\r\n    width: 30px;\r\n    height: 30px;\r\n}\r\n.productionbox-heart {\r\n    cursor: pointer;\r\n    width: 40px;\r\n    position: absolute;\r\n    top: 5px;\r\n    right: 5px;\r\n    z-index: 3;\r\n}\r\n.productionbox-profileimg {\r\n    width: 40px;\r\n    height: 40px;\r\n    border-radius: 70%;\r\n}\r\n.productionbox-flex {\r\n    display: flex;\r\n    align-items: center;\r\n    padding: 10px 0 0 15px;\r\n}\r\n.productionbox-views-flex {\r\n    display: flex;\r\n    justify-content: flex-end;\r\n    align-items: center;\r\n    padding: 10px 15px 15px 0;\r\n}\r\n.productionbox-views-flex img {\r\n    margin-right: 6px;\r\n    opacity: 0.6;\r\n}\r\n.productionbox-views-flex span {\r\n    font-size: 1.1rem;\r\n}\r\n.productionbox-title {\r\n    font-weight: 700;\r\n    font-size: 1.3rem;\r\n}\r\n.productionbox-date {\r\n    color: #ADADAD;\r\n    font-size: 0.95rem;\r\n}\r\n.productionbox-nickname {\r\n    padding-left: 10px;\r\n}\r\n\r\n\r\n\r\n\r\n/* maintab2 */\r\n.maintab-second-lastboard {\r\n    display: flex;\r\n    /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */\r\n    justify-items: center;\r\n    gap: 18px;\r\n}\r\n.maintab-second-titleimg {\r\n    margin-left: 10px;\r\n    width: 40px;\r\n    height: 40px;\r\n}\r\n.maintab-second-searchArea {\r\n    background-color: #FEFFDE;\r\n    height: 300px;\r\n}\r\n\r\n/* search chart */\r\n.searchChart-grid {\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr 1fr;\r\n    grid-template-rows: repeat(5, 30px);\r\n}\r\n.searchChart-Section div {\r\n    display: inline-block;\r\n    font-size: 1.2rem;\r\n}\r\n.searchChart-rank {\r\n    color: #FFA800;\r\n    margin-right: 5px;\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".main-carousel {\r\n    background-color: #EEEEEE;\r\n    width: 100%;\r\n    height: 425px;\r\n}\r\n.main-author-section {\r\n    height: 335px;\r\n}\r\n.main-author-list {\r\n    display: grid;\r\n    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));\r\n}\r\n.main-author-profile {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n}\r\n.main-author-profile img {\r\n    width: 125px;\r\n    height: 125px;\r\n    border-radius: 70%;\r\n    -o-object-fit: cover;\r\n       object-fit: cover;\r\n}\r\n.main-author-profile span {\r\n    font-size: 1.2rem;\r\n    font-weight: bolder;\r\n    padding: 20px;\r\n}\r\n.main-author-title {\r\n    font-size: 2rem;\r\n    padding: 40px 30px 30px 30px;\r\n    display: flex;\r\n}\r\n.main-promotion {\r\n    width: 100%;\r\n    height: 130px;\r\n    background: #FFE2E2;\r\n}\r\n.main-tab {\r\n    margin-top: 35px;\r\n}\r\n\r\n/* production box */\r\n.productionbox-grid {\r\n    display: grid;\r\n    position: relative;\r\n    min-width: 280px;\r\n    width: 280px;\r\n    border: 1px solid #CDCDCD;\r\n    justify-content: center;\r\n    border-radius: 5px;\r\n}\r\n.productionbox-titleimg-area {\r\n    width: 100%;\r\n    max-width: 100%;\r\n    height: 250px;\r\n    overflow: hidden;\r\n}\r\n.productionbox-title-img {\r\n    width: 100%;\r\n    border-top-left-radius: 5px;\r\n    border-top-right-radius: 5px;\r\n}\r\n.productionbox-views-img {\r\n    width: 30px;\r\n    height: 30px;\r\n}\r\n.productionbox-heart {\r\n    cursor: pointer;\r\n    width: 40px;\r\n    position: absolute;\r\n    top: 5px;\r\n    right: 5px;\r\n    z-index: 3;\r\n}\r\n.productionbox-profileimg {\r\n    width: 40px;\r\n    height: 40px;\r\n    border-radius: 70%;\r\n}\r\n.productionbox-flex {\r\n    display: flex;\r\n    align-items: center;\r\n    padding: 10px 0 0 15px;\r\n}\r\n.productionbox-views-flex {\r\n    display: flex;\r\n    justify-content: flex-end;\r\n    align-items: center;\r\n    padding: 10px 15px 15px 0;\r\n}\r\n.productionbox-views-flex img {\r\n    margin-right: 6px;\r\n    opacity: 0.6;\r\n}\r\n.productionbox-views-flex span {\r\n    font-size: 1.1rem;\r\n}\r\n.productionbox-title {\r\n    font-weight: 700;\r\n    font-size: 1.3rem;\r\n}\r\n.productionbox-date {\r\n    color: #ADADAD;\r\n    font-size: 0.95rem;\r\n}\r\n.productionbox-nickname {\r\n    padding-left: 10px;\r\n}\r\n\r\n\r\n\r\n\r\n/* maintab2 */\r\n.maintab-second-lastboard {\r\n    display: flex;\r\n    /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */\r\n    justify-items: center;\r\n    gap: 17px;\r\n    max-width: 1100px;\r\n}\r\n.maintab-second-titleimg {\r\n    margin-left: 10px;\r\n    width: 40px;\r\n    height: 40px;\r\n}\r\n.maintab-second-searchArea {\r\n    background-color: #FEFFDE;\r\n    height: 300px;\r\n}\r\n\r\n/* search chart */\r\n.searchChart-grid {\r\n    display: grid;\r\n    grid-template-columns: 1fr 1fr 1fr;\r\n    grid-template-rows: repeat(5, 30px);\r\n}\r\n.searchChart-Section div {\r\n    display: inline-block;\r\n    font-size: 1.2rem;\r\n}\r\n.searchChart-rank {\r\n    color: #FFA800;\r\n    margin-right: 5px;\r\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

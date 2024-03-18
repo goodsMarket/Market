@@ -37,7 +37,7 @@ class UserController extends Controller
                 Session::put('user_id' . $user->id, MyModule::myEncrypt($user->id));
 
                 // 쿠키 생성
-                $cookie = Cookie::make('user_id', MyModule::myEncrypt($user->id), 60); // 이름, 값, 유효기간(분)
+                $cookie = Cookie::make('user_id', MyModule::myEncrypt($user->id), 60, null, null, null, false); // 이름, 값, 유효기간(분)
 
                 return response()->json(['csrf' => csrf_token()])->withCookie($cookie);
                 // return MyRes::csrf($user->id . ' logined.', $cookie);

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import '/css/main.css';
 
-const ProductionBox = () => {
+const ProductionBox = (props) => {
+
+    const data = props?.data;
     
     const [heart2, setHeart] = useState('/img/heart.png');
     const [heart, setHeart2] = useState('/img/heart.png');
@@ -15,7 +17,7 @@ const ProductionBox = () => {
     };
 
     return (
-        <div className="productionbox-grid">
+        <div className={data ? "productionbox-grid " + data : "productionbox-grid"}>
             <div className="productionbox-titleimg-area">
                 <img src="/img/testprofile.png" alt="" className="productionbox-title-img" />
             </div>

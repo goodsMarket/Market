@@ -35,33 +35,33 @@ class ListController extends BoardController
         try {
             // 엘로퀀트 인스턴스 => [출력개수, 불러올 종류]
             // $table => [$count, $method]
-            if($request->has('call_package')){
-                $this->callPackage = $request->call_package;
-                // callPackage 형식 [
-                //     'used_trades' => [
-                //         3 => [
-                //             'recent_view',
-                //             'recent',
-                //         ],
-                //         7 => [
-                //             'recommand',
-                //             'sold_out',
-                //         ],
-                //     ],
-                //     'productions' => [
-                //         3 => [
-                //             'recent_view',
-                //             'recent',
-                //         ],
-                //         7 => [
-                //             'recommand',
-                //             'sold_out',
-                //         ],
-                //     ],
-                // ];
-            } else {
-                throw new Exception('요청 페이지가 비어있습니다.');
-            }
+            // if($request->has('call_package')){
+                // $this->callPackage = $request->call_package;
+                $this->callPackage = [
+                    'used_trades' => [
+                        16 => [
+                            'recent_view',
+                            'recent',
+                        ],
+                        40 => [
+                            'recommand',
+                            'sold_out',
+                        ],
+                    ],
+                    'productions' => [
+                        16 => [
+                            'recent_view',
+                            'recent',
+                        ],
+                        40 => [
+                            'recommand',
+                            'sold_out',
+                        ],
+                    ],
+                ];
+            // } else {
+            //     throw new Exception('요청 페이지가 비어있습니다.');
+            // }
 
             !is_null($request) ? $request->hasCookie('recent_view') ? $this->cookie = $request->cookie('recent_view') : '' : '';
 

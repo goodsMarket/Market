@@ -35,6 +35,12 @@ function Header(props) {
 		setIsVisible(false);
 		setcategory(false);
 	};
+	const closeModals = () => {
+		setIsVisible(false);
+		setcategory(false);
+		setsearchList(false);
+		setinsertBoard(false);
+	}
 
 	const displayFlex = searchList ? 'header-search-list' : 'display-none';
 	const iconRotate = searchList ? 'header-seacrh-list-bar header-seacrh-list-bar-rotated' : 'header-seacrh-list-bar';
@@ -50,41 +56,51 @@ function Header(props) {
 		setsearchList(!searchList);
 	};
 
-		const [categoryOption, setCategoryOption] = useState('');
-		const [categoryOptionDetail, setCategoryOptionDetail] = useState('');
-	
-		const market = (e) => {
-			setCategoryOption(e.target.checked);
-		};
-	
-		const marketDetail = (e) => {
-			setCategoryOptionDetail(e.target.checked);
-			console.log(e.target.value);
-		};
-	
-		if(categoryOption && categoryOptionDetail) {
-			// 두 개의 라디오 버튼이 모두 선택되었을 때 제출 처리
-			
-		} else {
-			
-		}
-		const [cookies, setCookie, removeCookie] = useCookies(['user_id']);
-		const navigate = useNavigate();
-		const Logout = () => {
-			axios.get('/logout')
-			.then(response => {
+	const [categoryOption, setCategoryOption] = useState('');
+	const [categoryOptionDetail, setCategoryOptionDetail] = useState('');
+
+	const market = (e) => {
+		setCategoryOption(e.target.checked);
+	};
+
+	const marketDetail = (e) => {
+		setCategoryOptionDetail(e.target.checked);
+		console.log(e.target.value);
+	};
+
+	if(categoryOption && categoryOptionDetail) {
+		// 두 개의 라디오 버튼이 모두 선택되었을 때 제출 처리
+		
+	} else {
+		
+	}
+	const [cookies, setCookie, removeCookie] = useCookies();
+	const navigate = useNavigate();
+
+	// Axios 인스턴스 생성
+	const withCookie = axios.create({
+		withCredentials: true // 쿠키를 보낼 수 있도록 설정
+	});
+
+	const Logout = () => {
+		withCookie.patch('/logout')
+		.then(response => {
+			if(response.data) {
+				// close 모달
+				closeModals();
+				
 				alert('로그아웃되었습니다.');
-				if(response.data) {
-					navigate("/"); // 홈으로
-				}
-			})
-			.catch(error => {
-				console.error('Error:', error);
-			});
-		}
-		const handleSubmit = (event) => {
-			event.preventDefault();
-		};
+				navigate("/"); // 홈으로
+			}
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});
+	}
+	const handleSubmit = (event) => {
+		event.preventDefault();
+	};
+	
 	return (
 		<section className='header'>
 			<Link to="/">
@@ -129,7 +145,7 @@ function Header(props) {
 					<div className={headerMypage}>
 						<Link to="/mypage">마이페이지</Link>
 						<Link to="/lastshow" >최근 본 항목</Link>
-						<span onClick={Logout}>로그아웃</span>
+						{'user_id' in cookies ? (<span onClick={Logout}>로그아웃</span>) : (<Link onClick={closeModals} to="/login" >로그인</Link>)}
 					</div>
 				</div>
 

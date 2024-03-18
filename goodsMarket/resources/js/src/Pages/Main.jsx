@@ -45,75 +45,26 @@ function Main() {
 		{ id: 1, button: '굿즈 양도' },
 		{ id: 2, button: '굿즈 제작 판매' }
 	]
+	
+	const [usedTrades, setUsedTrade] = useState(null)
+	const [productions, setProduction] = useState(null)
 
-	const listForm = {
-		call_package: {
-			used_trades: {
-				12: [
-					'recent_view',
-					'recommand',
-				],
-			},
-			productions: {
-				12: [
-					'recent_view',
-					'recent',
-				],
-			},
-		}
-	}
-
-	// 스크롤 발생을 위한 감시
-	const points = document.querySelectorAll('.ajaxPoint')
-	const lastPoint = points[points.length - 1]
-	const [targetElement, setTargetElement] = useState(lastPoint);
-
-	// 대상 관찰 시 ajax 요청
-	function handleElementVisibility() {
-		axios.patch('/list', listForm)
+	useEffect(() => {
+		axios.patch('/list')
 			.then(res => {
-				if ('message' in res.data) {
-					return res.data.message;
-				} else {
-					console.log(res.data);
-				}
-			})
-			.then(res => {
-				setusedList(res.used_trades);
-				setprodList(res.productions);
+				setUsedTrade(res.data.message.used_trades)
+				setProduction(res.data.message.productions)
 			})
 			.catch(err => {
 				console.log(err.stack);
 			})
-	}
-
-	// 리스트 받아오기
-	const [usedList, setusedList] = useState(null);
-	const [prodList, setprodList] = useState(null);
-
-	useEffect(() => {
-		if (!targetElement) return; // 초기에는 관찰하지 않음
-
-		const observer = new IntersectionObserver(entries => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-					handleElementVisibility();
-				}
-			});
-		});
-
-		observer.observe(targetElement);
-
-		return () => {
-			observer.unobserve(targetElement);
-		};
-	}, [/* 탭 누를때마다 가져오기 vs 가져오는건 F5해라 */]);
+	}, []);
 
 	const renderTabComponent = () => {
 		if (activeTab === 1) {
-			return <Maintab1 data={usedList} />;
+			return <Maintab1 data={usedTrades} />;
 		} else if (activeTab === 2) {
-			return <Maintab2 data={prodList} />;
+			return <Maintab2 data={productions} />;
 		}
 		// 다른 경우에는 null을 반환하거나 기본적으로 렌더링할 컴포넌트를 반환할 수 있습니다.
 		return null;

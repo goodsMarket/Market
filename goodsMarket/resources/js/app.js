@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter  as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 import Login from './src/Pages/Login';
 import Regist from './src/Pages/Regist';
@@ -14,13 +14,15 @@ import Error from './src/Pages/Error';
 import Layout from './src/Layouts/Layout';
 
 const App = () => {
-    return (
+	console.log('App');
+	return (
 		<CookiesProvider>
 			<Router>
 				{/* 레이아웃 */}
 				<Layout>
 					{/* 라우터 처리 */}
 					<Routes>
+						{console.log('Routes')}
 						<Route path="/login" element={<Login />}></Route>
 						<Route path="/regist" element={<Regist />}></Route>
 						<Route path="/mypage" element={<Mypage />}></Route>
@@ -35,9 +37,9 @@ const App = () => {
 				</Layout>
 			</Router>
 		</CookiesProvider>
-    );
+	);
 };
 
-if(document.getElementById('root')){
+if (document.getElementById('root')) {
 	ReactDOM.render(<App />, document.getElementById('root'))
 }

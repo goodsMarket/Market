@@ -3,7 +3,7 @@ import '/css/main.css';
 
 const ProductionBox = (props) => {
 
-    const data = props?.data;
+    const {data} = props;
     
     const [heart2, setHeart] = useState('/img/heart.png');
     const [heart, setHeart2] = useState('/img/heart.png');
@@ -17,7 +17,7 @@ const ProductionBox = (props) => {
     };
 
     return (
-        <div className={data ? "productionbox-grid " + data : "productionbox-grid"}>
+        <div className="productionbox-grid">
             <div className="productionbox-titleimg-area">
                 <img src="/img/testprofile.png" alt="" className="productionbox-title-img" />
             </div>

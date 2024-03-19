@@ -30,6 +30,12 @@
     font-size: 2rem;
     padding: 100px 30px 30px 30px;
     display: flex;
+    font-weight: 700;
+}
+.main-see-more {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
 }
 .main-promotion {
     width: 100%;
@@ -117,13 +123,15 @@
     align-items: center;
     justify-content: space-between;
     margin: 15px;}
+
 .productionbox-price {
     font-size: 1.5rem;
-    font-weight: 800;
+    font-weight: 600;
     color: #00AACF;
 }
 .productionbox-price-won {
     color: #4E4E4E;
+    font-weight: 500;
 }
 
 
@@ -147,13 +155,15 @@
 }
 .maintab-second-searchArea {
     background-color: #FEFFDE;
-    height: 300px;
+    /* height: 300px; */
 }
 
 /* search chart */
 .searchChart-main {
     width: 90%;
-    height: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 27px;
 }
 .searchChart-grid {
     background-color: rgb(255, 255, 255);
@@ -164,10 +174,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
+    padding: 30px;
 }
 .searchChart-Section {
     display: grid;
-    gap: 10px;
+    gap: 20px;
     justify-items: center;
 }
 .searchChart-list {
@@ -176,6 +187,7 @@
 }
 .searchChart-Section div {
     font-size: 1.5rem;
+    font-weight: 500;
 }
 .searchChart-rank {
     color: #FFA800;
@@ -200,20 +212,18 @@
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 .event-title {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     padding: 10px;
-    font-weight: bolder;
+    font-weight: 500;
+    padding-bottom: 31px;
 }
 .event-section {
-    padding: 15px;
+    padding: 28px 40px;
 }
 .event-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-.event-detail-content {
-    padding: 10px 10px 0 10px;
 }
 .event-profile {
     display: flex;
@@ -226,4 +236,43 @@
 .event-main:hover {
     background-color: rgb(78, 78, 78, 0.8);
     color: #EEEEEE;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* category carousel */
+
+.categoryCarousel-main {
+    width: 100vw;
+    margin: 80px 0 30px 0;
+    overflow: hidden;
+}
+.categoryCarousel-first-section, .categoryCarousel-second-section {
+    /* display: flex; */
+}
+.categoryCarousel-first-section span
+, .categoryCarousel-second-section span {
+    background-color: black;
+    color: #ffffff;
+    padding: 10px 29px;
+    border-radius: 129px;
+}
+
+
+
+
+/* common */
+
+.main-width {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
 }

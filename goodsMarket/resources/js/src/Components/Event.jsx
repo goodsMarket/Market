@@ -9,7 +9,7 @@ export default function Event() {
                     행사 홍보 게시글 제목입니다.
                 </div>
                 <div className='event-content'>
-                    <div className='event-detail-content'>
+                    <div>
                         <div className='event-profile'>
                             <img src="/img/profileimg.png" alt="" className="productionbox-profileimg" />
                             <span className="productionbox-nickname">닉네임</span>

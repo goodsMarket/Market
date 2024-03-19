@@ -13,6 +13,7 @@ function Main() {
     	padding: '40px 30px 30px 30px',
 	};
 
+	
 	const Box = styled.div`
     display: flex;
     flex-direction: column;
@@ -22,6 +23,9 @@ function Main() {
     const TabBox = styled.div`
     display: flex;
     background-color:#F7F7F7;
+	max-width: 1200px;
+	width: 100%;
+	margin: 0 auto;
     `;
 
     const TabButton = styled.button`
@@ -63,54 +67,56 @@ function Main() {
 
     return (
 		<div>
-			<section className='main-carousel'>
-			<img src="/img/carousel1.png" alt="" />
-				{/* <Carousel /> */}
-			</section>
-			<section className='main-author-section'>
-				<div>
-					<h2 className='main-titles' style={miniTitle}>금주의 인기 작가</h2>
-				</div>
-				<div className='main-author-list'>
-					<Link to='/' className='main-author-profile'>
-						<img src="/img/testprofile.png" alt=""/>
-						<span>닉네임</span>
-					</Link>
-					<Link to='/' className='main-author-profile'>
-						<img src="/img/testprofile.png" alt=""/>
-						<span>닉네임</span>
-					</Link>
-					<Link to='/' className='main-author-profile'>
-						<img src="/img/testprofile.png" alt=""/>
-						<span>닉네임</span>
-					</Link>
-					<Link to='/' className='main-author-profile'>
-						<img src="/img/testprofile.png" alt=""/>
-						<span>닉네임</span>
-					</Link>
-					<Link to='/' className='main-author-profile'>
-						<img src="/img/testprofile.png" alt=""/>
-						<span>닉네임</span>
-					</Link>
-					<Link to='/' className='main-author-profile'>
-						<img src="/img/testprofile.png" alt=""/>
-						<span>닉네임</span>
-					</Link>
-					<Link to='/' className='main-author-profile'>
-						<img src="/img/testprofile.png" alt=""/>
-						<span>닉네임</span>
-					</Link>
-					<Link to='/' className='main-author-profile'>
-						<img src="/img/testprofile.png" alt=""/>
-						<span>닉네임</span>
-					</Link>
-				</div>
-			</section>
-			<section >
-				<div className='main-promotion'>
-					<div>홍보영역</div>
-				</div>
-			</section>
+			<div className='main-width'>
+				<section className='main-carousel'>
+				<img src="/img/carousel1.png" alt="" />
+					{/* <Carousel /> */}
+				</section>
+				<section className='main-author-section'>
+					<div>
+						<h2 className='main-titles' style={miniTitle}>금주의 인기 작가</h2>
+					</div>
+					<div className='main-author-list'>
+						<Link to='/' className='main-author-profile'>
+							<img src="/img/testprofile.png" alt=""/>
+							<span>닉네임</span>
+						</Link>
+						<Link to='/' className='main-author-profile'>
+							<img src="/img/testprofile.png" alt=""/>
+							<span>닉네임</span>
+						</Link>
+						<Link to='/' className='main-author-profile'>
+							<img src="/img/testprofile.png" alt=""/>
+							<span>닉네임</span>
+						</Link>
+						<Link to='/' className='main-author-profile'>
+							<img src="/img/testprofile.png" alt=""/>
+							<span>닉네임</span>
+						</Link>
+						<Link to='/' className='main-author-profile'>
+							<img src="/img/testprofile.png" alt=""/>
+							<span>닉네임</span>
+						</Link>
+						<Link to='/' className='main-author-profile'>
+							<img src="/img/testprofile.png" alt=""/>
+							<span>닉네임</span>
+						</Link>
+						<Link to='/' className='main-author-profile'>
+							<img src="/img/testprofile.png" alt=""/>
+							<span>닉네임</span>
+						</Link>
+						<Link to='/' className='main-author-profile'>
+							<img src="/img/testprofile.png" alt=""/>
+							<span>닉네임</span>
+						</Link>
+					</div>
+				</section>
+				<section >
+					<div className='main-promotion'>
+						<div>홍보영역</div>
+					</div>
+				</section>
+			</div>
 			<section className='main-tab'>
 			<Box>
 				<TabBox>

@@ -44,6 +44,10 @@ class CallModel
             ->take($limit)
             ->skip($offset)
             ->select($this->select)
+            ->when($this->table === 'productions', function ($q) {
+                return $q->leftJoin('users', 'users.id', 'productions.writer_id')
+                    ->addSelect('u_nickname', 'u_profile_img');
+            })
             ->get();
     }
 
@@ -60,6 +64,10 @@ class CallModel
             ->take($limit)
             ->skip(rand(1, DB::table($this->table)->count() - $limit))
             ->select($this->select)
+            ->when($this->table === 'productions', function ($q) {
+                return $q->leftJoin('users', 'users.id', 'productions.writer_id')
+                    ->addSelect('u_nickname', 'u_profile_img');
+            })
             ->get();
 
         if($result->count() > 0){
@@ -87,8 +95,8 @@ class CallModel
                     ->addSelect('sa.sa_address');
             })
             ->when($this->table === 'productions', function ($q) {
-                return $q->leftJoin('users as u', 'u.id', 'productions.writer_id')
-                    ->addSelect('u.u_nickname', 'u.u_profile_img');
+                return $q->leftJoin('users', 'users.id', 'productions.writer_id')
+                    ->addSelect('u_nickname', 'u_profile_img');
             })
             ->get();
     }
@@ -109,10 +117,14 @@ class CallModel
             //     // return $q->rightJoin('리뷰', '리뷰.p_id', $this->table.'.id')
             //     // ->addSelect(리뷰.'.유저플필, .이름, .별점, .날짜, .내용'); // 리뷰뽑는거 따로해야하나
             // })
-            ->orderByDesc('created_at')
+            ->orderByDesc($this->table.'.created_at')
             ->take($limit)
             ->skip($offset)
             ->select($this->select)
+            ->when($this->table === 'productions', function ($q) {
+                return $q->leftJoin('users', 'users.id', 'productions.writer_id')
+                    ->addSelect('u_nickname', 'u_profile_img');
+            })
             ->get();
             
         if($result->count() > 0){

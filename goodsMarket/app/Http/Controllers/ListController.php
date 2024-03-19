@@ -41,6 +41,8 @@ class ListController extends BoardController
                     'used_trades' => [
                         16 => [
                             'recent_view',
+                        ],
+                        32 => [
                             'recent',
                         ],
                         40 => [
@@ -55,7 +57,7 @@ class ListController extends BoardController
                         ],
                         40 => [
                             'recommand',
-                            'sold_out',
+                            // 'sold_out',
                         ],
                     ],
                 ];

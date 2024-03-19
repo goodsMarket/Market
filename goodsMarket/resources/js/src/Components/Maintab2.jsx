@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import Searchchart from "./Searchchart";
 import ProductionBox from "./ProductionBox";
 import '/css/main.css';
@@ -18,19 +18,18 @@ const Maintab2 = (props) => {
         switch (key) {
             case 'recent_view':
                 set_recent_view(value);
-                console.log(value);
                 break;
             case 'recommand':
                 set_recommand(value);
-                console.log(value);
                 break;
             case 'recent':
                 set_recent(value);
-                console.log(value);
                 break;
             case 'sold_out':
                 set_sold_out(value);
-                console.log(value);
+                break;
+            default:
+                console.log('해당하지 않는 항목입니다.');
                 break;
         }
     };
@@ -41,7 +40,6 @@ const Maintab2 = (props) => {
 
         // 값 돌리면서 렌더링 된 애들한테 뿌려줄 것임 : 원래는 렌더링 할 때 이미 데이터를 받아야 하는 상태
         for (let i in data) {
-            console.log(i);
             stateSwitch(i, data[i]);
         }
 
@@ -54,20 +52,17 @@ const Maintab2 = (props) => {
                     최근 본 게시물
                 </h2>
                 <div className="maintab-second-lastboard">
-                    <ProductionBox />
-                    <ProductionBox />
-                    <ProductionBox />
-                    <ProductionBox />
+                    {recent_view.map(item => (
+                        <ProductionBox key={item.id} data={item} />
+                    ))}
                 </div>
                 <h2 className="main-author-title">
                     인기 게시글
                 </h2>
                 <div className="maintab-second-lastboard">
-                    <ProductionBox />
-                    <ProductionBox />
-                    <ProductionBox />
-                    <ProductionBox />
-                    <ProductionBox />
+                    {recommand.map(item => (
+                        <ProductionBox key={item.id} data={item} />
+                    ))}
                 </div>
                 <h2 className="main-author-title">
                     실시간 검색 순위
@@ -76,9 +71,29 @@ const Maintab2 = (props) => {
                 <div className="maintab-second-searchArea">
                     <Searchchart />
                 </div>
+                <h2 className="main-author-title">
+                    신규작가
+                </h2>
+                <h2 className="main-author-title">
+                    최근 게시글
+                </h2>
+                <div className="maintab-second-lastboard">
+                    {recent.map(item => (
+                        <ProductionBox key={item.id} data={item} />
+                    ))}
+                </div>
+                <h2 className="main-author-title">
+                    출시예정
+                </h2>
+                <h2 className="main-author-title">
+                    행사홍보
+                </h2>
+                <h2 className="main-author-title">
+                    최근 리뷰
+                </h2>
             </section>
         </div>
     );
 
 }
-export default Maintab2;
+export default memo(Maintab2);

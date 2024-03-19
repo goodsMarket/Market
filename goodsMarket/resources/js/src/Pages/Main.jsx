@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Carousel from '../Components/Carousel';
@@ -11,20 +11,22 @@ import { Box, TabBox, TabButton, TabContent } from '../Module/Style';
 function Main() {
 	console.log('Main');
 
-	const TabData = [
+	const [TabData, setTabData] = useState([
 		{ id: 1, button: '굿즈 양도' },
 		{ id: 2, button: '굿즈 제작 판매' }
-	]
+	]);
 
-	const [usedTrades, setUsedTrade] = useState(<></>)
-	const [productions, setProduction] = useState(<></>)
+	const [listResponse, setlistResponse] = useState(<></>)
 
 	useEffect(() => {
 		// 시작할 때 한번 데이터 가져오기
 		axios.patch('/list')
 			.then(res => {
-				setUsedTrade(res.data.message.used_trades)
-				setProduction(res.data.message.productions)
+				if (res?.message !== 'undefined') {
+					setlistResponse(res.data.message);
+				} else {
+					console.log(res);
+				}
 			})
 			.catch(err => {
 				console.log(err.stack);
@@ -96,11 +98,11 @@ function Main() {
 						))}
 					</TabBox>
 					<TabContent>
-						{/* {activeTab === 1 ? <Maintab1 data={usedTrades} /> : activeTab === 2 ? <Maintab2 data={productions} /> : <></>} */}
+						{activeTab === 1 ? <Maintab1 data={listResponse.used_trades} /> : activeTab === 2 ? <Maintab2 data={listResponse.productions} /> : <></>}
 					</TabContent>
 				</Box>
 			</section>
 		</div>
 	);
 }
-export default Main;
+export default memo(Main);

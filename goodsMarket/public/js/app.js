@@ -4776,6 +4776,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _Searchchart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Searchchart */ "./resources/js/src/Components/Searchchart.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -4783,21 +4789,94 @@ __webpack_require__.r(__webpack_exports__);
 var Maintab1 = function Maintab1(props) {
   console.log('Maintab1');
   var data = props.data;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState2 = _slicedToArray(_useState, 2),
+    recent_view = _useState2[0],
+    set_recent_view = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState4 = _slicedToArray(_useState3, 2),
+    recommand = _useState4[0],
+    set_recommand = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState6 = _slicedToArray(_useState5, 2),
+    recent = _useState6[0],
+    set_recent = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState8 = _slicedToArray(_useState7, 2),
+    sold_out = _useState8[0],
+    set_sold_out = _useState8[1];
+  var stateSwitch = function stateSwitch(key, value) {
+    switch (key) {
+      case 'recent_view':
+        set_recent_view(value);
+        break;
+      case 'recommand':
+        set_recommand(value);
+        break;
+      case 'recent':
+        set_recent(value);
+        break;
+      case 'sold_out':
+        set_sold_out(value);
+        break;
+      default:
+        console.log('해당하지 않는 항목입니다.');
+        break;
+    }
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // 첨에 안돌림: 받아오느라 시간 걸려서 오류날거임
+    if (!data) return null;
 
-  // [lists, setLists] = useState([
-  //     {id: 1,  p_start_date: 20240218, p_end_date: 20240231, p_title:'제목'},
-  //     {id: 1,  p_start_date: 20240218, p_end_date: 20240231, p_title:'제목'},
-  //     {id: 1,  p_start_date: 20240218, p_end_date: 20240231, p_title:'제목'}
-  // ]);
-  // const lastBoardList = lists.map(item => <li key={item.id}>{item.p_title}</li>);
+    // 값 돌리면서 렌더링 된 애들한테 뿌려줄 것임 : 원래는 렌더링 할 때 이미 데이터를 받아야 하는 상태
+    for (var i in data) {
+      stateSwitch(i, data[i]);
+    }
+  }, [data]); // 데이타 받아오면 호출
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    children: ["Maintab1", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
-      children: "\uCD5C\uADFC \uBCF8 \uAC8C\uC2DC\uBB3C"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Searchchart__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("section", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+        className: "main-author-title",
+        children: "\uCD5C\uADFC \uBCF8 \uAC8C\uC2DC\uBB3C"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "maintab-second-lastboard"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+        className: "main-author-title",
+        children: "\uCD94\uCC9C \uAC8C\uC2DC\uAE00"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "maintab-second-lastboard"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("h2", {
+        className: "main-author-title",
+        children: ["\uC2E4\uC2DC\uAC04 \uAC80\uC0C9 \uC21C\uC704", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+          src: "/img/crown.png",
+          alt: "",
+          className: "maintab-second-titleimg"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "maintab-second-searchArea",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Searchchart__WEBPACK_IMPORTED_MODULE_1__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+        className: "main-author-title",
+        children: "\uC2E0\uADDC\uC791\uAC00"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+        className: "main-author-title",
+        children: "\uCD5C\uADFC \uAC8C\uC2DC\uAE00"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "maintab-second-lastboard"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+        className: "main-author-title",
+        children: "\uD589\uC0AC\uD64D\uBCF4"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+        className: "main-author-title",
+        children: "\uCD5C\uADFC \uAC70\uB798"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "maintab-second-lastboard"
+      })]
+    })
   });
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Maintab1);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(Maintab1));
 
 /***/ }),
 
@@ -4852,19 +4931,18 @@ var Maintab2 = function Maintab2(props) {
     switch (key) {
       case 'recent_view':
         set_recent_view(value);
-        console.log(value);
         break;
       case 'recommand':
         set_recommand(value);
-        console.log(value);
         break;
       case 'recent':
         set_recent(value);
-        console.log(value);
         break;
       case 'sold_out':
         set_sold_out(value);
-        console.log(value);
+        break;
+      default:
+        console.log('해당하지 않는 항목입니다.');
         break;
     }
   };
@@ -4874,7 +4952,6 @@ var Maintab2 = function Maintab2(props) {
 
     // 값 돌리면서 렌더링 된 애들한테 뿌려줄 것임 : 원래는 렌더링 할 때 이미 데이터를 받아야 하는 상태
     for (var i in data) {
-      console.log(i);
       stateSwitch(i, data[i]);
     }
   }, [data]); // 데이타 받아오면 호출
@@ -4884,15 +4961,23 @@ var Maintab2 = function Maintab2(props) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
         className: "main-author-title",
         children: "\uCD5C\uADFC \uBCF8 \uAC8C\uC2DC\uBB3C"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "maintab-second-lastboard",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+        children: recent_view.map(function (item) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            data: item
+          }, item.id);
+        })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
         className: "main-author-title",
         children: "\uC778\uAE30 \uAC8C\uC2DC\uAE00"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "maintab-second-lastboard",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+        children: recommand.map(function (item) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            data: item
+          }, item.id);
+        })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h2", {
         className: "main-author-title",
         children: ["\uC2E4\uC2DC\uAC04 \uAC80\uC0C9 \uC21C\uC704", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
@@ -4903,11 +4988,33 @@ var Maintab2 = function Maintab2(props) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "maintab-second-searchArea",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Searchchart__WEBPACK_IMPORTED_MODULE_1__["default"], {})
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+        className: "main-author-title",
+        children: "\uC2E0\uADDC\uC791\uAC00"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+        className: "main-author-title",
+        children: "\uCD5C\uADFC \uAC8C\uC2DC\uAE00"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "maintab-second-lastboard",
+        children: recent.map(function (item) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductionBox__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            data: item
+          }, item.id);
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+        className: "main-author-title",
+        children: "\uCD9C\uC2DC\uC608\uC815"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+        className: "main-author-title",
+        children: "\uD589\uC0AC\uD64D\uBCF4"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+        className: "main-author-title",
+        children: "\uCD5C\uADFC \uB9AC\uBDF0"
       })]
     })
   });
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Maintab2);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(Maintab2));
 
 /***/ }),
 
@@ -4957,7 +5064,7 @@ var ProductionBox = function ProductionBox(props) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "productionbox-titleimg-area",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
-        src: "/img/testprofile.png",
+        src: data !== null && data !== void 0 && data.p_thumbnail ? data.p_thumbnail : "/img/testprofile.png",
         alt: "",
         className: "productionbox-title-img"
       })
@@ -4969,27 +5076,27 @@ var ProductionBox = function ProductionBox(props) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "productionbox-flex",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
-        src: "/img/profileimg.png",
+        src: data !== null && data !== void 0 && data.u_profile_img ? data.u_profile_img : "/img/profileimg.png",
         alt: "",
         className: "productionbox-profileimg"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
         className: "productionbox-nickname",
-        children: "\uB2C9\uB124\uC784"
+        children: data !== null && data !== void 0 && data.u_nickname ? data.u_nickname : '(알수없음)'
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "productionbox-flex",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "productionbox-title",
-        children: "\uC81C\uBAA9\uC785\uB2C8\uB2E4."
+        children: data !== null && data !== void 0 && data.p_title ? data.p_title : '(제목없음)'
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "productionbox-flex productionbox-date",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-        children: "2024-02-03"
+        children: data !== null && data !== void 0 && data.p_start_date ? data.p_start_date : '(X)'
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
         children: "-"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-        children: "2024-02-30"
+        children: data !== null && data !== void 0 && data.p_end_date ? data.p_end_date : '(X)'
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "productionbox-views-flex",
@@ -4998,7 +5105,7 @@ var ProductionBox = function ProductionBox(props) {
         alt: "",
         className: "productionbox-views-img"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-        children: "1,123"
+        children: data !== null && data !== void 0 && data.p_view ? data.p_view : '(X)'
       })]
     })]
   });
@@ -6229,26 +6336,28 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function Main() {
   console.log('Main');
-  var TabData = [{
-    id: 1,
-    button: '굿즈 양도'
-  }, {
-    id: 2,
-    button: '굿즈 제작 판매'
-  }];
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {})),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([{
+      id: 1,
+      button: '굿즈 양도'
+    }, {
+      id: 2,
+      button: '굿즈 제작 판매'
+    }]),
     _useState2 = _slicedToArray(_useState, 2),
-    usedTrades = _useState2[0],
-    setUsedTrade = _useState2[1];
+    TabData = _useState2[0],
+    setTabData = _useState2[1];
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {})),
     _useState4 = _slicedToArray(_useState3, 2),
-    productions = _useState4[0],
-    setProduction = _useState4[1];
+    listResponse = _useState4[0],
+    setlistResponse = _useState4[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     // 시작할 때 한번 데이터 가져오기
     axios__WEBPACK_IMPORTED_MODULE_7__["default"].patch('/list').then(function (res) {
-      setUsedTrade(res.data.message.used_trades);
-      setProduction(res.data.message.productions);
+      if ((res === null || res === void 0 ? void 0 : res.message) !== 'undefined') {
+        setlistResponse(res.data.message);
+      } else {
+        console.log(res);
+      }
     })["catch"](function (err) {
       console.log(err.stack);
     });
@@ -6367,12 +6476,18 @@ function Main() {
               children: tab.button
             }, tab.id);
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Module_Style__WEBPACK_IMPORTED_MODULE_5__.TabContent, {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Module_Style__WEBPACK_IMPORTED_MODULE_5__.TabContent, {
+          children: activeTab === 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Components_Maintab1__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            data: listResponse.used_trades
+          }) : activeTab === 2 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Components_Maintab2__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            data: listResponse.productions
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {})
+        })]
       })
     })]
   });
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Main);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(Main));
 
 /***/ }),
 

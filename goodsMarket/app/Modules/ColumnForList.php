@@ -10,6 +10,7 @@ class ColumnForList
             'ut_title',
             'ut_thumbnail',
             'ut_price',
+            'sa_address',
             'used_trades.created_at',
         ],
         'productions' => [

@@ -16,14 +16,14 @@ function Main() {
 		{ id: 2, button: '굿즈 제작 판매' }
 	]);
 
-	const [listResponse, setlistResponse] = useState(<></>)
+	const [listResponse, setlistResponse] = useState([])
 
 	useEffect(() => {
-		// 시작할 때 한번 데이터 가져오기
 		axios.patch('/list')
 			.then(res => {
-				if (res?.message !== 'undefined') {
+				if (res?.message) {
 					setlistResponse(res.data.message);
+					console.log(listResponse);
 				} else {
 					console.log(res);
 				}

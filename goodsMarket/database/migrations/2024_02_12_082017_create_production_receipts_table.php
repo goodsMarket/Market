@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('production_receipts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedbiginteger('p_id');
+            $table->unsignedBigInteger('p_id');
             $table->unsignedBigInteger('consumer_id');
             $table->unsignedBigInteger('sw_id');
             $table->unsignedBigInteger('ba_id');

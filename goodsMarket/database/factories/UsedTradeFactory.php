@@ -58,9 +58,10 @@ class UsedTradeFactory extends Factory
             // 'ut_title' => Str::limit($this->faker->sentence, 50),
             'ut_title' => $randomLine,
             'ut_thumbnail' => '\\images\\thumbnail_samples\\' . $fileList->fileNames[$rand_img], // public/images/thumbnail_samples 중 랜덤 선택
-            'ut_price' => rand(1, 999) . '000',
+            'ut_price' => rand(1, 99) . '000',
             'ut_count' => rand(0, 1) !== 0 ? rand(2, 50) : 1,
             'ut_quality' => rand(0, 4), // 품질 0~4 높을 수록 후짐
+            'sa_id' => rand(1,50),
             'ut_description' => $this->faker->text(1000),
             // 'ut_description' => Str::limit($this->faker->sentence, rand(200, 1000)),
             'ut_refund' => rand(0, 1),

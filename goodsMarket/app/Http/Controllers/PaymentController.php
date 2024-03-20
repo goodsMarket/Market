@@ -14,11 +14,11 @@ class PaymentController extends Controller
         $message = [
             'pg_name' => env('PAY_PG_NAME'),
             'method' => env('PAY_METHOD'),
-            'item_name' => '',
             'store_id' => env('PAY_STORE_ID'),
             'channel_name' => env('PAY_CHANNEL_NAME'),
             'channel_key' => env('PAY_CHANNEL_KEY'),
             'mid' => env('PAY_MID'),
+            'imp' => env('PAY_IMP'),
             'api_key' => env('PAY_API_KEY'),
             'v2_api_key' => env('PAY_V2_API_KEY'),
         ];

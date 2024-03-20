@@ -36,31 +36,8 @@ class ListController extends BoardController
             // 엘로퀀트 인스턴스 => [출력개수, 불러올 종류]
             // $table => [$count, $method]
             // if($request->has('call_package')){
-                // $this->callPackage = $request->call_package;
-                $this->callPackage = [
-                    'used_trades' => [
-                        16 => [
-                            'recent_view',
-                        ],
-                        32 => [
-                            'recent',
-                        ],
-                        40 => [
-                            'recommand',
-                            'sold_out',
-                        ],
-                    ],
-                    'productions' => [
-                        16 => [
-                            'recent_view',
-                            'recent',
-                        ],
-                        40 => [
-                            'recommand',
-                            // 'sold_out',
-                        ],
-                    ],
-                ];
+            //     $this->callPackage = $request->call_package;
+            $this->callPackage = ['used_trades' => [16 => ['recent_view',], 32 => ['recent',], 40 => ['recommand', 'sold_out',],], 'productions' => [16 => ['recent_view', 'recent',], 40 => ['recommand',],],];
             // } else {
             //     throw new Exception('요청 페이지가 비어있습니다.');
             // }

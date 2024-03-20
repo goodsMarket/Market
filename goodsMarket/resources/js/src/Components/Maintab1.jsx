@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, memo } from "react";
 import Searchchart from "./Searchchart";
+import UsedTradeBox from "./UsedTradeBox";
 
 const Maintab1 = (props) => {
     console.log('Maintab1');
@@ -50,17 +51,17 @@ const Maintab1 = (props) => {
                     최근 본 게시물
                 </h2>
                 <div className="maintab-second-lastboard">
-                    {/* {recent_view.map(item => (
-                        <ProductionBox key={item.id} data={item} />
-                    ))} */}
+                    {recent_view.map(item => (
+                        <UsedTradeBox key={item.id} data={item} />
+                    ))}
                 </div>
                 <h2 className="main-author-title">
                     추천 게시글
                 </h2>
                 <div className="maintab-second-lastboard">
-                    {/* {recommand.map(item => (
-                        <ProductionBox key={item.id} data={item} />
-                    ))} */}
+                    {recommand.map(item => (
+                        <UsedTradeBox key={item.id} data={item} />
+                    ))}
                 </div>
                 <h2 className="main-author-title">
                     실시간 검색 순위
@@ -76,9 +77,9 @@ const Maintab1 = (props) => {
                     최근 게시글
                 </h2>
                 <div className="maintab-second-lastboard">
-                    {/* {recent.map(item => (
-                        <ProductionBox key={item.id} data={item} />
-                    ))} */}
+                    {recent.map(item => (
+                        <UsedTradeBox key={item.id} data={item} />
+                    ))}
                 </div>
                 <h2 className="main-author-title">
                     행사홍보
@@ -87,9 +88,9 @@ const Maintab1 = (props) => {
                     최근 거래
                 </h2>
                 <div className="maintab-second-lastboard">
-                    {/* {sold_out.map(item => (
-                        <ProductionBox key={item.id} data={item} />
-                    ))} */}
+                    {sold_out.map(item => (
+                        <UsedTradeBox key={item.id} data={item} />
+                    ))}
                 </div>
             </section>
         </div>

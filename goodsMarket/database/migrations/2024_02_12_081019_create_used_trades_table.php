@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->unsignedInteger('ut_price'); // 가격
             $table->unsignedInteger('ut_count')->default(1); // 개수
             $table->char('ut_quality',1); // 품질
+            $table->unsignedBigInteger('sa_id')->nullable(); // 주소
             $table->string('ut_description', 3000); // 설명
             $table->char('ut_refund',1)->default('0'); // 환불
             $table->unsignedInteger('ut_view');

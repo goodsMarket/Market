@@ -58,7 +58,7 @@ Route::middleware('trim')->group(function () {
     });
     // 게시글
     Route::prefix('/board')->group(function () {
-        // 게시글 조회, 작성, 수정, 삭제
+        // 조회
         Route::patch('/used-trade', [UsedTradeControlloer::class, 'view_ut']);
         Route::patch('/production', [ProductionControlloer::class, 'view_p']);
         // 로그인 해야함
@@ -66,11 +66,14 @@ Route::middleware('trim')->group(function () {
             // 결제
             Route::post('/pay', [PaymentController::class, 'pay']);
             Route::patch('/pay', [PaymentController::class, 'check']);
-            // 작성자 비교는 모듈에서 가저오기로 함
-            Route::post('/used-trade', [UsedTradeControlloer::class, 'store_ut'])->middleware('ut.val');// 중고 작성
+            // --- 작성자 비교는 모듈에서 가저오기로 함 ---
+            // 작성
+            Route::post('/used-trade', [UsedTradeControlloer::class, 'store_ut'])->middleware('ut.val');
             Route::post('/production', [ProductionControlloer::class, 'store_p'])->middleware('p.val');
-            Route::put('/used-trade', [UsedTradeControlloer::class, 'update_ut'])->middleware('ut.val');// 중고 작성
+            // 수정
+            Route::put('/used-trade', [UsedTradeControlloer::class, 'update_ut'])->middleware('ut.val');
             Route::put('/production', [ProductionControlloer::class, 'update_p'])->middleware('p.val');
+            // 삭제
             Route::delete('/used-trade', [UsedTradeControlloer::class, 'delete_ut']);
             Route::delete('/production', [ProductionControlloer::class, 'delete_p']);
         });

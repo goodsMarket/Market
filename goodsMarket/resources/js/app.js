@@ -7,6 +7,7 @@ import Regist from './src/Pages/Regist';
 import Mypage from './src/Pages/Mypage';
 import Main from './src/Pages/Main';
 import Chat from './src/Pages/Chat';
+import UsedProductionDetail from './src/Pages/UsedProductionDetail';
 import ProductionDetail from './src/Pages/ProductionDetail';
 import UsedProductionInsert from './src/Pages/UsedProductionInsert';
 import ProductionInsert from './src/Pages/ProductionInsert';
@@ -28,6 +29,7 @@ const App = () => {
 						<Route path="/mypage" element={<Mypage />}></Route>
 						<Route path="/chat" element={<Chat />}></Route>
 						<Route path="/new/used" element={<UsedProductionInsert />}></Route>
+						<Route path="/used" element={<UsedProductionDetail />}></Route>
 						<Route path="/new/production" element={<ProductionInsert />}></Route>
 						<Route path="/production" element={<ProductionDetail />}></Route>
 						<Route path="/" element={<Main />}></Route>

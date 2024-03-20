@@ -34,6 +34,7 @@ class UserFactory extends Factory
             // 'email_verified_at' => rand(0, 1) ? $fk_time['ver'] : null,
             'u_pw' => Hash::make('Rntwmakzpt123!'), // password
             'u_phone_num' => $this->faker->unique()->regexify('010-[0-9]{4}-[0-9]{4}'),
+            'sa_id' => rand(1,50),
             'u_agree_flg' => '1',
             // 'remember_token' => Str::random(10),
             'created_at' => $created_at,

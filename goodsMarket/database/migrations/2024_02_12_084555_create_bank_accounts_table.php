@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('u_id'); // 유저 pk
             $table->string('ba_bank_name',30); // 은행명
-            $table->unsignedInteger('ba_account_num'); // 계좌번호
+            $table->string('ba_account_num',20); // 계좌번호
             $table->string('ba_account_owner',50); // 계좌실명
             $table->softDeletes();
         });

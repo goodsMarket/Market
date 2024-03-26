@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\BankAccount;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +16,7 @@ class BankAccountSeeder extends Seeder
      */
     public function run()
     {
-        //
+        // BankAccount::factory()->count(1)->create();
+        BankAccount::factory()->count(ceil((User::count())*2.4))->create();
     }
 }
